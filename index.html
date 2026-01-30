@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUD Interface - Bordas Contínuas</title>
+    <title>WAYNE ENTERPRISES - BAT-HUD SYSTEM</title>
     <style>
         /* Configuração geral da página */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #000;
             display: flex;
@@ -13,8 +20,286 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden; /* Remove scrollbars */
+            overflow: hidden;
             font-family: 'Arial', sans-serif;
+        }
+
+        /* Efeito de chuva Gotham */
+        .rain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 90%, rgba(0, 0, 0, 0.3) 100%);
+            animation: rain 0.5s linear infinite;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes rain {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 20px;
+            }
+        }
+
+        /* Tela de Login/Cadastro */
+        .auth-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Container principal do login */
+        .auth-frame {
+            background: rgba(10, 20, 40, 0.95);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Bordas luminosas do login */
+        .auth-frame::before,
+        .auth-frame::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #00d9ff;
+        }
+
+        .auth-frame::before {
+            top: -2px;
+            left: -2px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .auth-frame::after {
+            bottom: -2px;
+            right: -2px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Logo Batman */
+        .bat-logo {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .bat-logo h1 {
+            color: #ccc;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .bat-symbol {
+            width: 80px;
+            height: 40px;
+            margin: 0 auto;
+            position: relative;
+            filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+        }
+
+        .bat-symbol::before {
+            content: '▼';
+            font-size: 40px;
+            color: #00d9ff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: batPulse 2s infinite;
+        }
+
+        @keyframes batPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Formulários */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+            color: #00d9ff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-bottom-color: #00d9ff;
+            box-shadow: 0 1px 0 rgba(0, 217, 255, 0.2);
+        }
+
+        .form-label {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            color: rgba(0, 217, 255, 0.5);
+            font-size: 14px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus+.form-label,
+        .form-input:valid+.form-label {
+            top: -10px;
+            font-size: 12px;
+            color: #00d9ff;
+        }
+
+        /* Botão de Ação */
+        .auth-button {
+            background: transparent;
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 12px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .auth-button:hover {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .auth-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .auth-button:hover::before {
+            left: 100%;
+        }
+
+        /* Switch entre login/register */
+        .auth-switch {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-switch a {
+            color: #00d9ff;
+            text-decoration: none;
+            margin-left: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .auth-switch a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        /* Mensagem de erro */
+        .auth-error {
+            background: rgba(255, 50, 50, 0.1);
+            border-left: 3px solid #ff5555;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ff5555;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        /* Indicador de usuário */
+        .user-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 20, 40, 0.9);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #00d9ff;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            display: none;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+        }
+
+        .user-indicator .logout-btn {
+            margin-left: 10px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .user-indicator .logout-btn:hover {
+            color: #ff5555;
         }
 
         /* Container principal que ocupa toda a tela */
@@ -22,19 +307,21 @@
             position: relative;
             width: 100vw;
             height: 100vh;
+            display: none;
+            z-index: 5;
         }
 
         /* Container para cada peça da interface HUD */
         .piece-container {
             position: absolute;
-            cursor: pointer; /* Indica que é clicável */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave com easing */
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Efeito de hover nas peças */
         .piece-container:hover {
-            transform: scale(1.02); /* Leve aumento no tamanho */
-            z-index: 10; /* Traz para frente durante o hover */
+            transform: scale(1.02);
+            z-index: 10;
         }
 
         /* SVG que define as bordas das peças */
@@ -44,7 +331,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3)); /* Sombra azul neon */
+            filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
             transition: all 0.3s ease;
         }
 
@@ -55,8 +342,8 @@
 
         /* Altera a borda no hover */
         .piece-container:hover .piece-svg path {
-            stroke: #fff; /* Muda para branco */
-            stroke-width: 3; /* Aumenta a espessura */
+            stroke: #fff;
+            stroke-width: 3;
         }
 
         /* Fundo semi-transparente dentro de cada peça */
@@ -66,8 +353,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 150, 255, 0.1); /* Azul translúcido */
-            clip-path: inherit; /* Herda o formato do container pai */
+            background: rgba(0, 150, 255, 0.1);
+            clip-path: inherit;
             transition: all 0.3s ease;
         }
 
@@ -79,15 +366,15 @@
         /* Estilo para os textos dentro das peças */
         .piece-text {
             position: absolute;
-            color: rgba(0, 217, 255, 0.9); /* Azul neon */
-            font-size: 12px;
+            color: rgba(0, 217, 255, 0.9);
+            font-size: 11px;
             font-weight: bold;
-            text-shadow: 0 0 8px rgba(0, 217, 255, 0.7); /* Brilho no texto */
-            pointer-events: none; /* Permite clicar através do texto */
+            text-shadow: 0 0 8px rgba(0, 217, 255, 0.7);
+            pointer-events: none;
             text-transform: uppercase;
             transition: all 0.3s ease;
             text-align: center;
-            z-index: 2; /* Fica acima do fundo */
+            z-index: 2;
         }
 
         /* Texto mais brilhante no hover */
@@ -96,152 +383,169 @@
             text-shadow: 0 0 15px #00d9ff;
         }
 
-        /* POSICIONAMENTO E FORMATO DAS PEÇAS */
+        /* POSICIONAMENTO E FORMATO DAS PEÇAS - MESMO LAYOUT DO PRIMEIRO ARQUIVO */
 
         /* Superior esquerdo - Trapézio inclinado à direita */
         .top-left {
-            top: 0; left: 0;
-            width: 30%; height: 100px;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100px;
             clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
         }
 
         /* Superior central - Trapézio simétrico */
         .top-center {
-            top: 0; left: 30%;
-            width: 40%; height: 50px;
+            top: 0;
+            left: 30%;
+            width: 40%;
+            height: 50px;
             clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
         }
 
         /* Superior direito - Trapézio inclinado à esquerda */
         .top-right {
-            top: 0; right: 0;
-            width: 30%; height: 100px;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100px;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
         }
 
         /* Lateral esquerda - Formato assimétrico vertical */
         .mid-left {
-            top: 100px; left: 0;
-            width: 40px; height: calc(100% - 200px); /* Altura dinâmica */
+            top: 100px;
+            left: 0;
+            width: 40px;
+            height: calc(100% - 200px);
             clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
         }
 
         /* Lateral direita - Formato espelhado do mid-left */
         .mid-right {
-            top: 100px; right: 0;
-            width: 40px; height: calc(100% - 200px);
+            top: 100px;
+            right: 0;
+            width: 40px;
+            height: calc(100% - 200px);
             clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
         }
 
         /* Inferior esquerdo - Trapézio invertido */
         .bottom-left {
-            bottom: 0; left: 0;
-            width: 30%; height: 100px;
+            bottom: 0;
+            left: 0;
+            width: 30%;
+            height: 100px;
             clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
         }
 
         /* Inferior central - Trapézio invertido simétrico */
         .bottom-center {
-            bottom: 0; left: 30%;
-            width: 40%; height: 60px;
+            bottom: 0;
+            left: 30%;
+            width: 40%;
+            height: 60px;
             clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
         }
 
         /* Inferior direito - Trapézio invertido inclinado */
         .bottom-right {
-            bottom: 0; right: 0;
-            width: 30%; height: 100px;
+            bottom: 0;
+            right: 0;
+            width: 30%;
+            height: 100px;
             clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
         }
 
-        /* POSICIONAMENTO DOS TEXTOS DENTRO DAS PEÇAS */
+        /* POSICIONAMENTO DOS TEXTOS DENTRO DAS PEÇAS - MESMO DO PRIMEIRO ARQUIVO */
 
         /* Texto no topo esquerdo - Centralizado horizontalmente */
-        .top-left .piece-text { 
-            top: 15px; 
-            left: 50%; 
+        .top-left .piece-text {
+            top: 15px;
+            left: 50%;
             transform: translateX(-50%);
             width: 80%;
-            font-size: 10px; /* Reduzido para caber texto longo */
+            font-size: 10px;
             line-height: 1.2;
         }
-        
+
         /* Texto no topo central - Centralizado completamente */
-        .top-center .piece-text { 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
+        .top-center .piece-text {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 90%;
-            font-size: 11px; /* Reduzido para caber texto longo */
+            font-size: 11px;
         }
-        
+
         /* Texto no topo direito - Alinhado à direita */
-        .top-right .piece-text { 
-            top: 15px; 
-            right: 50%; 
+        .top-right .piece-text {
+            top: 15px;
+            right: 50%;
             transform: translateX(50%);
             width: 80%;
-            font-size: 10px; /* Reduzido para caber texto longo */
+            font-size: 10px;
             line-height: 1.2;
         }
-        
+
         /* Texto na lateral esquerda - Rotacionado 90° */
         .mid-left .piece-text {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-90deg);
-            white-space: nowrap; /* Impede quebra de linha */
-            font-size: 10px; /* Reduzido para caber texto longo */
+            white-space: nowrap;
+            font-size: 10px;
         }
-        
+
         /* Texto na lateral direita - Rotacionado -90° */
         .mid-right .piece-text {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(90deg);
             white-space: nowrap;
-            font-size: 10px; /* Reduzido para caber texto longo */
+            font-size: 10px;
         }
-        
+
         /* Texto no inferior esquerdo */
-        .bottom-left .piece-text { 
-            bottom: 15px; 
-            left: 50%; 
+        .bottom-left .piece-text {
+            bottom: 15px;
+            left: 50%;
             transform: translateX(-50%);
             width: 80%;
-            font-size: 10px; /* Reduzido para caber texto longo */
+            font-size: 10px;
             line-height: 1.2;
         }
-        
+
         /* Texto no inferior central */
-        .bottom-center .piece-text { 
-            bottom: 15px; 
-            left: 50%; 
+        .bottom-center .piece-text {
+            bottom: 15px;
+            left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            font-size: 11px; /* Reduzido para caber texto longo */
+            font-size: 11px;
             line-height: 1.2;
         }
-        
+
         /* Texto no inferior direito */
-        .bottom-right .piece-text { 
-            bottom: 15px; 
-            right: 50%; 
+        .bottom-right .piece-text {
+            bottom: 15px;
+            right: 50%;
             transform: translateX(50%);
             width: 80%;
-            font-size: 10px; /* Reduzido para caber texto longo */
+            font-size: 10px;
             line-height: 1.2;
         }
 
         /* Mensagem central de sistema ativo */
         .hint {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             color: #0af;
             text-align: center;
             z-index: 1;
-            pointer-events: none; /* Não interfere com clique nas peças */
+            pointer-events: none;
             letter-spacing: 2px;
             font-size: 18px;
         }
@@ -287,6 +591,7 @@
                 opacity: 0;
                 transform: translateY(-30px) scale(0.9);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -304,7 +609,7 @@
 
         .modal-title {
             color: #00d9ff;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
             letter-spacing: 1px;
@@ -333,7 +638,7 @@
 
         .modal-body {
             line-height: 1.6;
-            font-size: 16px;
+            font-size: 15px;
             color: rgba(255, 255, 255, 0.9);
         }
 
@@ -349,7 +654,7 @@
             color: #00d9ff;
             font-weight: bold;
             margin-bottom: 10px;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .modal-list {
@@ -399,404 +704,678 @@
             margin-top: 5px;
         }
 
-        /* Responsividade para telas pequenas */
+        /* Animações */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* Responsividade */
         @media (max-width: 600px) {
-            .piece-text { 
-                font-size: 7px; /* Texto ainda menor em mobile */
+            .piece-text {
+                font-size: 7px;
                 line-height: 1.1;
             }
-            
-            .mid-left, .mid-right { 
-                width: 25px; /* Laterais mais estreitas */
+
+            .mid-left,
+            .mid-right {
+                width: 25px;
             }
-            
+
             .mid-left .piece-text,
             .mid-right .piece-text {
                 font-size: 7px;
             }
-            
-            .hint { 
-                font-size: 14px; /* Mensagem central menor */
+
+            .hint {
+                font-size: 14px;
             }
-            
-            .hint span { 
-                font-size: 10px; 
+
+            .hint span {
+                font-size: 10px;
             }
-            
+
             .modal-content {
                 width: 95%;
                 padding: 20px;
             }
-            
+
             .modal-title {
-                font-size: 20px;
+                font-size: 18px;
             }
-            
+
             .modal-body {
                 font-size: 14px;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="hud-frame">
+    <!-- Efeito de chuva Gotham -->
+    <div class="rain-overlay"></div>
+
+    <!-- Tela de Login -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-frame">
+            <div class="bat-logo">
+                <h1>WAYNE ENTERPRISES</h1>
+                <div class="bat-symbol"></div>
+            </div>
+
+            <div class="auth-error" id="authError">
+                Acesso negado. Verifique suas credenciais.
+            </div>
+
+            <!-- Formulário de Login -->
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <input type="text" class="form-input" id="loginUser" required>
+                    <label class="form-label">USUÁRIO</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-input" id="loginPass" required>
+                    <label class="form-label">SENHA</label>
+                </div>
+
+                <button type="submit" class="auth-button">ACESSAR SISTEMA</button>
+            </form>
+
+            <!-- Formulário de Registro -->
+            <form class="auth-form" id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <input type="text" class="form-input" id="regUser" required>
+                    <label class="form-label">NOVO USUÁRIO</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-input" id="regPass" required>
+                    <label class="form-label">SENHA</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-input" id="regConfirm" required>
+                    <label class="form-label">CONFIRMAR SENHA</label>
+                </div>
+
+                <button type="submit" class="auth-button">CRIAR CONTA</button>
+            </form>
+
+            <div class="auth-switch">
+                <span id="switchText">Não tem acesso?</span>
+                <a id="switchLink" onclick="toggleForms()">Solicitar credencial</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de Usuário -->
+    <div class="user-indicator" id="userIndicator" style="display: none;">
+        <span id="userName">Operador</span>
+        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+    </div>
+
+    <!-- Interface HUD -->
+    <div class="hud-frame" id="hudFrame">
         <!-- Peça superior esquerda - Trapézio inclinado -->
-        <div class="piece-container top-left" onclick="openModal('status')">
+        <div class="piece-container top-left" onclick="openModal('batcave')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 L100,0 L70,100 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,0 L100,0 L70,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">STATUS OPERACIONAL<br>DO BAT-SISTEMA</div>
+            <div class="piece-text">BATCAVE SYSTEMS<br>CONTROL PANEL</div>
         </div>
 
         <!-- Peça superior central - Trapézio simétrico -->
-        <div class="piece-container top-center" onclick="openModal('central')">
+        <div class="piece-container top-center" onclick="openModal('command')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 L100,0 L90,100 L10,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,0 L100,0 L90,100 L10,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">CENTRAL DE COMANDO<br>E INTELIGÊNCIA</div>
+            <div class="piece-text">CENTRAL DE COMANDO<br>WAYNE ENTERPRISES</div>
         </div>
 
         <!-- Peça superior direita - Trapézio inclinado -->
-        <div class="piece-container top-right" onclick="openModal('power')">
+        <div class="piece-container top-right" onclick="openModal('surveillance')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 L100,0 L100,100 L30,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,0 L100,0 L100,100 L30,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">GERENCIAMENTO DE<br>ENERGIA E SUPORTE</div>
+            <div class="piece-text">VIGILÂNCIA GOTHAM<br>SURVEILLANCE GRID</div>
         </div>
 
         <!-- Peça lateral esquerda - Formato vertical assimétrico -->
-        <div class="piece-container mid-left" onclick="openModal('nav')">
+        <div class="piece-container mid-left" onclick="openModal('weapons')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 L100,10 L100,90 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,0 L100,10 L100,90 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">NAVEGAÇÃO TÁTICA<br>DE GOTHAM</div>
+            <div class="piece-text">ARMAMENTOS<br>E EQUIPAMENTOS</div>
         </div>
 
         <!-- Peça lateral direita - Formato espelhado -->
-        <div class="piece-container mid-right" onclick="openModal('controls')">
+        <div class="piece-container mid-right" onclick="openModal('vehicle')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,10 L100,0 L100,100 L0,90 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,10 L100,0 L100,100 L0,90 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">CONTROLES E<br>PROTOCOLOS DE AÇÃO</div>
+            <div class="piece-text">CONTROLE DE<br>VEÍCULOS TÁTICOS</div>
         </div>
 
         <!-- Peça inferior esquerda - Trapézio invertido -->
-        <div class="piece-container bottom-left" onclick="openModal('data')">
+        <div class="piece-container bottom-left" onclick="openModal('database')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0,0 L70,0 L100,100 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M0,0 L70,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">CENTRO DE DADOS<br>E REGISTROS</div>
+            <div class="piece-text">BANCO DE DADOS<br>CRIMINAL GOTHAM</div>
         </div>
 
         <!-- Peça inferior central - Trapézio invertido simétrico -->
-        <div class="piece-container bottom-center" onclick="openModal('system')">
+        <div class="piece-container bottom-center" onclick="openModal('gotham')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M10,0 L90,0 L100,100 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M10,0 L90,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">MONITORAMENTO<br>GLOBAL DO SISTEMA</div>
+            <div class="piece-text">MAPA GOTHAM<br>INTERATIVE CITY MAP</div>
         </div>
 
         <!-- Peça inferior direita - Trapézio invertido inclinado -->
-        <div class="piece-container bottom-right" onclick="openModal('security')">
+        <div class="piece-container bottom-right" onclick="openModal('mission')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M30,0 L100,0 L100,100 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      vector-effect="non-scaling-stroke"/>
+                <path d="M30,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
-            <div class="piece-text">SEGURANÇA, DEFESA<br>E CONTRA-ATAQUE</div>
+            <div class="piece-text">MISSÃO ATIVA<br>LIVE OPERATION DATA</div>
         </div>
-        
-        <!-- Mensagem fixa no centro da tela -->
+
         <div class="hint">
-            <strong>BAT-SISTEMA ONLINE</strong>
+            <img src="baixados.png" alt="Bat Logo"
+                style="width: 180px; height: auto; display: block; margin: 0 auto 20px; filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.6));">
+            <strong style="display: block; font-size: 20px;">BAT SISTEMA ONLINE</strong>
             <span>Aguardando decisão do Cavaleiro das Trevas</span>
         </div>
-    </div>
 
-    <!-- Modal Overlay (mantido igual) -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Modal Title</h2>
-                <button class="modal-close" onclick="closeModal()">×</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Conteúdo do modal será inserido aqui via JavaScript -->
+        <!-- Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle">Modal Title</h2>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Conteúdo do modal será inserido aqui via JavaScript -->
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Conteúdo para cada modal (mantido igual)
-        const modalContents = {
-            'status': {
-                title: 'STATUS DO SISTEMA',
-                content: `
-                    <p>Status geral de operação do sistema HUD. Todas as funções estão operacionais e sincronizadas.</p>
+        <script>
+            // Sistema de autenticação
+            const users = JSON.parse(localStorage.getItem('wayne_users')) || [
+                { username: 'batman', password: 'darkknight' },
+                { username: 'robin', password: 'sidekick' },
+                { username: 'alfred', password: 'pennyworth' },
+                { username: 'gordon', password: 'commissioner' }
+            ];
+
+            let currentUser = null;
+
+            // Elementos DOM
+            const authScreen = document.getElementById('authScreen');
+            const hudFrame = document.getElementById('hudFrame');
+            const userIndicator = document.getElementById('userIndicator');
+            const userName = document.getElementById('userName');
+            const authError = document.getElementById('authError');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const switchText = document.getElementById('switchText');
+            const switchLink = document.getElementById('switchLink');
+
+            // Verificar se já está logado
+            const savedUser = localStorage.getItem('wayne_current_user');
+            if (savedUser) {
+                currentUser = savedUser;
+                showHUD();
+            }
+
+            // Toggle entre login e registro
+            function toggleForms() {
+                if (loginForm.style.display !== 'none') {
+                    loginForm.style.display = 'none';
+                    registerForm.style.display = 'flex';
+                    switchText.textContent = 'Já tem acesso?';
+                    switchLink.textContent = 'Fazer login';
+                } else {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'flex';
+                    switchText.textContent = 'Não tem acesso?';
+                    switchLink.textContent = 'Solicitar credencial';
+                }
+                authError.style.display = 'none';
+                playSound('click');
+            }
+
+            // Login
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('loginUser').value;
+                const password = document.getElementById('loginPass').value;
+
+                const user = users.find(u =>
+                    u.username === username && u.password === password
+                );
+
+                if (user) {
+                    currentUser = username;
+                    localStorage.setItem('wayne_current_user', username);
+                    showHUD();
+                    playSound('success');
+                } else {
+                    showError('Credenciais inválidas');
+                    playSound('error');
+                }
+            });
+
+            // Registro
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('regUser').value;
+                const password = document.getElementById('regPass').value;
+                const confirm = document.getElementById('regConfirm').value;
+
+                if (username.length < 3) {
+                    showError('Usuário deve ter pelo menos 3 caracteres');
+                    return;
+                }
+
+                if (password.length < 4) {
+                    showError('Senha deve ter pelo menos 4 caracteres');
+                    return;
+                }
+
+                if (password !== confirm) {
+                    showError('Senhas não coincidem');
+                    return;
+                }
+
+                // Verifica se usuário já existe
+                if (users.find(u => u.username === username)) {
+                    showError('Usuário já existe');
+                    return;
+                }
+
+                // Adiciona novo usuário
+                users.push({ username, password });
+                localStorage.setItem('wayne_users', JSON.stringify(users));
+
+                currentUser = username;
+                localStorage.setItem('wayne_current_user', username);
+
+                showHUD();
+                playSound('success');
+            });
+
+            // Mostrar HUD
+            function showHUD() {
+                authScreen.style.display = 'none';
+                hudFrame.style.display = 'block';
+                userIndicator.style.display = 'block';
+                userName.textContent = currentUser.toUpperCase();
+
+                // Efeito de entrada das peças
+                const pieces = document.querySelectorAll('.piece-container');
+                pieces.forEach((piece, index) => {
+                    piece.style.opacity = '0';
+                    piece.style.transform = 'translateY(-20px)';
+
+                    setTimeout(() => {
+                        piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        piece.style.opacity = '1';
+                        piece.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+
+            // Logout
+            function logout() {
+                playSound('logout');
+
+                // Efeito de saída das peças
+                const pieces = document.querySelectorAll('.piece-container');
+                pieces.forEach((piece, index) => {
+                    setTimeout(() => {
+                        piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        piece.style.opacity = '0';
+                        piece.style.transform = 'translateY(20px)';
+                    }, index * 50);
+                });
+
+                setTimeout(() => {
+                    currentUser = null;
+                    localStorage.removeItem('wayne_current_user');
+                    hudFrame.style.display = 'none';
+                    userIndicator.style.display = 'none';
+                    authScreen.style.display = 'flex';
+                    loginForm.style.display = 'flex';
+                    registerForm.style.display = 'none';
+                    switchText.textContent = 'Não tem acesso?';
+                    switchLink.textContent = 'Solicitar credencial';
+                    authError.style.display = 'none';
+
+                    // Limpar formulários
+                    document.getElementById('loginUser').value = '';
+                    document.getElementById('loginPass').value = '';
+                    document.getElementById('regUser').value = '';
+                    document.getElementById('regPass').value = '';
+                    document.getElementById('regConfirm').value = '';
+                }, 300);
+            }
+
+            // Mostrar erro
+            function showError(message) {
+                authError.textContent = message;
+                authError.style.display = 'block';
+
+                // Efeito de tremor
+                const currentForm = loginForm.style.display !== 'none' ? loginForm : registerForm;
+                currentForm.style.animation = 'none';
+                setTimeout(() => {
+                    currentForm.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        currentForm.style.animation = '';
+                    }, 500);
+                }, 10);
+            }
+
+            // Efeitos sonoros
+            function playSound(type) {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+                    switch (type) {
+                        case 'success':
+                            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                            oscillator.frequency.setValueAtTime(1760, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.2);
+                            break;
+
+                        case 'error':
+                            oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                            oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.3);
+                            break;
+
+                        case 'logout':
+                            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                            oscillator.frequency.exponentialRampToValueAtTime(55, audioContext.currentTime + 0.5);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.5);
+                            break;
+
+                        case 'click':
+                            oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
+                            oscillator.frequency.exponentialRampToValueAtTime(330, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.1);
+                            break;
+                    }
+
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+                } catch (e) {
+                    console.log("Áudio não suportado");
+                }
+            }
+
+            // Conteúdo dos modais temático Batman
+            const modalContents = {
+                'batcave': {
+                    title: 'BATCAVE SYSTEMS CONTROL',
+                    content: `
+                    <p>Sistema principal da Batcaver. Todas as funções operacionais.</p>
                     <div class="modal-status">
-                        <div class="modal-status-title">STATUS ATUAL</div>
+                        <div class="modal-status-title">STATUS DA BATCAVE</div>
                         <p>Sistema: <span style="color:#00ff88;">OPERACIONAL</span></p>
-                        <p>Última atualização: 10/03/2024 14:30:45</p>
+                        <p>Última atualização: ${new Date().toLocaleString('pt-BR')}</p>
                     </div>
                     <ul class="modal-list">
-                        <li>Interface HUD: Ativa</li>
-                        <li>Conexão de dados: Estável</li>
-                        <li>Processamento: 85%</li>
-                        <li>Memória disponível: 4.2GB</li>
+                        <li>Controle ambiental: 100%</li>
+                        <li>Sistemas de defesa: ATIVOS</li>
+                        <li>Laboratório: OPERACIONAL</li>
+                        <li>Garagem: PRONTA</li>
+                        <li>Arsenal: 100%</li>
+                        <li>Computador principal: ONLINE</li>
                     </ul>
                 `
-            },
-            'central': {
-                title: 'CENTRAL DE COMANDO E INTELIGÊNCIA',
-                content: `
-                    <p>Hub central de comunicação e conexões do sistema. Gerencia todas as interfaces conectadas.</p>
+                },
+                'command': {
+                    title: 'CENTRAL DE COMANDO WAYNE ENTERPRISES',
+                    content: `
+                    <p>Hub central de controle do sistema Batman.</p>
                     <div class="modal-data-grid">
                         <div class="data-item">
-                            <div class="data-label">Conexões Ativas</div>
+                            <div class="data-label">Conexões</div>
                             <div class="data-value">24</div>
                         </div>
                         <div class="data-item">
+                            <div class="data-label">Status</div>
+                            <div class="data-value">ONLINE</div>
+                        </div>
+                        <div class="data-item">
                             <div class="data-label">Latência</div>
-                            <div class="data-value">12ms</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Banda Usada</div>
-                            <div class="data-value">45%</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Pacotes/Seg</div>
-                            <div class="data-value">1,240</div>
-                        </div>
-                    </div>
-                    <div class="modal-status">
-                        <div class="modal-status-title">CONEXÕES PRINCIPAIS</div>
-                        <p>Todas as conexões primárias estão estáveis e funcionando dentro dos parâmetros esperados.</p>
-                    </div>
-                `
-            },
-            'power': {
-                title: 'GERENCIAMENTO DE ENERGIA E SUPORTE',
-                content: `
-                    <p>Controle e monitoramento do sistema de energia. Níveis atuais de consumo e capacidade.</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">NÍVEIS DE ENERGIA</div>
-                        <p>Fonte principal: <span style="color:#00ff88;">100%</span></p>
-                        <p>Fonte secundária: 85%</p>
-                        <p>Backup: 100%</p>
-                    </div>
-                    <ul class="modal-list">
-                        <li>Consumo atual: 1.2kW</li>
-                        <li>Capacidade máxima: 5.0kW</li>
-                        <li>Temperatura: 42°C</li>
-                        <li>Autonomia estimada: 48h</li>
-                    </ul>
-                `
-            },
-            'nav': {
-                title: 'NAVEGAÇÃO TÁTICA DE GOTHAM',
-                content: `
-                    <p>Sistema de navegação e posicionamento. Coordenadas atuais e rotas programadas.</p>
-                    <div class="modal-data-grid">
-                        <div class="data-item">
-                            <div class="data-label">Posição X</div>
-                            <div class="data-value">245.78</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Posição Y</div>
-                            <div class="data-value">178.32</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Zona</div>
-                            <div class="data-value">Alfa-7</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Orientação</div>
-                            <div class="data-value">45°</div>
-                        </div>
-                    </div>
-                    <div class="modal-status">
-                        <div class="modal-status-title">ROTA ATUAL</div>
-                        <p>Destino: Setor Gamma-12</p>
-                        <p>Distância: 124km</p>
-                        <p>ETA: 01:45:30</p>
-                    </div>
-                `
-            },
-            'controls': {
-                title: 'CONTROLES E PROTOCOLOS DE AÇÃO',
-                content: `
-                    <p>Interface de controle principal. Ajuste de parâmetros e configurações do sistema.</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">CONTROLES ATIVOS</div>
-                        <p>Nível de acesso: <span style="color:#00ff88;">ADMINISTRADOR</span></p>
-                        <p>Permissões: Totais</p>
-                    </div>
-                    <ul class="modal-list">
-                        <li>Sensibilidade: 75%</li>
-                        <li>Resposta tátil: Ativa</li>
-                        <li>Feedback visual: Alto</li>
-                        <li>Modo segurança: Normal</li>
-                        <li>Log de atividades: Ativo</li>
-                        <li>Criptografia: AES-256</li>
-                    </ul>
-                `
-            },
-            'data': {
-                title: 'CENTRO DE DADOS E REGISTROS',
-                content: `
-                    <p>Armazenamento e processamento de dados. Estatísticas e informações do sistema.</p>
-                    <div class="modal-data-grid">
-                        <div class="data-item">
-                            <div class="data-label">Dados Armazenados</div>
-                            <div class="data-value">2.4TB</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Taxa Transferência</div>
-                            <div class="data-value">120MB/s</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Espaço Livre</div>
-                            <div class="data-value">45%</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Integridade</div>
-                            <div class="data-value">100%</div>
-                        </div>
-                    </div>
-                    <div class="modal-status">
-                        <div class="modal-status-title">BACKUP AUTOMÁTICO</div>
-                        <p>Último backup: Hoje 03:00</p>
-                        <p>Próximo backup: 03:00 (amanhã)</p>
-                        <p>Status: <span style="color:#00ff88;">CONCLUÍDO</span></p>
-                    </div>
-                `
-            },
-            'system': {
-                title: 'MONITORAMENTO GLOBAL DO SISTEMA',
-                content: `
-                    <p>Monitoramento em tempo real de todos os subsistemas e componentes.</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">SAÚDE DO SISTEMA</div>
-                        <p>Status geral: <span style="color:#00ff88;">ÓTIMO</span></p>
-                        <p>Performance: 92%</p>
-                        <p>Estabilidade: 98%</p>
-                    </div>
-                    <ul class="modal-list">
-                        <li>CPU: 45% de uso</li>
-                        <li>GPU: 30% de uso</li>
-                        <li>RAM: 68% de uso</li>
-                        <li>Disco: 55% de uso</li>
-                        <li>Temperatura CPU: 65°C</li>
-                        <li>Fans: 1200 RPM</li>
-                    </ul>
-                `
-            },
-            'security': {
-                title: 'SEGURANÇA, DEFESA E CONTRA-ATAQUE',
-                content: `
-                    <p>Proteção e segurança do sistema. Firewall, detecção de intrusos e criptografia.</p>
-                    <div class="modal-data-grid">
-                        <div class="data-item">
-                            <div class="data-label">Firewall</div>
-                            <div class="data-value">ATIVO</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">IDS</div>
-                            <div class="data-value">VIGILANTE</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Ameaças</div>
-                            <div class="data-value">0</div>
+                            <div class="data-value">8ms</div>
                         </div>
                         <div class="data-item">
                             <div class="data-label">Acesso</div>
-                            <div class="data-value">SEGURO</div>
+                            <div class="data-value">LEVEL 10</div>
                         </div>
                     </div>
                     <div class="modal-status">
-                        <div class="modal-status-title">ÚLTIMA VERIFICAÇÃO</div>
-                        <p>Escaneamento completo: Hoje 08:00</p>
-                        <p>Vulnerabilidades encontradas: 0</p>
-                        <p>Próximo escaneamento: 20:00</p>
+                        <div class="modal-status-title">COMUNICAÇÕES</div>
+                        <p>Todas as frequências estão operacionais e seguras. Sistema criptografado.</p>
                     </div>
                 `
-            }
-        };
+                },
+                'surveillance': {
+                    title: 'VIGILÂNCIA GOTHAM - SURVEILLANCE GRID',
+                    content: `
+                    <p>Monitoramento ativo da cidade de Gotham.</p>
+                    <div class="modal-status">
+                        <div class="modal-status-title">DADOS DE VIGILÂNCIA</div>
+                        <p>Sistema: <span style="color:#00ff88;">OPERACIONAL</span></p>
+                        <p>Cobertura total: 92%</p>
+                    </div>
+                    <ul class="modal-list">
+                        <li>Câmeras ativas: 147</li>
+                        <li>Análise facial: OPERACIONAL</li>
+                        <li>Rastreamento veicular: ATIVO</li>
+                        <li>Alertas ativos: 3</li>
+                        <li>Setor A: 100% COBERTURA</li>
+                        <li>Setor B: 85% COBERTURA</li>
+                        <li>Setor C: 92% COBERTURA</li>
+                        <li>Centro: 100% COBERTURA</li>
+                    </ul>
+                `
+                },
+                'weapons': {
+                    title: 'ARMAMENTOS E EQUIPAMENTOS',
+                    content: `
+                    <p>Status dos equipamentos e armamentos.</p>
+                    <div class="modal-data-grid">
+                        <div class="data-item">
+                            <div class="data-label">Batarangs</div>
+                            <div class="data-value">42</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Granadas</div>
+                            <div class="data-value">12</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Ganchos</div>
+                            <div class="data-value">6</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Dispositivos</div>
+                            <div class="data-value">8</div>
+                        </div>
+                    </div>
+                    <div class="modal-status">
+                        <div class="modal-status-title">STATUS GERAL</div>
+                        <p>Todos os sistemas de armamento estão prontos para uso.</p>
+                    </div>
+                `
+                },
+                'vehicle': {
+                    title: 'CONTROLE DE VEÍCULOS TÁTICOS',
+                    content: `
+                    <p>Sistema do Batmobile e veículos operacionais.</p>
+                    <div class="modal-status">
+                        <div class="modal-status-title">STATUS DOS VEÍCULOS</div>
+                        <p>Batmobile: <span style="color:#00ff88;">PRONTO</span></p>
+                        <p>Batwing: EM MANUTENÇÃO</p>
+                        <p>Batpod: PRONTO</p>
+                    </div>
+                    <ul class="modal-list">
+                        <li>Batmobile - Combustível: 100%</li>
+                        <li>Batmobile - Armadura: 100% INTEGRIDADE</li>
+                        <li>Batmobile - Sistemas de combate: PRONTOS</li>
+                        <li>Batmobile - Camuflagem: ATIVA</li>
+                        <li>Batmobile - Manutenção preventiva: EM 2 DIAS</li>
+                        <li>Batmobile - Computador de bordo: ONLINE</li>
+                    </ul>
+                `
+                },
+                'database': {
+                    title: 'BANCO DE DADOS CRIMINAL GOTHAM',
+                    content: `
+                    <p>Registros criminais de Gotham City.</p>
+                    <div class="modal-data-grid">
+                        <div class="data-item">
+                            <div class="data-label">Registros</div>
+                            <div class="data-value">2,847</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Prócurados</div>
+                            <div class="data-value">23</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Casos</div>
+                            <div class="data-value">7</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Sincronização</div>
+                            <div class="data-value">AGORA</div>
+                        </div>
+                    </div>
+                    <div class="modal-status">
+                        <div class="modal-status-title">ÚLTIMA ATUALIZAÇÃO</div>
+                        <p>Dados atualizados em tempo real via rede GCPD.</p>
+                        <p>Conexão: <span style="color:#00ff88;">ESTÁVEL</span></p>
+                    </div>
+                `
+                },
+                'gotham': {
+                    title: 'MAPA INTERATIVO GOTHAM CITY',
+                    content: `
+                    <p>Mapa interativo de Gotham City.</p>
+                    <div class="modal-status">
+                        <div class="modal-status-title">STATUS DA CIDADE</div>
+                        <p>Status geral: <span style="color:#ff5555;">ALERTA</span></p>
+                        <p>Atualizado: ${new Date().toLocaleTimeString('pt-BR')}</p>
+                    </div>
+                    <ul class="modal-list">
+                        <li>Zonas de risco: 5</li>
+                        <li>Polícia ativa: 87%</li>
+                        <li>Emergências: 12</li>
+                        <li>Tráfego: MODERADO</li>
+                        <li>Centro: ALERTA AMARELO</li>
+                        <li>Área Industrial: ALERTA VERMELHO</li>
+                        <li>Subúrbios: ALERTA VERDE</li>
+                        <li>Porto: ALERTA LARANJA</li>
+                    </ul>
+                `
+                },
+                'mission': {
+                    title: 'MISSÃO ATIVA - DADOS DA OPERAÇÃO',
+                    content: `
+                    <p>Operação em andamento: PISTA DO CORINGA</p>
+                    <div class="modal-status">
+                        <div class="modal-status-title">DETALHES DA MISSÃO</div>
+                        <p>Status: <span style="color:#ff5555;">EM ANDAMENTO</span></p>
+                        <p>Início: ${new Date().toLocaleTimeString('pt-BR')}</p>
+                    </div>
+                    <ul class="modal-list">
+                        <li>Objetivo: LOCALIZAR ESCOVAS</li>
+                        <li>Local: ARSENAL QUÍMICO ABANDONADO</li>
+                        <li>Risco: ALTO</li>
+                        <li>Backup: ROBIN EM STANDBY</li>
+                        <li>Equipamento: COMPLETO</li>
+                        <li>Comunicação: ESTÁVEL</li>
+                        <li>Tempo estimado: 2 HORAS</li>
+                        <li>Condições climáticas: CHUVOSO</li>
+                    </ul>
+                `
+                }
+            };
 
-        function openModal(modalType) {
-            const modal = document.getElementById('modalOverlay');
-            const title = document.getElementById('modalTitle');
-            const body = document.getElementById('modalBody');
-            
-            if (modalContents[modalType]) {
-                title.textContent = modalContents[modalType].title;
-                body.innerHTML = modalContents[modalType].content;
-                modal.style.display = 'flex';
-                
-                // Adiciona efeito sonoro (opcional)
-                const clickSound = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
-                clickSound.play().catch(e => console.log("Áudio não suportado"));
-            }
-        }
+            // Abrir modal
+            function openModal(type) {
+                const modal = document.getElementById('modalOverlay');
+                const title = document.getElementById('modalTitle');
+                const body = document.getElementById('modalBody');
 
-        function closeModal() {
-            const modal = document.getElementById('modalOverlay');
-            modal.style.display = 'none';
-        }
-
-        // Fechar modal ao clicar fora do conteúdo
-        document.getElementById('modalOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+                if (modalContents[type]) {
+                    title.textContent = modalContents[type].title;
+                    body.innerHTML = modalContents[type].content;
+                    modal.style.display = 'flex';
+                    playSound('click');
+                }
             }
-        });
 
-        // Fechar modal com tecla ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
+            // Fechar modal
+            function closeModal() {
+                document.getElementById('modalOverlay').style.display = 'none';
             }
-        });
-    </script>
+
+            // Fechar modal com ESC ou clicando fora
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('modalOverlay')) {
+                    closeModal();
+                }
+            });
+        </script>
 
 </body>
+
 </html>
