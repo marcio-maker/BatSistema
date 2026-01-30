@@ -58,7 +58,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 100;
+            z-index: 10;
             backdrop-filter: blur(5px);
             padding: 20px;
         }
@@ -313,7 +313,7 @@
             width: 100vw;
             height: 100vh;
             display: none;
-            z-index: 2;
+            z-index: 5;
             overflow: hidden;
         }
 
@@ -322,7 +322,6 @@
             position: absolute;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3; /* Adicionado para garantir que fiquem acima da hint */
         }
 
         /* Efeito de hover nas peças */
@@ -342,49 +341,6 @@
             transition: all 0.3s ease;
         }
 
-        /* EFEITO DE BORDA ANIMADO - NOVO */
-        .piece-svg path {
-            stroke-dasharray: 8, 4;
-            stroke-dashoffset: 0;
-            animation: borderMove 25s linear infinite;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            opacity: 0.8;
-        }
-
-        /* Efeito de ativação nas bordas ao passar o mouse */
-        .piece-container:hover .piece-svg path {
-            stroke-dasharray: 12, 6;
-            animation-duration: 10s;
-            stroke: #fff;
-            stroke-width: 2.5;
-            opacity: 1;
-        }
-
-        /* Keyframes para animação das bordas */
-        @keyframes borderMove {
-            0% {
-                stroke-dashoffset: 0;
-            }
-            100% {
-                stroke-dashoffset: 300;
-            }
-        }
-
-        /* Efeito de pulsação sutil quando não está em hover */
-        .piece-container:not(:hover) .piece-svg {
-            animation: subtleGlow 6s ease-in-out infinite;
-        }
-
-        @keyframes subtleGlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 12px rgba(0, 217, 255, 0.25));
-            }
-        }
-
         /* Intensifica a sombra no hover */
         .piece-container:hover .piece-svg {
             filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.6));
@@ -393,7 +349,7 @@
         /* Altera a borda no hover */
         .piece-container:hover .piece-svg path {
             stroke: #fff;
-            stroke-width: 2.5;
+            stroke-width: 3;
         }
 
         /* Fundo semi-transparente dentro de cada peça */
@@ -464,7 +420,7 @@
             clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
         }
 
-        /* Lateral esquerda - Formato assimétrico vertical - CORRIGIDO */
+        /* Lateral esquerda - Formato assimétrico vertical */
         .mid-left {
             top: 80px;
             left: 0;
@@ -473,7 +429,7 @@
             clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
         }
 
-        /* Lateral direita - Formato espelhado do mid-left - CORRIGIDO */
+        /* Lateral direita - Formato espelhado do mid-left */
         .mid-right {
             top: 80px;
             right: 0;
@@ -489,7 +445,6 @@
             width: 30%;
             height: 80px;
             clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
-            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* Inferior central - Trapézio invertido simétrico */
@@ -499,7 +454,6 @@
             width: 40%;
             height: 50px;
             clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
-            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* Inferior direito - Trapézio invertido inclinado */
@@ -509,7 +463,6 @@
             width: 30%;
             height: 80px;
             clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
-            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* POSICIONAMENTO DOS TEXTOS DENTRO DAS PEÇAS */
@@ -602,7 +555,7 @@
             transform: translate(-50%, -50%);
             color: #0af;
             text-align: center;
-            z-index: 1; /* Reduzido para ficar atrás das peças */
+            z-index: 1;
             pointer-events: none;
             letter-spacing: 1px;
             font-size: 16px;
@@ -627,7 +580,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 200;
+            z-index: 100;
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(5px);
@@ -796,183 +749,16 @@
         }
 
         /* =========================== */
-        /* RESPONSIVIDADE AVANÇADA PARA TODOS OS DISPOSITIVOS */
+        /* RESPONSIVIDADE PARA TELAS MENORES */
         /* =========================== */
 
-        /* DESKTOP GRANDE (acima de 1200px) - Otimizado */
-        @media (min-width: 1200px) {
-            .hint {
-                font-size: 20px;
-            }
-            
-            .hint span {
-                font-size: 14px;
-            }
-            
-            .piece-text {
-                font-size: 12px !important;
-            }
-            
-            .top-left .piece-text,
-            .top-right .piece-text,
-            .bottom-left .piece-text,
-            .bottom-right .piece-text {
-                font-size: 10px !important;
-            }
-            
-            .top-center .piece-text,
-            .bottom-center .piece-text {
-                font-size: 11px !important;
-            }
-            
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 10px !important;
-            }
-            
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                height: 100px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                top: 100px;
-                height: calc(100% - 200px);
-                width: 40px;
-            }
-            
-            .top-center {
-                height: 50px;
-            }
-            
-            .bottom-center {
-                height: 60px;
-            }
-            
-            /* Ajustes de animação para desktop grande */
-            .piece-svg path {
-                stroke-dasharray: 10, 5;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 15, 8;
-            }
-        }
-
-        /* TABLET LANDSCAPE (1024px - 1199px) */
-        @media (max-width: 1199px) and (min-width: 768px) {
-            .auth-frame {
-                max-width: 380px;
-            }
-            
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                width: 32%;
-                height: 70px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                width: 36%;
-                left: 32%;
-            }
-            
-            .top-center {
-                height: 35px;
-            }
-            
-            .bottom-center {
-                height: 45px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                width: 30px;
-                top: 70px;
-                height: calc(100% - 140px);
-            }
-            
-            .piece-text {
-                font-size: 8px !important;
-                line-height: 1.1 !important;
-            }
-            
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 8px !important;
-                white-space: nowrap;
-            }
-            
-            .hint {
-                font-size: 14px;
-                max-width: 350px;
-            }
-            
-            .hint span {
-                font-size: 10px;
-            }
-            
-            .hint img {
-                width: 150px !important;
-                margin-bottom: 15px !important;
-            }
-            
-            .modal-content {
-                max-width: 450px;
-            }
-            
-            .modal-title {
-                font-size: 16px;
-            }
-            
-            /* Ajustes de animação para tablet */
-            .piece-svg path {
-                stroke-dasharray: 6, 4;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 9, 6;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 250;
-                }
-            }
-        }
-
-        /* TABLET PORTRAIT (600px - 767px) */
-        @media (max-width: 767px) and (min-width: 600px) {
-            .auth-frame {
-                max-width: 350px;
-                padding: 25px 15px;
-            }
-            
-            .bat-logo h1 {
-                font-size: 10px;
-                letter-spacing: 1.5px;
-            }
-            
-            .bat-symbol {
-                width: 55px;
-                height: 28px;
-            }
-            
-            .bat-symbol::before {
-                font-size: 28px;
-            }
-            
+        /* Tablets (até 768px) */
+        @media (max-width: 768px) {
             .top-left,
             .top-right,
             .bottom-left,
             .bottom-right {
                 width: 35%;
-                height: 65px;
             }
             
             .top-center,
@@ -981,98 +767,48 @@
                 left: 35%;
             }
             
-            .top-center {
-                height: 30px;
-            }
-            
-            .bottom-center {
-                height: 40px;
-            }
-            
             .mid-left,
             .mid-right {
-                width: 25px;
-                top: 65px;
-                height: calc(100% - 130px);
+                width: 30px;
             }
             
             .piece-text {
-                font-size: 7px !important;
-                line-height: 1 !important;
+                font-size: 8px !important;
             }
             
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 7px !important;
-                white-space: normal;
-                transform: translate(-50%, -50%) rotate(-90deg) !important;
-                max-width: 150px;
+            .top-center .piece-text,
+            .bottom-center .piece-text {
+                font-size: 9px !important;
             }
             
             .hint {
-                font-size: 13px;
-                max-width: 300px;
+                font-size: 14px;
             }
             
             .hint span {
-                font-size: 9px;
-            }
-            
-            .hint img {
-                width: 130px !important;
-                margin-bottom: 12px !important;
+                font-size: 10px;
             }
             
             .user-indicator {
                 font-size: 10px;
                 padding: 6px 12px;
-                max-width: 170px;
+                max-width: 150px;
             }
             
             .logout-btn {
                 font-size: 8px;
             }
-            
-            .modal-content {
-                max-width: 400px;
-                padding: 20px 15px;
-            }
-            
-            .modal-title {
-                font-size: 15px;
-            }
-            
-            .modal-body {
-                font-size: 13px;
-            }
-            
-            /* Ajustes de animação para tablet portrait */
-            .piece-svg path {
-                stroke-dasharray: 5, 3;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 7, 5;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 200;
-                }
-            }
         }
 
-        /* SMARTPHONE LARGE (480px - 599px) */
-        @media (max-width: 599px) and (min-width: 480px) {
+        /* Smartphones grandes (até 480px) */
+        @media (max-width: 480px) {
             .auth-frame {
-                max-width: 320px;
-                padding: 20px 15px;
+                padding: 25px 15px;
             }
             
             .bat-logo h1 {
-                font-size: 9px;
+                font-size: 10px;
                 letter-spacing: 1px;
-                margin-bottom: 12px;
             }
             
             .bat-symbol {
@@ -1082,10 +818,6 @@
             
             .bat-symbol::before {
                 font-size: 25px;
-            }
-            
-            .auth-form {
-                gap: 15px;
             }
             
             .form-input {
@@ -1100,46 +832,38 @@
             
             .auth-button {
                 padding: 10px;
-                font-size: 13px;
+                font-size: 12px;
             }
             
             .auth-switch {
                 font-size: 11px;
-                margin-top: 15px;
             }
             
-            /* Ajuste HUD */
+            /* Ajuste das peças HUD para mobile */
             .top-left,
             .top-right,
             .bottom-left,
             .bottom-right {
-                width: 38%;
-                height: 55px;
+                width: 40%;
+                height: 60px;
             }
             
             .top-center,
             .bottom-center {
-                width: 24%;
-                left: 38%;
-            }
-            
-            .top-center {
-                height: 25px;
-            }
-            
-            .bottom-center {
+                width: 20%;
+                left: 40%;
                 height: 35px;
             }
             
             .mid-left,
             .mid-right {
-                width: 22px;
-                top: 55px;
-                height: calc(100% - 110px);
+                width: 25px;
+                top: 60px;
+                height: calc(100% - 120px);
             }
             
             .piece-text {
-                font-size: 6px !important;
+                font-size: 7px !important;
                 line-height: 1 !important;
             }
             
@@ -1147,49 +871,43 @@
             .mid-right .piece-text {
                 font-size: 6px !important;
                 white-space: normal;
-                transform: translate(-50%, -50%) rotate(-90deg) !important;
-                max-width: 120px;
+                max-width: 100px;
+            }
+            
+            /* Remover rotação do texto nas laterais em mobile muito pequeno */
+            @media (max-width: 360px) {
+                .mid-left .piece-text,
+                .mid-right .piece-text {
+                    transform: translate(-50%, -50%) rotate(0deg) !important;
+                    white-space: normal;
+                    text-align: center;
+                    width: 80%;
+                }
             }
             
             .hint {
                 font-size: 12px;
-                max-width: 280px;
             }
             
             .hint span {
-                font-size: 8px;
+                font-size: 9px;
             }
             
             .hint img {
-                width: 110px !important;
+                width: 120px !important;
                 margin-bottom: 10px !important;
             }
             
-            .user-indicator {
-                font-size: 9px;
-                padding: 5px 10px;
-                max-width: 140px;
-                top: 8px;
-                right: 8px;
-            }
-            
-            .logout-btn {
-                font-size: 7px;
-                margin-left: 6px;
-            }
-            
             .modal-content {
-                max-width: 350px;
-                padding: 18px 12px;
+                padding: 20px 15px;
             }
             
             .modal-title {
-                font-size: 14px;
+                font-size: 16px;
             }
             
             .modal-body {
-                font-size: 12px;
-                line-height: 1.4;
+                font-size: 13px;
             }
             
             .modal-data-grid {
@@ -1197,187 +915,51 @@
                 gap: 8px;
             }
             
-            /* Ajustes de animação para smartphone grande */
-            .piece-svg path {
-                stroke-dasharray: 4, 3;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 6, 4;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 150;
-                }
-            }
-        }
-
-        /* SMARTPHONE MEDIUM (375px - 479px) */
-        @media (max-width: 479px) and (min-width: 375px) {
-            .auth-frame {
-                max-width: 300px;
-                padding: 18px 12px;
-            }
-            
-            .bat-logo h1 {
-                font-size: 8px;
-                letter-spacing: 0.8px;
-            }
-            
-            .bat-symbol {
-                width: 45px;
-                height: 22px;
-            }
-            
-            .bat-symbol::before {
-                font-size: 22px;
-            }
-            
-            .form-input {
-                font-size: 13px;
-                padding: 9px 0;
-            }
-            
-            .form-label {
-                font-size: 11px;
-                top: 9px;
-            }
-            
-            .auth-button {
-                padding: 9px;
-                font-size: 12px;
-            }
-            
-            .auth-switch {
-                font-size: 10px;
-                margin-top: 12px;
-            }
-            
-            /* Ajuste HUD */
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                width: 40%;
-                height: 50px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                width: 20%;
-                left: 40%;
-            }
-            
-            .top-center {
-                height: 22px;
-            }
-            
-            .bottom-center {
-                height: 30px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                width: 20px;
-                top: 50px;
-                height: calc(100% - 100px);
-            }
-            
-            .piece-text {
-                font-size: 5.5px !important;
-                line-height: 1 !important;
-            }
-            
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 5.5px !important;
-                white-space: normal;
-                max-width: 100px;
-                /* Remover rotação em mobile muito pequeno */
-                transform: translate(-50%, -50%) rotate(0deg) !important;
-                text-align: center;
-                width: 90%;
-                white-space: normal;
-                line-height: 1.2;
-            }
-            
-            .hint {
-                font-size: 11px;
-                max-width: 250px;
-            }
-            
-            .hint span {
-                font-size: 7px;
-            }
-            
-            .hint img {
-                width: 100px !important;
-                margin-bottom: 8px !important;
-            }
-            
             .user-indicator {
-                font-size: 8px;
-                padding: 4px 8px;
+                font-size: 9px;
+                padding: 5px 10px;
                 max-width: 120px;
-                top: 6px;
-                right: 6px;
+                top: 5px;
+                right: 5px;
             }
             
             .logout-btn {
                 font-size: 7px;
                 margin-left: 5px;
             }
-            
-            .modal-content {
-                max-width: 320px;
-                padding: 15px 10px;
-            }
-            
-            .modal-title {
-                font-size: 13px;
-                line-height: 1.2;
-            }
-            
-            .modal-body {
-                font-size: 11px;
-            }
-            
-            .modal-list li {
-                font-size: 11px;
-                padding: 5px 0;
-            }
-            
-            .data-value {
-                font-size: 14px;
-            }
-            
-            /* Ajustes de animação para smartphone médio */
-            .piece-svg path {
-                stroke-dasharray: 3, 2;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 5, 3;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 120;
-                }
-            }
         }
 
-        /* SMARTPHONE SMALL (até 374px) */
-        @media (max-width: 374px) {
+        /* Smartphones muito pequenos (até 320px) */
+        @media (max-width: 320px) {
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                height: 50px;
+            }
+            
+            .top-center,
+            .bottom-center {
+                height: 30px;
+            }
+            
+            .mid-left,
+            .mid-right {
+                top: 50px;
+                height: calc(100% - 100px);
+                width: 20px;
+            }
+            
+            .piece-text {
+                font-size: 6px !important;
+            }
+            
             .auth-frame {
-                max-width: 280px;
-                padding: 15px 10px;
+                padding: 20px 12px;
             }
             
             .bat-logo h1 {
-                font-size: 7px;
-                letter-spacing: 0.5px;
+                font-size: 9px;
             }
             
             .bat-symbol {
@@ -1389,221 +971,16 @@
                 font-size: 20px;
             }
             
-            .auth-form {
-                gap: 12px;
-            }
-            
             .form-input {
-                font-size: 12px;
-                padding: 8px 0;
+                font-size: 13px;
             }
             
             .form-label {
-                font-size: 10px;
-                top: 8px;
-            }
-            
-            .form-input:focus+.form-label,
-            .form-input:valid+.form-label {
-                top: -8px;
-                font-size: 10px;
-            }
-            
-            .auth-button {
-                padding: 8px;
                 font-size: 11px;
-                margin-top: 8px;
-            }
-            
-            .auth-switch {
-                font-size: 9px;
-                margin-top: 10px;
-            }
-            
-            /* Ajuste HUD */
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                width: 42%;
-                height: 45px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                width: 16%;
-                left: 42%;
-            }
-            
-            .top-center {
-                height: 20px;
-            }
-            
-            .bottom-center {
-                height: 25px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                width: 18px;
-                top: 45px;
-                height: calc(100% - 90px);
-                clip-path: polygon(0 5%, 100% 10%, 100% 90%, 0 95%);
-            }
-            
-            .piece-text {
-                font-size: 5px !important;
-                line-height: 1 !important;
-            }
-            
-            /* Remover rotação do texto nas laterais */
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 5px !important;
-                transform: translate(-50%, -50%) rotate(0deg) !important;
-                white-space: normal;
-                text-align: center;
-                width: 85%;
-                line-height: 1.2;
-                max-width: none;
-            }
-            
-            .hint {
-                font-size: 10px;
-                max-width: 220px;
-            }
-            
-            .hint span {
-                font-size: 6px;
-            }
-            
-            .hint img {
-                width: 90px !important;
-                margin-bottom: 6px !important;
-            }
-            
-            .user-indicator {
-                font-size: 7px;
-                padding: 3px 6px;
-                max-width: 100px;
-                top: 5px;
-                right: 5px;
-            }
-            
-            .logout-btn {
-                font-size: 6px;
-                margin-left: 4px;
-            }
-            
-            .modal-content {
-                max-width: 280px;
-                padding: 12px 8px;
-            }
-            
-            .modal-title {
-                font-size: 12px;
-            }
-            
-            .modal-body {
-                font-size: 10px;
-            }
-            
-            .modal-list li {
-                font-size: 10px;
-                padding: 4px 0;
-            }
-            
-            .modal-list li:before {
-                font-size: 8px;
-                margin-right: 6px;
-            }
-            
-            .data-value {
-                font-size: 12px;
-            }
-            
-            /* Ajustes de animação para smartphone pequeno */
-            .piece-svg path {
-                stroke-dasharray: 2, 2;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 4, 3;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 100;
-                }
-            }
-        }
-
-        /* ORIENTAÇÃO PAISAGEM PARA SMARTPHONES (altura reduzida) */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .auth-screen {
-                align-items: flex-start;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                overflow-y: auto;
-            }
-            
-            .auth-frame {
-                margin: 10px auto;
-                max-width: 320px;
-            }
-            
-            .bat-logo {
-                margin-bottom: 15px;
-            }
-            
-            .bat-logo h1 {
-                margin-bottom: 8px;
-            }
-            
-            .auth-form {
-                gap: 12px;
-            }
-            
-            .form-input {
-                padding: 8px 0;
-            }
-            
-            .auth-button {
-                padding: 8px;
-                margin-top: 5px;
-            }
-            
-            .auth-switch {
-                margin-top: 12px;
-            }
-            
-            /* Ajuste HUD para landscape */
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                height: 45px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                height: 22px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                top: 45px;
-                height: calc(100% - 90px);
-                width: 25px;
-            }
-            
-            .piece-text {
-                font-size: 6px !important;
             }
             
             .hint {
                 font-size: 11px;
-                max-width: 300px;
             }
             
             .hint span {
@@ -1612,32 +989,46 @@
             
             .hint img {
                 width: 100px !important;
-                margin-bottom: 8px !important;
-            }
-            
-            /* Ajustes de animação para landscape */
-            .piece-svg path {
-                stroke-dasharray: 4, 3;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 6, 4;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 180;
-                }
             }
         }
 
-        /* ORIENTAÇÃO PAISAGEM PARA TABLETS */
-        @media (max-height: 768px) and (orientation: landscape) and (min-width: 768px) {
+        /* Orientação paisagem para smartphones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .auth-screen {
+                align-items: flex-start;
+                padding-top: 20px;
+                overflow-y: auto;
+            }
+            
+            .auth-frame {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                max-width: 350px;
+            }
+            
+            .bat-logo {
+                margin-bottom: 20px;
+            }
+            
+            .bat-logo h1 {
+                margin-bottom: 10px;
+            }
+            
+            .auth-form {
+                gap: 15px;
+            }
+            
+            /* Ajuste HUD para landscape */
             .top-left,
             .top-right,
             .bottom-left,
             .bottom-right {
                 height: 60px;
+            }
+            
+            .top-center,
+            .bottom-center {
+                height: 30px;
             }
             
             .mid-left,
@@ -1646,33 +1037,12 @@
                 height: calc(100% - 120px);
             }
             
-            .top-center {
-                height: 30px;
-            }
-            
-            .bottom-center {
-                height: 40px;
-            }
-            
-            .hint {
-                font-size: 13px;
-            }
-            
-            .hint span {
-                font-size: 9px;
-            }
-            
-            /* Ajustes de animação para tablet landscape */
-            .piece-svg path {
-                stroke-dasharray: 6, 4;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 9, 6;
+            .piece-text {
+                font-size: 8px !important;
             }
         }
 
-        /* PARA TELAS MUITO ALTAS (acima de 1000px) */
+        /* Para telas muito altas */
         @media (min-height: 1000px) {
             .top-left,
             .top-right,
@@ -1685,74 +1055,30 @@
             .mid-right {
                 top: 120px;
                 height: calc(100% - 240px);
-                width: 40px;
-            }
-            
-            .top-center {
-                height: 50px;
-            }
-            
-            .bottom-center {
-                height: 60px;
             }
             
             .piece-text {
                 font-size: 12px !important;
             }
             
-            .top-center .piece-text,
-            .bottom-center .piece-text {
-                font-size: 13px !important;
-            }
-            
             .hint {
-                font-size: 22px;
-                max-width: 450px;
+                font-size: 20px;
             }
             
             .hint span {
-                font-size: 15px;
-            }
-            
-            .hint img {
-                width: 200px !important;
-                margin-bottom: 25px !important;
-            }
-            
-            /* Ajustes de animação para telas altas */
-            .piece-svg path {
-                stroke-dasharray: 12, 6;
-            }
-            
-            .piece-container:hover .piece-svg path {
-                stroke-dasharray: 18, 10;
-            }
-            
-            @keyframes borderMove {
-                100% {
-                    stroke-dashoffset: 400;
-                }
+                font-size: 14px;
             }
         }
 
-        /* PREVENIR ZOOM EM INPUTS NO iOS */
+        /* Prevenir zoom em inputs no iOS */
         @supports (-webkit-touch-callout: none) {
             input,
-            textarea,
-            select {
+            textarea {
                 font-size: 16px !important;
-            }
-            
-            @media (max-width: 480px) {
-                input,
-                textarea,
-                select {
-                    font-size: 16px !important;
-                }
             }
         }
 
-        /* MELHORAR LEGIBILIDADE EM DISPOSITIVOS COM MODO ESCURO */
+        /* Melhorar legibilidade em dispositivos com modo escuro */
         @media (prefers-color-scheme: dark) {
             .auth-frame {
                 background: rgba(5, 10, 20, 0.97);
@@ -1760,36 +1086,6 @@
             
             .modal-content {
                 background: linear-gradient(145deg, rgba(5, 10, 20, 0.97), rgba(2, 5, 10, 0.99));
-            }
-        }
-
-        /* MELHORAR TOUCH EM DISPOSITIVOS MÓVEIS */
-        @media (hover: none) and (pointer: coarse) {
-            .piece-container {
-                cursor: pointer;
-            }
-            
-            .piece-container:active {
-                transform: scale(0.98);
-            }
-            
-            .auth-button:active {
-                background: rgba(0, 217, 255, 0.2);
-            }
-            
-            .modal-close:active {
-                background: rgba(0, 217, 255, 0.3);
-            }
-            
-            /* Ajuste de animação para touch */
-            .piece-svg path {
-                stroke-dasharray: 4, 3;
-                animation: borderMove 30s linear infinite;
-            }
-            
-            .piece-container:active .piece-svg path {
-                stroke-dasharray: 8, 5;
-                animation-duration: 15s;
             }
         }
     </style>
@@ -1889,31 +1185,19 @@
             <div class="piece-text">VIGILÂNCIA GOTHAM<br>SURVEILLANCE GRID</div>
         </div>
 
-        <!-- Peça lateral esquerda - Formato vertical assimétrico - CORRIGIDO -->
+        <!-- Peça lateral esquerda - Formato vertical assimétrico -->
         <div class="piece-container mid-left" onclick="openModal('weapons')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <!-- Linha completa da borda lateral esquerda -->
-                <path d="M0,0 L100,10 L100,90 L0,100 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      stroke-linejoin="round" 
-                      stroke-linecap="round" />
+                <path d="M0,0 L100,10 L100,90 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
             <div class="piece-text">ARMAMENTOS<br>E EQUIPAMENTOS</div>
         </div>
 
-        <!-- Peça lateral direita - Formato espelhado - CORRIGIDO -->
+        <!-- Peça lateral direita - Formato espelhado -->
         <div class="piece-container mid-right" onclick="openModal('vehicle')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <!-- Linha completa da borda lateral direita -->
-                <path d="M0,10 L100,0 L100,100 L0,90 Z" 
-                      fill="none" 
-                      stroke="#00d9ff" 
-                      stroke-width="2" 
-                      stroke-linejoin="round" 
-                      stroke-linecap="round" />
+                <path d="M0,10 L100,0 L100,100 L0,90 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
             </svg>
             <div class="piece-bg"></div>
             <div class="piece-text">CONTROLE DE<br>VEÍCULOS TÁTICOS</div>
@@ -1965,40 +1249,219 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- JAVASCRIPT OTIMIZADO E AVANÇADO -->
-    <script>
-        // Sistema de autenticação AVANÇADO
-        const AUTH_CONFIG = {
-            users: JSON.parse(localStorage.getItem('wayne_users')) || [
+        <script>
+            // Sistema de autenticação
+            const users = JSON.parse(localStorage.getItem('wayne_users')) || [
                 { username: 'batman', password: 'darkknight' },
                 { username: 'robin', password: 'sidekick' },
                 { username: 'alfred', password: 'pennyworth' },
                 { username: 'gordon', password: 'commissioner' }
-            ],
-            currentUser: localStorage.getItem('wayne_current_user') || null
-        };
+            ];
 
-        // Sistema de Elementos DOM
-        const DOM = {
-            authScreen: document.getElementById('authScreen'),
-            hudFrame: document.getElementById('hudFrame'),
-            userIndicator: document.getElementById('userIndicator'),
-            userName: document.getElementById('userName'),
-            authError: document.getElementById('authError'),
-            loginForm: document.getElementById('loginForm'),
-            registerForm: document.getElementById('registerForm'),
-            switchText: document.getElementById('switchText'),
-            switchLink: document.getElementById('switchLink'),
-            modalOverlay: document.getElementById('modalOverlay'),
-            modalTitle: document.getElementById('modalTitle'),
-            modalBody: document.getElementById('modalBody')
-        };
+            let currentUser = null;
 
-        // Sistema de Áudio
-        const AudioSystem = {
-            play(type) {
+            // Elementos DOM
+            const authScreen = document.getElementById('authScreen');
+            const hudFrame = document.getElementById('hudFrame');
+            const userIndicator = document.getElementById('userIndicator');
+            const userName = document.getElementById('userName');
+            const authError = document.getElementById('authError');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const switchText = document.getElementById('switchText');
+            const switchLink = document.getElementById('switchLink');
+
+            // Verificar se já está logado
+            const savedUser = localStorage.getItem('wayne_current_user');
+            if (savedUser) {
+                currentUser = savedUser;
+                showHUD();
+            }
+
+            // Toggle entre login e registro
+            function toggleForms() {
+                if (loginForm.style.display !== 'none') {
+                    loginForm.style.display = 'none';
+                    registerForm.style.display = 'flex';
+                    switchText.textContent = 'Já tem acesso?';
+                    switchLink.textContent = 'Fazer login';
+                } else {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'flex';
+                    switchText.textContent = 'Não tem acesso?';
+                    switchLink.textContent = 'Solicitar credencial';
+                }
+                authError.style.display = 'none';
+                playSound('click');
+            }
+
+            // Login
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('loginUser').value;
+                const password = document.getElementById('loginPass').value;
+
+                const user = users.find(u =>
+                    u.username === username && u.password === password
+                );
+
+                if (user) {
+                    currentUser = username;
+                    localStorage.setItem('wayne_current_user', username);
+                    showHUD();
+                    playSound('success');
+                } else {
+                    showError('Credenciais inválidas');
+                    playSound('error');
+                }
+            });
+
+            // Registro
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('regUser').value;
+                const password = document.getElementById('regPass').value;
+                const confirm = document.getElementById('regConfirm').value;
+
+                if (username.length < 3) {
+                    showError('Usuário deve ter pelo menos 3 caracteres');
+                    return;
+                }
+
+                if (password.length < 4) {
+                    showError('Senha deve ter pelo menos 4 caracteres');
+                    return;
+                }
+
+                if (password !== confirm) {
+                    showError('Senhas não coincidem');
+                    return;
+                }
+
+                // Verifica se usuário já existe
+                if (users.find(u => u.username === username)) {
+                    showError('Usuário já existe');
+                    return;
+                }
+
+                // Adiciona novo usuário
+                users.push({ username, password });
+                localStorage.setItem('wayne_users', JSON.stringify(users));
+
+                currentUser = username;
+                localStorage.setItem('wayne_current_user', username);
+
+                showHUD();
+                playSound('success');
+            });
+
+            // Mostrar HUD
+            function showHUD() {
+                authScreen.style.display = 'none';
+                hudFrame.style.display = 'block';
+                userIndicator.style.display = 'block';
+                userName.textContent = currentUser.toUpperCase();
+
+                // Efeito de entrada das peças
+                const pieces = document.querySelectorAll('.piece-container');
+                pieces.forEach((piece, index) => {
+                    piece.style.opacity = '0';
+                    piece.style.transform = 'translateY(-20px)';
+
+                    setTimeout(() => {
+                        piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        piece.style.opacity = '1';
+                        piece.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                // Ajustar altura das laterais baseado na altura atual
+                adjustSidePiecesHeight();
+                
+                // Adicionar listener para redimensionamento
+                window.addEventListener('resize', adjustSidePiecesHeight);
+            }
+
+            // Ajustar altura das peças laterais
+            function adjustSidePiecesHeight() {
+                const topLeft = document.querySelector('.top-left');
+                const bottomLeft = document.querySelector('.bottom-left');
+                const topRight = document.querySelector('.top-right');
+                const bottomRight = document.querySelector('.bottom-right');
+                
+                if (topLeft && bottomLeft) {
+                    const topHeight = topLeft.offsetHeight;
+                    const bottomHeight = bottomLeft.offsetHeight;
+                    const totalHeight = window.innerHeight;
+                    
+                    const midLeft = document.querySelector('.mid-left');
+                    const midRight = document.querySelector('.mid-right');
+                    
+                    if (midLeft && midRight) {
+                        const newHeight = totalHeight - topHeight - bottomHeight;
+                        midLeft.style.height = `${newHeight}px`;
+                        midRight.style.height = `${newHeight}px`;
+                    }
+                }
+            }
+
+            // Logout
+            function logout() {
+                playSound('logout');
+
+                // Efeito de saída das peças
+                const pieces = document.querySelectorAll('.piece-container');
+                pieces.forEach((piece, index) => {
+                    setTimeout(() => {
+                        piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        piece.style.opacity = '0';
+                        piece.style.transform = 'translateY(20px)';
+                    }, index * 50);
+                });
+
+                setTimeout(() => {
+                    currentUser = null;
+                    localStorage.removeItem('wayne_current_user');
+                    hudFrame.style.display = 'none';
+                    userIndicator.style.display = 'none';
+                    authScreen.style.display = 'flex';
+                    loginForm.style.display = 'flex';
+                    registerForm.style.display = 'none';
+                    switchText.textContent = 'Não tem acesso?';
+                    switchLink.textContent = 'Solicitar credencial';
+                    authError.style.display = 'none';
+
+                    // Limpar formulários
+                    document.getElementById('loginUser').value = '';
+                    document.getElementById('loginPass').value = '';
+                    document.getElementById('regUser').value = '';
+                    document.getElementById('regPass').value = '';
+                    document.getElementById('regConfirm').value = '';
+                    
+                    // Remover listener de redimensionamento
+                    window.removeEventListener('resize', adjustSidePiecesHeight);
+                }, 300);
+            }
+
+            // Mostrar erro
+            function showError(message) {
+                authError.textContent = message;
+                authError.style.display = 'block';
+
+                // Efeito de tremor
+                const currentForm = loginForm.style.display !== 'none' ? loginForm : registerForm;
+                currentForm.style.animation = 'none';
+                setTimeout(() => {
+                    currentForm.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        currentForm.style.animation = '';
+                    }, 500);
+                }, 10);
+            }
+
+            // Efeitos sonoros
+            function playSound(type) {
                 try {
                     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     const oscillator = audioContext.createOscillator();
@@ -2006,31 +1469,47 @@
 
                     oscillator.connect(gainNode);
                     gainNode.connect(audioContext.destination);
+
                     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
 
-                    const tones = {
-                        success: [880, 1760],
-                        error: [220, 110],
-                        logout: [440, 55],
-                        click: [660, 330]
-                    };
+                    switch (type) {
+                        case 'success':
+                            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                            oscillator.frequency.setValueAtTime(1760, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.2);
+                            break;
 
-                    if (tones[type]) {
-                        oscillator.frequency.setValueAtTime(tones[type][0], audioContext.currentTime);
-                        oscillator.frequency.setValueAtTime(tones[type][1], audioContext.currentTime + 0.1);
-                        oscillator.start();
-                        oscillator.stop(audioContext.currentTime + 0.2);
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+                        case 'error':
+                            oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                            oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.3);
+                            break;
+
+                        case 'logout':
+                            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                            oscillator.frequency.exponentialRampToValueAtTime(55, audioContext.currentTime + 0.5);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.5);
+                            break;
+
+                        case 'click':
+                            oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
+                            oscillator.frequency.exponentialRampToValueAtTime(330, audioContext.currentTime + 0.1);
+                            oscillator.start();
+                            oscillator.stop(audioContext.currentTime + 0.1);
+                            break;
                     }
+
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
                 } catch (e) {
                     console.log("Áudio não suportado");
                 }
             }
-        };
 
-        // Sistema de Modal
-        const ModalSystem = {
-            contents: {
+            // Conteúdo dos modais temático Batman
+            const modalContents = {
                 'batcave': {
                     title: 'BATCAVE SYSTEMS CONTROL',
                     content: `
@@ -2218,214 +1697,55 @@
                     </ul>
                 `
                 }
-            },
+            };
 
-            open(type) {
-                if (this.contents[type]) {
-                    DOM.modalTitle.textContent = this.contents[type].title;
-                    DOM.modalBody.innerHTML = this.contents[type].content;
-                    DOM.modalOverlay.style.display = 'flex';
-                    AudioSystem.play('click');
-                }
-            },
+            // Abrir modal
+            function openModal(type) {
+                const modal = document.getElementById('modalOverlay');
+                const title = document.getElementById('modalTitle');
+                const body = document.getElementById('modalBody');
 
-            close() {
-                DOM.modalOverlay.style.display = 'none';
-            }
-        };
-
-        // Funções Principais
-        function toggleForms() {
-            if (DOM.loginForm.style.display !== 'none') {
-                DOM.loginForm.style.display = 'none';
-                DOM.registerForm.style.display = 'flex';
-                DOM.switchText.textContent = 'Já tem acesso?';
-                DOM.switchLink.textContent = 'Fazer login';
-            } else {
-                DOM.registerForm.style.display = 'none';
-                DOM.loginForm.style.display = 'flex';
-                DOM.switchText.textContent = 'Não tem acesso?';
-                DOM.switchLink.textContent = 'Solicitar credencial';
-            }
-            DOM.authError.style.display = 'none';
-            AudioSystem.play('click');
-        }
-
-        function showError(message) {
-            DOM.authError.textContent = message;
-            DOM.authError.style.display = 'block';
-            const currentForm = DOM.loginForm.style.display !== 'none' ? DOM.loginForm : DOM.registerForm;
-            currentForm.style.animation = 'none';
-            setTimeout(() => {
-                currentForm.style.animation = 'shake 0.5s';
-                setTimeout(() => currentForm.style.animation = '', 500);
-            }, 10);
-        }
-
-        function showHUD() {
-            DOM.authScreen.style.display = 'none';
-            DOM.hudFrame.style.display = 'block';
-            DOM.userIndicator.style.display = 'block';
-            DOM.userName.textContent = AUTH_CONFIG.currentUser.toUpperCase();
-
-            const pieces = document.querySelectorAll('.piece-container');
-            pieces.forEach((piece, index) => {
-                piece.style.opacity = '0';
-                piece.style.transform = 'translateY(-20px)';
-
-                setTimeout(() => {
-                    piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    piece.style.opacity = '1';
-                    piece.style.transform = 'translateY(0)';
+                if (modalContents[type]) {
+                    title.textContent = modalContents[type].title;
+                    body.innerHTML = modalContents[type].content;
+                    modal.style.display = 'flex';
+                    playSound('click');
                     
+                    // Garantir que o modal está visível
                     setTimeout(() => {
-                        const svgPath = piece.querySelector('.piece-svg path');
-                        if (svgPath) svgPath.style.animation = 'borderMove 25s linear infinite';
-                    }, 300);
-                }, index * 100);
-            });
-            
-            adjustSidePiecesHeight();
-            window.addEventListener('resize', adjustSidePiecesHeight);
-        }
-
-        function adjustSidePiecesHeight() {
-            const topLeft = document.querySelector('.top-left');
-            const bottomLeft = document.querySelector('.bottom-left');
-            const topRight = document.querySelector('.top-right');
-            const bottomRight = document.querySelector('.bottom-right');
-            
-            if (topLeft && bottomLeft) {
-                const topHeight = topLeft.offsetHeight;
-                const bottomHeight = bottomLeft.offsetHeight;
-                const totalHeight = window.innerHeight;
-                
-                const midLeft = document.querySelector('.mid-left');
-                const midRight = document.querySelector('.mid-right');
-                
-                if (midLeft && midRight) {
-                    const newHeight = totalHeight - topHeight - bottomHeight;
-                    midLeft.style.height = `${newHeight}px`;
-                    midRight.style.height = `${newHeight}px`;
+                        modal.style.display = 'flex';
+                    }, 10);
                 }
             }
-        }
 
-        function logout() {
-            AudioSystem.play('logout');
-            
-            const pieces = document.querySelectorAll('.piece-container');
-            pieces.forEach((piece, index) => {
-                setTimeout(() => {
-                    piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    piece.style.opacity = '0';
-                    piece.style.transform = 'translateY(20px)';
-                }, index * 50);
+            // Fechar modal
+            function closeModal() {
+                const modal = document.getElementById('modalOverlay');
+                modal.style.display = 'none';
+            }
+
+            // Fechar modal com ESC ou clicando fora
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
             });
 
-            setTimeout(() => {
-                AUTH_CONFIG.currentUser = null;
-                localStorage.removeItem('wayne_current_user');
-                DOM.hudFrame.style.display = 'none';
-                DOM.userIndicator.style.display = 'none';
-                DOM.authScreen.style.display = 'flex';
-                DOM.loginForm.style.display = 'flex';
-                DOM.registerForm.style.display = 'none';
-                DOM.switchText.textContent = 'Não tem acesso?';
-                DOM.switchLink.textContent = 'Solicitar credencial';
-                DOM.authError.style.display = 'none';
+            document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('modalOverlay')) {
+                    closeModal();
+                }
+            });
 
-                ['loginUser', 'loginPass', 'regUser', 'regPass', 'regConfirm'].forEach(id => {
-                    document.getElementById(id).value = '';
-                });
-                
-                window.removeEventListener('resize', adjustSidePiecesHeight);
-            }, 300);
-        }
+            // Prevenir zoom em formulários no iOS
+            document.addEventListener('touchstart', function(event) {
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                    event.target.style.fontSize = '16px';
+                }
+            });
 
-        // Event Listeners
-        DOM.loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('loginUser').value;
-            const password = document.getElementById('loginPass').value;
+            // Melhorar toques em dispositivos móveis
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        </script>
 
-            const user = AUTH_CONFIG.users.find(u =>
-                u.username === username && u.password === password
-            );
-
-            if (user) {
-                AUTH_CONFIG.currentUser = username;
-                localStorage.setItem('wayne_current_user', username);
-                showHUD();
-                AudioSystem.play('success');
-            } else {
-                showError('Credenciais inválidas');
-                AudioSystem.play('error');
-            }
-        });
-
-        DOM.registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('regUser').value;
-            const password = document.getElementById('regPass').value;
-            const confirm = document.getElementById('regConfirm').value;
-
-            if (username.length < 3) {
-                showError('Usuário deve ter pelo menos 3 caracteres');
-                return;
-            }
-
-            if (password.length < 4) {
-                showError('Senha deve ter pelo menos 4 caracteres');
-                return;
-            }
-
-            if (password !== confirm) {
-                showError('Senhas não coincidem');
-                return;
-            }
-
-            if (AUTH_CONFIG.users.find(u => u.username === username)) {
-                showError('Usuário já existe');
-                return;
-            }
-
-            AUTH_CONFIG.users.push({ username, password });
-            localStorage.setItem('wayne_users', JSON.stringify(AUTH_CONFIG.users));
-
-            AUTH_CONFIG.currentUser = username;
-            localStorage.setItem('wayne_current_user', username);
-
-            showHUD();
-            AudioSystem.play('success');
-        });
-
-        // Event Listeners Globais
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') ModalSystem.close();
-        });
-
-        DOM.modalOverlay.addEventListener('click', (e) => {
-            if (e.target === DOM.modalOverlay) ModalSystem.close();
-        });
-
-        document.addEventListener('touchstart', function(event) {
-            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                event.target.style.fontSize = '16px';
-            }
-        });
-
-        // Inicialização
-        if (AUTH_CONFIG.currentUser) showHUD();
-        window.addEventListener('load', function() {
-            if (AUTH_CONFIG.currentUser) setTimeout(adjustSidePiecesHeight, 100);
-        });
-
-        // Funções Globais para onclick
-        window.toggleForms = toggleForms;
-        window.openModal = (type) => ModalSystem.open(type);
-        window.closeModal = () => ModalSystem.close();
-        window.logout = logout;
-    </script>
 </body>
+
 </html>
