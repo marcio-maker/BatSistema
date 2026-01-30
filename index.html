@@ -1965,227 +1965,40 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
-            // Sistema de autenticação
-            const users = JSON.parse(localStorage.getItem('wayne_users')) || [
+    <!-- JAVASCRIPT OTIMIZADO E AVANÇADO -->
+    <script>
+        // Sistema de autenticação AVANÇADO
+        const AUTH_CONFIG = {
+            users: JSON.parse(localStorage.getItem('wayne_users')) || [
                 { username: 'batman', password: 'darkknight' },
                 { username: 'robin', password: 'sidekick' },
                 { username: 'alfred', password: 'pennyworth' },
                 { username: 'gordon', password: 'commissioner' }
-            ];
+            ],
+            currentUser: localStorage.getItem('wayne_current_user') || null
+        };
 
-            let currentUser = null;
+        // Sistema de Elementos DOM
+        const DOM = {
+            authScreen: document.getElementById('authScreen'),
+            hudFrame: document.getElementById('hudFrame'),
+            userIndicator: document.getElementById('userIndicator'),
+            userName: document.getElementById('userName'),
+            authError: document.getElementById('authError'),
+            loginForm: document.getElementById('loginForm'),
+            registerForm: document.getElementById('registerForm'),
+            switchText: document.getElementById('switchText'),
+            switchLink: document.getElementById('switchLink'),
+            modalOverlay: document.getElementById('modalOverlay'),
+            modalTitle: document.getElementById('modalTitle'),
+            modalBody: document.getElementById('modalBody')
+        };
 
-            // Elementos DOM
-            const authScreen = document.getElementById('authScreen');
-            const hudFrame = document.getElementById('hudFrame');
-            const userIndicator = document.getElementById('userIndicator');
-            const userName = document.getElementById('userName');
-            const authError = document.getElementById('authError');
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const switchText = document.getElementById('switchText');
-            const switchLink = document.getElementById('switchLink');
-
-            // Verificar se já está logado
-            const savedUser = localStorage.getItem('wayne_current_user');
-            if (savedUser) {
-                currentUser = savedUser;
-                showHUD();
-            }
-
-            // Toggle entre login e registro
-            function toggleForms() {
-                if (loginForm.style.display !== 'none') {
-                    loginForm.style.display = 'none';
-                    registerForm.style.display = 'flex';
-                    switchText.textContent = 'Já tem acesso?';
-                    switchLink.textContent = 'Fazer login';
-                } else {
-                    registerForm.style.display = 'none';
-                    loginForm.style.display = 'flex';
-                    switchText.textContent = 'Não tem acesso?';
-                    switchLink.textContent = 'Solicitar credencial';
-                }
-                authError.style.display = 'none';
-                playSound('click');
-            }
-
-            // Login
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('loginUser').value;
-                const password = document.getElementById('loginPass').value;
-
-                const user = users.find(u =>
-                    u.username === username && u.password === password
-                );
-
-                if (user) {
-                    currentUser = username;
-                    localStorage.setItem('wayne_current_user', username);
-                    showHUD();
-                    playSound('success');
-                } else {
-                    showError('Credenciais inválidas');
-                    playSound('error');
-                }
-            });
-
-            // Registro
-            registerForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('regUser').value;
-                const password = document.getElementById('regPass').value;
-                const confirm = document.getElementById('regConfirm').value;
-
-                if (username.length < 3) {
-                    showError('Usuário deve ter pelo menos 3 caracteres');
-                    return;
-                }
-
-                if (password.length < 4) {
-                    showError('Senha deve ter pelo menos 4 caracteres');
-                    return;
-                }
-
-                if (password !== confirm) {
-                    showError('Senhas não coincidem');
-                    return;
-                }
-
-                // Verifica se usuário já existe
-                if (users.find(u => u.username === username)) {
-                    showError('Usuário já existe');
-                    return;
-                }
-
-                // Adiciona novo usuário
-                users.push({ username, password });
-                localStorage.setItem('wayne_users', JSON.stringify(users));
-
-                currentUser = username;
-                localStorage.setItem('wayne_current_user', username);
-
-                showHUD();
-                playSound('success');
-            });
-
-            // Mostrar HUD
-            function showHUD() {
-                authScreen.style.display = 'none';
-                hudFrame.style.display = 'block';
-                userIndicator.style.display = 'block';
-                userName.textContent = currentUser.toUpperCase();
-
-                // Efeito de entrada das peças
-                const pieces = document.querySelectorAll('.piece-container');
-                pieces.forEach((piece, index) => {
-                    piece.style.opacity = '0';
-                    piece.style.transform = 'translateY(-20px)';
-
-                    setTimeout(() => {
-                        piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        piece.style.opacity = '1';
-                        piece.style.transform = 'translateY(0)';
-                        
-                        // Ativar animação das bordas após entrada
-                        setTimeout(() => {
-                            const svgPath = piece.querySelector('.piece-svg path');
-                            if (svgPath) {
-                                svgPath.style.animation = 'borderMove 25s linear infinite';
-                            }
-                        }, 300);
-                    }, index * 100);
-                });
-                
-                // Ajustar altura das laterais baseado na altura atual
-                adjustSidePiecesHeight();
-                
-                // Adicionar listener para redimensionamento
-                window.addEventListener('resize', adjustSidePiecesHeight);
-            }
-
-            // Ajustar altura das peças laterais
-            function adjustSidePiecesHeight() {
-                const topLeft = document.querySelector('.top-left');
-                const bottomLeft = document.querySelector('.bottom-left');
-                const topRight = document.querySelector('.top-right');
-                const bottomRight = document.querySelector('.bottom-right');
-                
-                if (topLeft && bottomLeft) {
-                    const topHeight = topLeft.offsetHeight;
-                    const bottomHeight = bottomLeft.offsetHeight;
-                    const totalHeight = window.innerHeight;
-                    
-                    const midLeft = document.querySelector('.mid-left');
-                    const midRight = document.querySelector('.mid-right');
-                    
-                    if (midLeft && midRight) {
-                        const newHeight = totalHeight - topHeight - bottomHeight;
-                        midLeft.style.height = `${newHeight}px`;
-                        midRight.style.height = `${newHeight}px`;
-                    }
-                }
-            }
-
-            // Logout
-            function logout() {
-                playSound('logout');
-
-                // Efeito de saída das peças
-                const pieces = document.querySelectorAll('.piece-container');
-                pieces.forEach((piece, index) => {
-                    setTimeout(() => {
-                        piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                        piece.style.opacity = '0';
-                        piece.style.transform = 'translateY(20px)';
-                    }, index * 50);
-                });
-
-                setTimeout(() => {
-                    currentUser = null;
-                    localStorage.removeItem('wayne_current_user');
-                    hudFrame.style.display = 'none';
-                    userIndicator.style.display = 'none';
-                    authScreen.style.display = 'flex';
-                    loginForm.style.display = 'flex';
-                    registerForm.style.display = 'none';
-                    switchText.textContent = 'Não tem acesso?';
-                    switchLink.textContent = 'Solicitar credencial';
-                    authError.style.display = 'none';
-
-                    // Limpar formulários
-                    document.getElementById('loginUser').value = '';
-                    document.getElementById('loginPass').value = '';
-                    document.getElementById('regUser').value = '';
-                    document.getElementById('regPass').value = '';
-                    document.getElementById('regConfirm').value = '';
-                    
-                    // Remover listener de redimensionamento
-                    window.removeEventListener('resize', adjustSidePiecesHeight);
-                }, 300);
-            }
-
-            // Mostrar erro
-            function showError(message) {
-                authError.textContent = message;
-                authError.style.display = 'block';
-
-                // Efeito de tremor
-                const currentForm = loginForm.style.display !== 'none' ? loginForm : registerForm;
-                currentForm.style.animation = 'none';
-                setTimeout(() => {
-                    currentForm.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        currentForm.style.animation = '';
-                    }, 500);
-                }, 10);
-            }
-
-            // Efeitos sonoros
-            function playSound(type) {
+        // Sistema de Áudio
+        const AudioSystem = {
+            play(type) {
                 try {
                     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                     const oscillator = audioContext.createOscillator();
@@ -2193,47 +2006,31 @@
 
                     oscillator.connect(gainNode);
                     gainNode.connect(audioContext.destination);
-
                     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
 
-                    switch (type) {
-                        case 'success':
-                            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-                            oscillator.frequency.setValueAtTime(1760, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.2);
-                            break;
+                    const tones = {
+                        success: [880, 1760],
+                        error: [220, 110],
+                        logout: [440, 55],
+                        click: [660, 330]
+                    };
 
-                        case 'error':
-                            oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
-                            oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.3);
-                            break;
-
-                        case 'logout':
-                            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-                            oscillator.frequency.exponentialRampToValueAtTime(55, audioContext.currentTime + 0.5);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.5);
-                            break;
-
-                        case 'click':
-                            oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
-                            oscillator.frequency.exponentialRampToValueAtTime(330, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.1);
-                            break;
+                    if (tones[type]) {
+                        oscillator.frequency.setValueAtTime(tones[type][0], audioContext.currentTime);
+                        oscillator.frequency.setValueAtTime(tones[type][1], audioContext.currentTime + 0.1);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.2);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
                     }
-
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
                 } catch (e) {
                     console.log("Áudio não suportado");
                 }
             }
+        };
 
-            // Conteúdo dos modais temático Batman
-            const modalContents = {
+        // Sistema de Modal
+        const ModalSystem = {
+            contents: {
                 'batcave': {
                     title: 'BATCAVE SYSTEMS CONTROL',
                     content: `
@@ -2421,62 +2218,214 @@
                     </ul>
                 `
                 }
-            };
+            },
 
-            // Abrir modal
-            function openModal(type) {
-                const modal = document.getElementById('modalOverlay');
-                const title = document.getElementById('modalTitle');
-                const body = document.getElementById('modalBody');
+            open(type) {
+                if (this.contents[type]) {
+                    DOM.modalTitle.textContent = this.contents[type].title;
+                    DOM.modalBody.innerHTML = this.contents[type].content;
+                    DOM.modalOverlay.style.display = 'flex';
+                    AudioSystem.play('click');
+                }
+            },
 
-                if (modalContents[type]) {
-                    title.textContent = modalContents[type].title;
-                    body.innerHTML = modalContents[type].content;
-                    modal.style.display = 'flex';
-                    playSound('click');
+            close() {
+                DOM.modalOverlay.style.display = 'none';
+            }
+        };
+
+        // Funções Principais
+        function toggleForms() {
+            if (DOM.loginForm.style.display !== 'none') {
+                DOM.loginForm.style.display = 'none';
+                DOM.registerForm.style.display = 'flex';
+                DOM.switchText.textContent = 'Já tem acesso?';
+                DOM.switchLink.textContent = 'Fazer login';
+            } else {
+                DOM.registerForm.style.display = 'none';
+                DOM.loginForm.style.display = 'flex';
+                DOM.switchText.textContent = 'Não tem acesso?';
+                DOM.switchLink.textContent = 'Solicitar credencial';
+            }
+            DOM.authError.style.display = 'none';
+            AudioSystem.play('click');
+        }
+
+        function showError(message) {
+            DOM.authError.textContent = message;
+            DOM.authError.style.display = 'block';
+            const currentForm = DOM.loginForm.style.display !== 'none' ? DOM.loginForm : DOM.registerForm;
+            currentForm.style.animation = 'none';
+            setTimeout(() => {
+                currentForm.style.animation = 'shake 0.5s';
+                setTimeout(() => currentForm.style.animation = '', 500);
+            }, 10);
+        }
+
+        function showHUD() {
+            DOM.authScreen.style.display = 'none';
+            DOM.hudFrame.style.display = 'block';
+            DOM.userIndicator.style.display = 'block';
+            DOM.userName.textContent = AUTH_CONFIG.currentUser.toUpperCase();
+
+            const pieces = document.querySelectorAll('.piece-container');
+            pieces.forEach((piece, index) => {
+                piece.style.opacity = '0';
+                piece.style.transform = 'translateY(-20px)';
+
+                setTimeout(() => {
+                    piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    piece.style.opacity = '1';
+                    piece.style.transform = 'translateY(0)';
                     
-                    // Garantir que o modal está visível
                     setTimeout(() => {
-                        modal.style.display = 'flex';
-                    }, 10);
-                }
-            }
-
-            // Fechar modal
-            function closeModal() {
-                const modal = document.getElementById('modalOverlay');
-                modal.style.display = 'none';
-            }
-
-            // Fechar modal com ESC ou clicando fora
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
+                        const svgPath = piece.querySelector('.piece-svg path');
+                        if (svgPath) svgPath.style.animation = 'borderMove 25s linear infinite';
+                    }, 300);
+                }, index * 100);
             });
-
-            document.getElementById('modalOverlay').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('modalOverlay')) {
-                    closeModal();
-                }
-            });
-
-            // Prevenir zoom em formulários no iOS
-            document.addEventListener('touchstart', function(event) {
-                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                    event.target.style.fontSize = '16px';
-                }
-            });
-
-            // Melhorar toques em dispositivos móveis
-            document.addEventListener('touchstart', function() {}, {passive: true});
             
-            // Ajustar altura inicialmente
-            window.addEventListener('load', function() {
-                if (currentUser) {
-                    setTimeout(adjustSidePiecesHeight, 100);
+            adjustSidePiecesHeight();
+            window.addEventListener('resize', adjustSidePiecesHeight);
+        }
+
+        function adjustSidePiecesHeight() {
+            const topLeft = document.querySelector('.top-left');
+            const bottomLeft = document.querySelector('.bottom-left');
+            const topRight = document.querySelector('.top-right');
+            const bottomRight = document.querySelector('.bottom-right');
+            
+            if (topLeft && bottomLeft) {
+                const topHeight = topLeft.offsetHeight;
+                const bottomHeight = bottomLeft.offsetHeight;
+                const totalHeight = window.innerHeight;
+                
+                const midLeft = document.querySelector('.mid-left');
+                const midRight = document.querySelector('.mid-right');
+                
+                if (midLeft && midRight) {
+                    const newHeight = totalHeight - topHeight - bottomHeight;
+                    midLeft.style.height = `${newHeight}px`;
+                    midRight.style.height = `${newHeight}px`;
                 }
+            }
+        }
+
+        function logout() {
+            AudioSystem.play('logout');
+            
+            const pieces = document.querySelectorAll('.piece-container');
+            pieces.forEach((piece, index) => {
+                setTimeout(() => {
+                    piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    piece.style.opacity = '0';
+                    piece.style.transform = 'translateY(20px)';
+                }, index * 50);
             });
-        </script>
 
+            setTimeout(() => {
+                AUTH_CONFIG.currentUser = null;
+                localStorage.removeItem('wayne_current_user');
+                DOM.hudFrame.style.display = 'none';
+                DOM.userIndicator.style.display = 'none';
+                DOM.authScreen.style.display = 'flex';
+                DOM.loginForm.style.display = 'flex';
+                DOM.registerForm.style.display = 'none';
+                DOM.switchText.textContent = 'Não tem acesso?';
+                DOM.switchLink.textContent = 'Solicitar credencial';
+                DOM.authError.style.display = 'none';
+
+                ['loginUser', 'loginPass', 'regUser', 'regPass', 'regConfirm'].forEach(id => {
+                    document.getElementById(id).value = '';
+                });
+                
+                window.removeEventListener('resize', adjustSidePiecesHeight);
+            }, 300);
+        }
+
+        // Event Listeners
+        DOM.loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUser').value;
+            const password = document.getElementById('loginPass').value;
+
+            const user = AUTH_CONFIG.users.find(u =>
+                u.username === username && u.password === password
+            );
+
+            if (user) {
+                AUTH_CONFIG.currentUser = username;
+                localStorage.setItem('wayne_current_user', username);
+                showHUD();
+                AudioSystem.play('success');
+            } else {
+                showError('Credenciais inválidas');
+                AudioSystem.play('error');
+            }
+        });
+
+        DOM.registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('regUser').value;
+            const password = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
+
+            if (username.length < 3) {
+                showError('Usuário deve ter pelo menos 3 caracteres');
+                return;
+            }
+
+            if (password.length < 4) {
+                showError('Senha deve ter pelo menos 4 caracteres');
+                return;
+            }
+
+            if (password !== confirm) {
+                showError('Senhas não coincidem');
+                return;
+            }
+
+            if (AUTH_CONFIG.users.find(u => u.username === username)) {
+                showError('Usuário já existe');
+                return;
+            }
+
+            AUTH_CONFIG.users.push({ username, password });
+            localStorage.setItem('wayne_users', JSON.stringify(AUTH_CONFIG.users));
+
+            AUTH_CONFIG.currentUser = username;
+            localStorage.setItem('wayne_current_user', username);
+
+            showHUD();
+            AudioSystem.play('success');
+        });
+
+        // Event Listeners Globais
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') ModalSystem.close();
+        });
+
+        DOM.modalOverlay.addEventListener('click', (e) => {
+            if (e.target === DOM.modalOverlay) ModalSystem.close();
+        });
+
+        document.addEventListener('touchstart', function(event) {
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                event.target.style.fontSize = '16px';
+            }
+        });
+
+        // Inicialização
+        if (AUTH_CONFIG.currentUser) showHUD();
+        window.addEventListener('load', function() {
+            if (AUTH_CONFIG.currentUser) setTimeout(adjustSidePiecesHeight, 100);
+        });
+
+        // Funções Globais para onclick
+        window.toggleForms = toggleForms;
+        window.openModal = (type) => ModalSystem.open(type);
+        window.closeModal = () => ModalSystem.close();
+        window.logout = logout;
+    </script>
 </body>
-
 </html>
