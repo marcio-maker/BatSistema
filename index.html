@@ -58,7 +58,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10;
+            z-index: 100;
             backdrop-filter: blur(5px);
             padding: 20px;
         }
@@ -313,7 +313,7 @@
             width: 100vw;
             height: 100vh;
             display: none;
-            z-index: 5;
+            z-index: 2;
             overflow: hidden;
         }
 
@@ -322,6 +322,7 @@
             position: absolute;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3; /* Adicionado para garantir que fiquem acima da hint */
         }
 
         /* Efeito de hover nas peças */
@@ -341,6 +342,49 @@
             transition: all 0.3s ease;
         }
 
+        /* EFEITO DE BORDA ANIMADO - NOVO */
+        .piece-svg path {
+            stroke-dasharray: 8, 4;
+            stroke-dashoffset: 0;
+            animation: borderMove 25s linear infinite;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.8;
+        }
+
+        /* Efeito de ativação nas bordas ao passar o mouse */
+        .piece-container:hover .piece-svg path {
+            stroke-dasharray: 12, 6;
+            animation-duration: 10s;
+            stroke: #fff;
+            stroke-width: 2.5;
+            opacity: 1;
+        }
+
+        /* Keyframes para animação das bordas */
+        @keyframes borderMove {
+            0% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: 300;
+            }
+        }
+
+        /* Efeito de pulsação sutil quando não está em hover */
+        .piece-container:not(:hover) .piece-svg {
+            animation: subtleGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(0, 217, 255, 0.25));
+            }
+        }
+
         /* Intensifica a sombra no hover */
         .piece-container:hover .piece-svg {
             filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.6));
@@ -349,7 +393,7 @@
         /* Altera a borda no hover */
         .piece-container:hover .piece-svg path {
             stroke: #fff;
-            stroke-width: 3;
+            stroke-width: 2.5;
         }
 
         /* Fundo semi-transparente dentro de cada peça */
@@ -445,6 +489,7 @@
             width: 30%;
             height: 80px;
             clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
+            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* Inferior central - Trapézio invertido simétrico */
@@ -454,6 +499,7 @@
             width: 40%;
             height: 50px;
             clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* Inferior direito - Trapézio invertido inclinado */
@@ -463,6 +509,7 @@
             width: 30%;
             height: 80px;
             clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+            z-index: 3; /* Adicionado para garantir visibilidade */
         }
 
         /* POSICIONAMENTO DOS TEXTOS DENTRO DAS PEÇAS */
@@ -555,7 +602,7 @@
             transform: translate(-50%, -50%);
             color: #0af;
             text-align: center;
-            z-index: 1;
+            z-index: 1; /* Reduzido para ficar atrás das peças */
             pointer-events: none;
             letter-spacing: 1px;
             font-size: 16px;
@@ -580,7 +627,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 100;
+            z-index: 200;
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(5px);
@@ -804,6 +851,15 @@
             .bottom-center {
                 height: 60px;
             }
+            
+            /* Ajustes de animação para desktop grande */
+            .piece-svg path {
+                stroke-dasharray: 10, 5;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 15, 8;
+            }
         }
 
         /* TABLET LANDSCAPE (1024px - 1199px) */
@@ -872,6 +928,21 @@
             
             .modal-title {
                 font-size: 16px;
+            }
+            
+            /* Ajustes de animação para tablet */
+            .piece-svg path {
+                stroke-dasharray: 6, 4;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 9, 6;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 250;
+                }
             }
         }
 
@@ -973,6 +1044,21 @@
             
             .modal-body {
                 font-size: 13px;
+            }
+            
+            /* Ajustes de animação para tablet portrait */
+            .piece-svg path {
+                stroke-dasharray: 5, 3;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 7, 5;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 200;
+                }
             }
         }
 
@@ -1109,6 +1195,21 @@
             .modal-data-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
+            }
+            
+            /* Ajustes de animação para smartphone grande */
+            .piece-svg path {
+                stroke-dasharray: 4, 3;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 6, 4;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 150;
+                }
             }
         }
 
@@ -1249,6 +1350,21 @@
             
             .data-value {
                 font-size: 14px;
+            }
+            
+            /* Ajustes de animação para smartphone médio */
+            .piece-svg path {
+                stroke-dasharray: 3, 2;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 5, 3;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 120;
+                }
             }
         }
 
@@ -1405,6 +1521,21 @@
             .data-value {
                 font-size: 12px;
             }
+            
+            /* Ajustes de animação para smartphone pequeno */
+            .piece-svg path {
+                stroke-dasharray: 2, 2;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 4, 3;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 100;
+                }
+            }
         }
 
         /* ORIENTAÇÃO PAISAGEM PARA SMARTPHONES (altura reduzida) */
@@ -1483,6 +1614,21 @@
                 width: 100px !important;
                 margin-bottom: 8px !important;
             }
+            
+            /* Ajustes de animação para landscape */
+            .piece-svg path {
+                stroke-dasharray: 4, 3;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 6, 4;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 180;
+                }
+            }
         }
 
         /* ORIENTAÇÃO PAISAGEM PARA TABLETS */
@@ -1514,6 +1660,15 @@
             
             .hint span {
                 font-size: 9px;
+            }
+            
+            /* Ajustes de animação para tablet landscape */
+            .piece-svg path {
+                stroke-dasharray: 6, 4;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 9, 6;
             }
         }
 
@@ -1563,6 +1718,21 @@
                 width: 200px !important;
                 margin-bottom: 25px !important;
             }
+            
+            /* Ajustes de animação para telas altas */
+            .piece-svg path {
+                stroke-dasharray: 12, 6;
+            }
+            
+            .piece-container:hover .piece-svg path {
+                stroke-dasharray: 18, 10;
+            }
+            
+            @keyframes borderMove {
+                100% {
+                    stroke-dashoffset: 400;
+                }
+            }
         }
 
         /* PREVENIR ZOOM EM INPUTS NO iOS */
@@ -1609,6 +1779,17 @@
             
             .modal-close:active {
                 background: rgba(0, 217, 255, 0.3);
+            }
+            
+            /* Ajuste de animação para touch */
+            .piece-svg path {
+                stroke-dasharray: 4, 3;
+                animation: borderMove 30s linear infinite;
+            }
+            
+            .piece-container:active .piece-svg path {
+                stroke-dasharray: 8, 5;
+                animation-duration: 15s;
             }
         }
     </style>
@@ -1908,6 +2089,14 @@
                         piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                         piece.style.opacity = '1';
                         piece.style.transform = 'translateY(0)';
+                        
+                        // Ativar animação das bordas após entrada
+                        setTimeout(() => {
+                            const svgPath = piece.querySelector('.piece-svg path');
+                            if (svgPath) {
+                                svgPath.style.animation = 'borderMove 25s linear infinite';
+                            }
+                        }, 300);
                     }, index * 100);
                 });
                 
