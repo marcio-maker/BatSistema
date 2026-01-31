@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAYNE ENTERPRISES - BAT-HUD SYSTEM</title>
+    <title>WAYNE ENTERPRISES - BAT-HUD SYSTEM v2.0</title>
     <style>
-        /* Configuração geral da página */
+        /* =========================================== */
+        /* CONFIGURAÇÕES GERAIS */
+        /* =========================================== */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +26,9 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Efeito de chuva Gotham */
+        /* =========================================== */
+        /* EFEITO DE CHUVA GOTHAM */
+        /* =========================================== */
         .rain-overlay {
             position: fixed;
             top: 0;
@@ -39,16 +43,137 @@
         }
 
         @keyframes rain {
-            0% {
-                background-position: 0 0;
-            }
+            0% { background-position: 0 0; }
+            100% { background-position: 0 20px; }
+        }
 
+        /* =========================================== */
+        /* SISTEMA DE ALERTA DE EMERGÊNCIA */
+        /* =========================================== */
+        .emergency-alert {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.95);
+            z-index: 9999;
+            animation: emergencyPulse 0.5s infinite alternate;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .emergency-content {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            border: 5px solid #fff;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+            max-width: 600px;
+            animation: shake 0.5s infinite;
+        }
+
+        .emergency-title {
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px #ff0000;
+            font-weight: bold;
+        }
+
+        .emergency-subtitle {
+            font-size: 24px;
+            color: #ff4444;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .emergency-message {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .emergency-countdown {
+            font-size: 36px;
+            color: #ff0000;
+            margin: 20px 0;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        /* =========================================== */
+        /* WIDGET DO TIMER */
+        /* =========================================== */
+        .alert-timer {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: #fff;
+            z-index: 100;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            font-family: 'Courier New', monospace;
+        }
+
+        .alert-label {
+            font-size: 12px;
+            color: #ff8888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-value {
+            font-size: 16px;
+            color: #ff0000;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-skip {
+            background: rgba(255, 0, 0, 0.5);
+            border: 1px solid #ff0000;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .timer-skip:hover {
+            background: rgba(255, 0, 0, 0.8);
+        }
+
+        @keyframes emergencyPulse {
+            0% {
+                background: rgba(255, 0, 0, 0.95);
+                box-shadow: 0 0 100px rgba(255, 0, 0, 0.8) inset;
+            }
             100% {
-                background-position: 0 20px;
+                background: rgba(255, 50, 50, 0.95);
+                box-shadow: 0 0 150px rgba(255, 0, 0, 1) inset;
             }
         }
 
-        /* Tela de Login/Cadastro */
+        /* =========================================== */
+        /* SISTEMA DE AUTENTICAÇÃO */
+        /* =========================================== */
         .auth-screen {
             position: fixed;
             top: 0;
@@ -63,7 +188,6 @@
             padding: 20px;
         }
 
-        /* Container principal do login */
         .auth-frame {
             background: rgba(10, 20, 40, 0.95);
             border: 2px solid rgba(0, 217, 255, 0.2);
@@ -76,18 +200,10 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Bordas luminosas do login */
         .auth-frame::before,
         .auth-frame::after {
             content: '';
@@ -111,7 +227,6 @@
             border-top: none;
         }
 
-        /* Logo Batman */
         .bat-logo {
             text-align: center;
             margin-bottom: 30px;
@@ -147,18 +262,10 @@
         }
 
         @keyframes batPulse {
-
-            0%,
-            100% {
-                opacity: 0.3;
-            }
-
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
-        /* Formulários */
         .auth-form {
             display: flex;
             flex-direction: column;
@@ -203,7 +310,6 @@
             color: #00d9ff;
         }
 
-        /* Botão de Ação */
         .auth-button {
             background: transparent;
             border: 1px solid #00d9ff;
@@ -239,7 +345,6 @@
             left: 100%;
         }
 
-        /* Switch entre login/register */
         .auth-switch {
             text-align: center;
             margin-top: 20px;
@@ -260,7 +365,6 @@
             text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
         }
 
-        /* Mensagem de erro */
         .auth-error {
             background: rgba(255, 50, 50, 0.1);
             border-left: 3px solid #ff5555;
@@ -272,7 +376,9 @@
             animation: shake 0.5s;
         }
 
-        /* Indicador de usuário */
+        /* =========================================== */
+        /* INDICADOR DE USUÁRIO */
+        /* =========================================== */
         .user-indicator {
             position: fixed;
             top: 10px;
@@ -307,7 +413,9 @@
             color: #ff5555;
         }
 
-        /* Container principal que ocupa toda a tela */
+        /* =========================================== */
+        /* INTERFACE HUD PRINCIPAL */
+        /* =========================================== */
         .hud-frame {
             position: relative;
             width: 100vw;
@@ -317,20 +425,17 @@
             overflow: hidden;
         }
 
-        /* Container para cada peça da interface HUD */
         .piece-container {
             position: absolute;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Efeito de hover nas peças */
         .piece-container:hover {
             transform: scale(1.02);
             z-index: 10;
         }
 
-        /* SVG que define as bordas das peças */
         .piece-svg {
             position: absolute;
             top: 0;
@@ -341,18 +446,15 @@
             transition: all 0.3s ease;
         }
 
-        /* Intensifica a sombra no hover */
         .piece-container:hover .piece-svg {
             filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.6));
         }
 
-        /* Altera a borda no hover */
         .piece-container:hover .piece-svg path {
             stroke: #fff;
             stroke-width: 3;
         }
 
-        /* Fundo semi-transparente dentro de cada peça */
         .piece-bg {
             position: absolute;
             top: 0;
@@ -364,12 +466,10 @@
             transition: all 0.3s ease;
         }
 
-        /* Intensifica a cor do fundo no hover */
         .piece-container:hover .piece-bg {
             background: rgba(0, 217, 255, 0.3);
         }
 
-        /* Estilo para os textos dentro das peças */
         .piece-text {
             position: absolute;
             color: rgba(0, 217, 255, 0.9);
@@ -385,15 +485,12 @@
             overflow-wrap: break-word;
         }
 
-        /* Texto mais brilhante no hover */
         .piece-container:hover .piece-text {
             color: #fff;
             text-shadow: 0 0 15px #00d9ff;
         }
 
-        /* POSICIONAMENTO E FORMATO DAS PEÇAS - ADAPTADO PARA RESPONSIVO */
-
-        /* Superior esquerdo - Trapézio inclinado à direita */
+        /* POSICIONAMENTO DAS PEÇAS */
         .top-left {
             top: 0;
             left: 0;
@@ -402,7 +499,6 @@
             clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
         }
 
-        /* Superior central - Trapézio simétrico */
         .top-center {
             top: 0;
             left: 30%;
@@ -411,7 +507,6 @@
             clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
         }
 
-        /* Superior direito - Trapézio inclinado à esquerda */
         .top-right {
             top: 0;
             right: 0;
@@ -420,7 +515,6 @@
             clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
         }
 
-        /* Lateral esquerda - Formato assimétrico vertical */
         .mid-left {
             top: 80px;
             left: 0;
@@ -429,7 +523,6 @@
             clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
         }
 
-        /* Lateral direita - Formato espelhado do mid-left */
         .mid-right {
             top: 80px;
             right: 0;
@@ -438,7 +531,6 @@
             clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 90%);
         }
 
-        /* Inferior esquerdo - Trapézio invertido */
         .bottom-left {
             bottom: 0;
             left: 0;
@@ -447,7 +539,6 @@
             clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
         }
 
-        /* Inferior central - Trapézio invertido simétrico */
         .bottom-center {
             bottom: 0;
             left: 30%;
@@ -456,7 +547,6 @@
             clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
         }
 
-        /* Inferior direito - Trapézio invertido inclinado */
         .bottom-right {
             bottom: 0;
             right: 0;
@@ -465,9 +555,7 @@
             clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
         }
 
-        /* POSICIONAMENTO DOS TEXTOS DENTRO DAS PEÇAS */
-
-        /* Texto no topo esquerdo - Centralizado horizontalmente */
+        /* POSICIONAMENTO DOS TEXTOS */
         .top-left .piece-text {
             top: 12px;
             left: 50%;
@@ -477,7 +565,6 @@
             line-height: 1.1;
         }
 
-        /* Texto no topo central - Centralizado completamente */
         .top-center .piece-text {
             top: 50%;
             left: 50%;
@@ -487,7 +574,6 @@
             line-height: 1.1;
         }
 
-        /* Texto no topo direito - Alinhado à direita */
         .top-right .piece-text {
             top: 12px;
             right: 50%;
@@ -497,7 +583,6 @@
             line-height: 1.1;
         }
 
-        /* Texto na lateral esquerda - Rotacionado 90° */
         .mid-left .piece-text {
             top: 50%;
             left: 50%;
@@ -507,7 +592,6 @@
             max-width: 200px;
         }
 
-        /* Texto na lateral direita - Rotacionado -90° */
         .mid-right .piece-text {
             top: 50%;
             left: 50%;
@@ -517,7 +601,6 @@
             max-width: 200px;
         }
 
-        /* Texto no inferior esquerdo */
         .bottom-left .piece-text {
             bottom: 12px;
             left: 50%;
@@ -527,7 +610,6 @@
             line-height: 1.1;
         }
 
-        /* Texto no inferior central */
         .bottom-center .piece-text {
             bottom: 12px;
             left: 50%;
@@ -537,7 +619,6 @@
             line-height: 1.1;
         }
 
-        /* Texto no inferior direito */
         .bottom-right .piece-text {
             bottom: 12px;
             right: 50%;
@@ -547,7 +628,7 @@
             line-height: 1.1;
         }
 
-        /* Mensagem central de sistema ativo */
+        /* MENSAGEM CENTRAL */
         .hint {
             position: absolute;
             top: 50%;
@@ -563,7 +644,6 @@
             max-width: 400px;
         }
 
-        /* Subtítulo da mensagem central */
         .hint span {
             font-size: 11px;
             opacity: 0.7;
@@ -571,7 +651,9 @@
             margin-top: 5px;
         }
 
-        /* ESTILOS DO MODAL */
+        /* =========================================== */
+        /* SISTEMA DE MODAIS */
+        /* =========================================== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -592,7 +674,7 @@
             border: 2px solid #00d9ff;
             border-radius: 6px;
             width: 100%;
-            max-width: 500px;
+            max-width: 700px;
             padding: 25px 20px;
             position: relative;
             box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
@@ -603,15 +685,8 @@
         }
 
         @keyframes modalAppear {
-            from {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .modal-header {
@@ -659,6 +734,15 @@
             line-height: 1.5;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.9);
+        }
+
+        .modal-section-title {
+            color: #00d9ff;
+            font-size: 14px;
+            border-left: 3px solid #00d9ff;
+            padding-left: 10px;
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
         }
 
         .modal-status {
@@ -724,377 +808,923 @@
             margin-top: 5px;
         }
 
-        /* Animações */
+        /* =========================================== */
+        /* SISTEMA DE VILÕES - COMPLETO */
+        /* =========================================== */
+        .villain-tracking-system {
+            padding: 10px;
+        }
+
+        .villain-search-container {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .villain-search {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00d9ff;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .filter-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+        }
+
+        .villain-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 15px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #00d9ff;
+        }
+
+        .villain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .villain-card {
+            background: rgba(0, 40, 60, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .villain-card:hover {
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .villain-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #00d9ff;
+            object-fit: cover;
+            margin-bottom: 10px;
+            background: #000;
+            filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5));
+        }
+
+        .villain-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .villain-status {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            display: inline-block;
+        }
+
+        .status-encarcerado {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .status-foragido {
+            background: rgba(255, 0, 64, 0.2);
+            color: #ff0040;
+            border: 1px solid #ff0040;
+        }
+
+        .status-ativo {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            border: 1px solid #ffaa00;
+        }
+
+        .status-planejando {
+            background: rgba(187, 134, 252, 0.2);
+            color: #bb86fc;
+            border: 1px solid #bb86fc;
+        }
+
+        .status-negocios {
+            background: rgba(3, 218, 197, 0.2);
+            color: #03dac5;
+            border: 1px solid #03dac5;
+        }
+
+        .villain-location {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+
+        .villain-threat {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff0000;
+        }
+
+        .villain-export {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+
+        .export-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .export-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+        }
+
+        /* MODAL DETALHADO DO VILÃO */
+        .villain-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 5, 10, 0.95);
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .villain-detail-content {
+            background: rgba(10, 20, 40, 0.95);
+            border: 2px solid #00d9ff;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .villain-detail-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #00d9ff;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+
+        .villain-detail-info h3 {
+            margin-top: 0;
+            color: #00d9ff;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .detail-threat {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 0, 64, 0.2);
+            color: #ff0040;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .detail-desc {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #00d9ff;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .close-detail-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #00d9ff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-detail-btn:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        /* =========================================== */
+        /* SISTEMA DE ARSENAL - COMPLETO */
+        /* =========================================== */
+        .equipment-tracking-system {
+            padding: 10px;
+        }
+
+        .equipment-search {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00d9ff;
+            color: #fff;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .equipment-card {
+            background: rgba(0, 40, 60, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .equipment-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5));
+        }
+
+        .equipment-name {
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .equipment-value {
+            font-size: 16px;
+            color: #00d9ff;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(0, 217, 255, 0.5);
+        }
+
+        .equipment-status {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-ok {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .status-warn {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            border: 1px solid #ffaa00;
+        }
+
+        .status-alert {
+            background: rgba(255, 0, 64, 0.2);
+            color: #ff0040;
+            border: 1px solid #ff0040;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-ok { background: #00ff88; }
+        .progress-warn { background: #ffaa00; }
+        .progress-alert { background: #ff0040; }
+
+        .equipment-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 5, 10, 0.95);
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .equipment-detail-content {
+            background: rgba(10, 20, 40, 0.95);
+            border: 2px solid #00d9ff;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+        }
+
+        .equipment-detail-icon {
+            font-size: 100px;
+            text-align: center;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5));
+        }
+
+        .tactical-combos {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 20, 40, 0.5);
+            border-radius: 4px;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .combo-item {
+            margin: 8px 0;
+            padding: 5px;
+            border-left: 2px solid #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .diagnostic-panel {
+            background: rgba(0, 20, 40, 0.8);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .diagnostic-output {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #00ff88;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+
+        /* =========================================== */
+        /* MAPA DE GOTHAM - COMPLETO */
+        /* =========================================== */
+        .hologram-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 10, 20, 0.9), rgba(0, 20, 40, 0.9));
+            border: 1px solid #00d9ff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .hologram-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .city-districts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .district {
+            position: relative;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .district:hover {
+            border-color: #00d9ff;
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .data-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .industrial-zone {
+            grid-column: 1 / 2;
+            grid-row: 2 / 4;
+            background: rgba(255, 0, 64, 0.1);
+        }
+
+        .city-center {
+            grid-column: 2 / 3;
+            grid-row: 1 / 3;
+            background: rgba(255, 170, 0, 0.1);
+        }
+
+        .suburbs {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .port-area {
+            grid-column: 2 / 3;
+            grid-row: 3 / 4;
+            background: rgba(255, 119, 0, 0.1);
+        }
+
+        .arkham {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+            background: rgba(187, 134, 252, 0.1);
+        }
+
+        .wayne-tower {
+            grid-column: 3 / 4;
+            grid-row: 2 / 4;
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .district-detail {
+            background: rgba(0, 20, 40, 0.8);
+            border: 1px solid #00d9ff;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .district-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .district-alert {
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .alert-red { background: rgba(255, 0, 64, 0.2); color: #ff0040; border: 1px solid #ff0040; }
+        .alert-yellow { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
+        .alert-green { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid #00ff88; }
+        .alert-orange { background: rgba(255, 119, 0, 0.2); color: #ff7700; border: 1px solid #ff7700; }
+        .alert-purple { background: rgba(187, 134, 252, 0.2); color: #bb86fc; border: 1px solid #bb86fc; }
+
+        .map-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .map-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+        }
+
+        .incident-timeline {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+        }
+
+        .timeline-time {
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .timeline-event {
+            color: #fff;
+        }
+
+        .timeline-alert {
+            color: #ff0040;
+            font-weight: bold;
+        }
+
+        /* =========================================== */
+        /* SISTEMA DO BATMÓVEL - COMPLETO */
+        /* =========================================== */
+        .vehicle-control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .vehicle-status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .status-item {
+            background: rgba(0, 217, 255, 0.05);
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            text-align: center;
+        }
+
+        .status-label {
+            color: #00d9ff;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .vehicle-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .navigation-map {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00d9ff;
+            border-radius: 4px;
+            padding: 15px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .route-input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00d9ff;
+            color: #fff;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .route-btn {
+            background: rgba(0, 217, 255, 0.2);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .route-btn:hover {
+            background: rgba(0, 217, 255, 0.3);
+        }
+
+        .system-log {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00d9ff;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .log-content {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: #00ff88;
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            max-height: 100px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        /* =========================================== */
+        /* ANIMAÇÕES */
+        /* =========================================== */
         @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            10%,
-            30%,
-            50%,
-            70%,
-            90% {
-                transform: translateX(-5px);
-            }
-
-            20%,
-            40%,
-            60%,
-            80% {
-                transform: translateX(5px);
-            }
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        /* =========================== */
-        /* RESPONSIVIDADE PARA TELAS MENORES */
-        /* =========================== */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
-        /* Tablets (até 768px) */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================================== */
+        /* RESPONSIVIDADE */
+        /* =========================================== */
         @media (max-width: 768px) {
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                width: 35%;
-            }
-            
-            .top-center,
-            .bottom-center {
-                width: 30%;
-                left: 35%;
-            }
-            
-            .mid-left,
-            .mid-right {
-                width: 30px;
-            }
-            
-            .piece-text {
-                font-size: 8px !important;
-            }
-            
-            .top-center .piece-text,
-            .bottom-center .piece-text {
-                font-size: 9px !important;
-            }
-            
-            .hint {
-                font-size: 14px;
-            }
-            
-            .hint span {
-                font-size: 10px;
-            }
-            
-            .user-indicator {
-                font-size: 10px;
-                padding: 6px 12px;
-                max-width: 150px;
-            }
-            
-            .logout-btn {
-                font-size: 8px;
-            }
+            .top-left, .top-right, .bottom-left, .bottom-right { width: 35%; }
+            .top-center, .bottom-center { width: 30%; left: 35%; }
+            .mid-left, .mid-right { width: 30px; }
+            .piece-text { font-size: 8px !important; }
+            .top-center .piece-text, .bottom-center .piece-text { font-size: 9px !important; }
+            .hint { font-size: 14px; }
+            .hint span { font-size: 10px; }
+            .user-indicator { font-size: 10px; padding: 6px 12px; max-width: 150px; }
+            .logout-btn { font-size: 8px; }
+            .emergency-content { padding: 30px; max-width: 90%; }
+            .emergency-title { font-size: 32px; }
+            .emergency-subtitle { font-size: 18px; }
+            .emergency-message { font-size: 16px; }
+            .villain-grid { grid-template-columns: repeat(2, 1fr); }
+            .equipment-grid { grid-template-columns: repeat(3, 1fr); }
+            .vehicle-controls { grid-template-columns: 1fr; }
         }
 
-        /* Smartphones grandes (até 480px) */
         @media (max-width: 480px) {
-            .auth-frame {
-                padding: 25px 15px;
-            }
-            
-            .bat-logo h1 {
-                font-size: 10px;
-                letter-spacing: 1px;
-            }
-            
-            .bat-symbol {
-                width: 50px;
-                height: 25px;
-            }
-            
-            .bat-symbol::before {
-                font-size: 25px;
-            }
-            
-            .form-input {
-                font-size: 14px;
-                padding: 10px 0;
-            }
-            
-            .form-label {
-                font-size: 12px;
-                top: 10px;
-            }
-            
-            .auth-button {
-                padding: 10px;
-                font-size: 12px;
-            }
-            
-            .auth-switch {
-                font-size: 11px;
-            }
-            
-            /* Ajuste das peças HUD para mobile */
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                width: 40%;
-                height: 60px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                width: 20%;
-                left: 40%;
-                height: 35px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                width: 25px;
-                top: 60px;
-                height: calc(100% - 120px);
-            }
-            
-            .piece-text {
-                font-size: 7px !important;
-                line-height: 1 !important;
-            }
-            
-            .mid-left .piece-text,
-            .mid-right .piece-text {
-                font-size: 6px !important;
-                white-space: normal;
-                max-width: 100px;
-            }
-            
-            /* Remover rotação do texto nas laterais em mobile muito pequeno */
-            @media (max-width: 360px) {
-                .mid-left .piece-text,
-                .mid-right .piece-text {
-                    transform: translate(-50%, -50%) rotate(0deg) !important;
-                    white-space: normal;
-                    text-align: center;
-                    width: 80%;
-                }
-            }
-            
-            .hint {
-                font-size: 12px;
-            }
-            
-            .hint span {
-                font-size: 9px;
-            }
-            
-            .hint img {
-                width: 120px !important;
-                margin-bottom: 10px !important;
-            }
-            
-            .modal-content {
-                padding: 20px 15px;
-            }
-            
-            .modal-title {
-                font-size: 16px;
-            }
-            
-            .modal-body {
-                font-size: 13px;
-            }
-            
-            .modal-data-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            
-            .user-indicator {
-                font-size: 9px;
-                padding: 5px 10px;
-                max-width: 120px;
-                top: 5px;
-                right: 5px;
-            }
-            
-            .logout-btn {
-                font-size: 7px;
-                margin-left: 5px;
-            }
+            .auth-frame { padding: 25px 15px; }
+            .bat-logo h1 { font-size: 10px; letter-spacing: 1px; }
+            .bat-symbol { width: 50px; height: 25px; }
+            .bat-symbol::before { font-size: 25px; }
+            .form-input { font-size: 14px; padding: 10px 0; }
+            .form-label { font-size: 12px; top: 10px; }
+            .auth-button { padding: 10px; font-size: 12px; }
+            .auth-switch { font-size: 11px; }
+            .top-left, .top-right, .bottom-left, .bottom-right { width: 40%; height: 60px; }
+            .top-center, .bottom-center { width: 20%; left: 40%; height: 35px; }
+            .mid-left, .mid-right { width: 25px; top: 60px; height: calc(100% - 120px); }
+            .piece-text { font-size: 7px !important; line-height: 1 !important; }
+            .mid-left .piece-text, .mid-right .piece-text { font-size: 6px !important; }
+            .hint { font-size: 12px; }
+            .hint span { font-size: 9px; }
+            .modal-content { padding: 20px 15px; }
+            .modal-title { font-size: 16px; }
+            .modal-body { font-size: 13px; }
+            .modal-data-grid { grid-template-columns: 1fr; }
+            .user-indicator { font-size: 9px; padding: 5px 10px; max-width: 120px; }
+            .logout-btn { font-size: 7px; }
+            .emergency-content { padding: 20px; border-width: 3px; }
+            .emergency-title { font-size: 24px; letter-spacing: 2px; }
+            .emergency-subtitle { font-size: 14px; }
+            .emergency-message { font-size: 14px; }
+            .emergency-countdown { font-size: 28px; }
+            .alert-timer { bottom: 10px; right: 10px; padding: 8px 12px; font-size: 10px; }
+            .villain-grid { grid-template-columns: 1fr; }
+            .equipment-grid { grid-template-columns: repeat(2, 1fr); }
+            .city-districts { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* Smartphones muito pequenos (até 320px) */
         @media (max-width: 320px) {
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                height: 50px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                height: 30px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                top: 50px;
-                height: calc(100% - 100px);
-                width: 20px;
-            }
-            
-            .piece-text {
-                font-size: 6px !important;
-            }
-            
-            .auth-frame {
-                padding: 20px 12px;
-            }
-            
-            .bat-logo h1 {
-                font-size: 9px;
-            }
-            
-            .bat-symbol {
-                width: 40px;
-                height: 20px;
-            }
-            
-            .bat-symbol::before {
-                font-size: 20px;
-            }
-            
-            .form-input {
-                font-size: 13px;
-            }
-            
-            .form-label {
-                font-size: 11px;
-            }
-            
-            .hint {
-                font-size: 11px;
-            }
-            
-            .hint span {
-                font-size: 8px;
-            }
-            
-            .hint img {
-                width: 100px !important;
-            }
+            .top-left, .top-right, .bottom-left, .bottom-right { height: 50px; }
+            .top-center, .bottom-center { height: 30px; }
+            .mid-left, .mid-right { top: 50px; height: calc(100% - 100px); width: 20px; }
+            .piece-text { font-size: 6px !important; }
+            .auth-frame { padding: 20px 12px; }
+            .bat-logo h1 { font-size: 9px; }
+            .bat-symbol { width: 40px; height: 20px; }
+            .bat-symbol::before { font-size: 20px; }
+            .form-input { font-size: 13px; }
+            .form-label { font-size: 11px; }
+            .hint { font-size: 11px; }
+            .hint span { font-size: 8px; }
+            .equipment-grid { grid-template-columns: 1fr; }
         }
 
-        /* Orientação paisagem para smartphones */
         @media (max-height: 500px) and (orientation: landscape) {
-            .auth-screen {
-                align-items: flex-start;
-                padding-top: 20px;
-                overflow-y: auto;
-            }
-            
-            .auth-frame {
-                margin-top: 20px;
-                margin-bottom: 20px;
-                max-width: 350px;
-            }
-            
-            .bat-logo {
-                margin-bottom: 20px;
-            }
-            
-            .bat-logo h1 {
-                margin-bottom: 10px;
-            }
-            
-            .auth-form {
-                gap: 15px;
-            }
-            
-            /* Ajuste HUD para landscape */
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                height: 60px;
-            }
-            
-            .top-center,
-            .bottom-center {
-                height: 30px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                top: 60px;
-                height: calc(100% - 120px);
-            }
-            
-            .piece-text {
-                font-size: 8px !important;
-            }
+            .auth-screen { align-items: flex-start; padding-top: 20px; overflow-y: auto; }
+            .auth-frame { margin-top: 20px; margin-bottom: 20px; max-width: 350px; }
+            .bat-logo { margin-bottom: 20px; }
+            .bat-logo h1 { margin-bottom: 10px; }
+            .auth-form { gap: 15px; }
+            .top-left, .top-right, .bottom-left, .bottom-right { height: 60px; }
+            .top-center, .bottom-center { height: 30px; }
+            .mid-left, .mid-right { top: 60px; height: calc(100% - 120px); }
+            .piece-text { font-size: 8px !important; }
         }
 
-        /* Para telas muito altas */
         @media (min-height: 1000px) {
-            .top-left,
-            .top-right,
-            .bottom-left,
-            .bottom-right {
-                height: 120px;
-            }
-            
-            .mid-left,
-            .mid-right {
-                top: 120px;
-                height: calc(100% - 240px);
-            }
-            
-            .piece-text {
-                font-size: 12px !important;
-            }
-            
-            .hint {
-                font-size: 20px;
-            }
-            
-            .hint span {
-                font-size: 14px;
-            }
+            .top-left, .top-right, .bottom-left, .bottom-right { height: 120px; }
+            .mid-left, .mid-right { top: 120px; height: calc(100% - 240px); }
+            .piece-text { font-size: 12px !important; }
+            .hint { font-size: 20px; }
+            .hint span { font-size: 14px; }
         }
 
-        /* Prevenir zoom em inputs no iOS */
         @supports (-webkit-touch-callout: none) {
-            input,
-            textarea {
-                font-size: 16px !important;
-            }
+            input, textarea { font-size: 16px !important; }
         }
 
-        /* Melhorar legibilidade em dispositivos com modo escuro */
         @media (prefers-color-scheme: dark) {
-            .auth-frame {
-                background: rgba(5, 10, 20, 0.97);
-            }
-            
-            .modal-content {
-                background: linear-gradient(145deg, rgba(5, 10, 20, 0.97), rgba(2, 5, 10, 0.99));
-            }
+            .auth-frame { background: rgba(5, 10, 20, 0.97); }
+            .modal-content { background: linear-gradient(145deg, rgba(5, 10, 20, 0.97), rgba(2, 5, 10, 0.99)); }
         }
     </style>
 </head>
 
 <body>
-
     <!-- Efeito de chuva Gotham -->
     <div class="rain-overlay"></div>
+
+    <!-- Alerta de Emergência Batman -->
+    <div class="emergency-alert" id="emergencyAlert" onclick="dismissEmergency()">
+        <div class="emergency-content">
+            <h1 class="emergency-title">ALERTA BATMAN</h1>
+            <div class="emergency-subtitle">NÍVEL DE AMEAÇA: MÁXIMO</div>
+            <div class="emergency-message">
+                ⚠️ ATENÇÃO: ATIVIDADE CRIMINOSA DETECTADA<br>
+                🔴 REQUER INTERVENÇÃO DO CAVALEIRO DAS TREVAS
+            </div>
+            <div class="emergency-countdown" id="emergencyCountdown">00:30</div>
+            <div style="color: #ff8888; font-size: 14px;">CLIQUE PARA CONFIRMAR</div>
+        </div>
+    </div>
+
+    <!-- Widget do Timer de Alerta -->
+    <div class="alert-timer" id="alertTimer">
+        <span class="alert-label">GOTHAM ALERT</span>
+        <div class="timer-value" id="nextAlertTime">01:00</div>
+        <button class="timer-skip" onclick="skipAlert()">X</button>
+    </div>
 
     <!-- Tela de Login -->
     <div class="auth-screen" id="authScreen">
@@ -1158,7 +1788,7 @@
 
     <!-- Interface HUD -->
     <div class="hud-frame" id="hudFrame">
-        <!-- Peça superior esquerda - Trapézio inclinado -->
+        <!-- Peça superior esquerda -->
         <div class="piece-container top-left" onclick="openModal('batcave')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 L100,0 L70,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1167,7 +1797,7 @@
             <div class="piece-text">BATCAVE SYSTEMS<br>CONTROL PANEL</div>
         </div>
 
-        <!-- Peça superior central - Trapézio simétrico -->
+        <!-- Peça superior central -->
         <div class="piece-container top-center" onclick="openModal('command')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 L100,0 L90,100 L10,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1176,7 +1806,7 @@
             <div class="piece-text">CENTRAL DE COMANDO<br>WAYNE ENTERPRISES</div>
         </div>
 
-        <!-- Peça superior direita - Trapézio inclinado -->
+        <!-- Peça superior direita -->
         <div class="piece-container top-right" onclick="openModal('surveillance')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 L100,0 L100,100 L30,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1185,7 +1815,7 @@
             <div class="piece-text">VIGILÂNCIA GOTHAM<br>SURVEILLANCE GRID</div>
         </div>
 
-        <!-- Peça lateral esquerda - Formato vertical assimétrico -->
+        <!-- Peça lateral esquerda -->
         <div class="piece-container mid-left" onclick="openModal('weapons')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 L100,10 L100,90 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1194,7 +1824,7 @@
             <div class="piece-text">ARMAMENTOS<br>E EQUIPAMENTOS</div>
         </div>
 
-        <!-- Peça lateral direita - Formato espelhado -->
+        <!-- Peça lateral direita -->
         <div class="piece-container mid-right" onclick="openModal('vehicle')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,10 L100,0 L100,100 L0,90 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1203,7 +1833,7 @@
             <div class="piece-text">CONTROLE DE<br>VEÍCULOS TÁTICOS</div>
         </div>
 
-        <!-- Peça inferior esquerda - Trapézio invertido -->
+        <!-- Peça inferior esquerda -->
         <div class="piece-container bottom-left" onclick="openModal('database')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0,0 L70,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1212,7 +1842,7 @@
             <div class="piece-text">BANCO DE DADOS<br>CRIMINAL GOTHAM</div>
         </div>
 
-        <!-- Peça inferior central - Trapézio invertido simétrico -->
+        <!-- Peça inferior central -->
         <div class="piece-container bottom-center" onclick="openModal('gotham')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M10,0 L90,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1221,7 +1851,7 @@
             <div class="piece-text">MAPA GOTHAM<br>INTERATIVE CITY MAP</div>
         </div>
 
-        <!-- Peça inferior direita - Trapézio invertido inclinado -->
+        <!-- Peça inferior direita -->
         <div class="piece-container bottom-right" onclick="openModal('mission')">
             <svg class="piece-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M30,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="#00d9ff" stroke-width="2" />
@@ -1237,7 +1867,7 @@
             <span>Aguardando decisão do Cavaleiro das Trevas</span>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Principal -->
         <div class="modal-overlay" id="modalOverlay">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1245,274 +1875,670 @@
                     <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <!-- Conteúdo do modal será inserido aqui via JavaScript -->
+                    <!-- Conteúdo será inserido via JavaScript -->
                 </div>
             </div>
         </div>
 
-        <script>
-            // Sistema de autenticação
-            const users = JSON.parse(localStorage.getItem('wayne_users')) || [
-                { username: 'batman', password: 'darkknight' },
-                { username: 'robin', password: 'sidekick' },
-                { username: 'alfred', password: 'pennyworth' },
-                { username: 'gordon', password: 'commissioner' }
-            ];
+        <!-- Modal Detalhado do Vilão -->
+        <div class="villain-detail-modal" id="villainDetailModal">
+            <div class="villain-detail-content">
+                <button class="close-detail-btn" onclick="closeVillainDetail()">×</button>
+                <div id="villainDetailLeft"></div>
+                <div id="villainDetailRight"></div>
+            </div>
+        </div>
 
-            let currentUser = null;
+        <!-- Modal Detalhado do Equipamento -->
+        <div class="equipment-detail-modal" id="equipmentDetailModal" style="display: none;">
+            <!-- Será criado dinamicamente -->
+        </div>
+    </div>
 
-            // Elementos DOM
-            const authScreen = document.getElementById('authScreen');
-            const hudFrame = document.getElementById('hudFrame');
-            const userIndicator = document.getElementById('userIndicator');
-            const userName = document.getElementById('userName');
-            const authError = document.getElementById('authError');
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const switchText = document.getElementById('switchText');
-            const switchLink = document.getElementById('switchLink');
+    <script>
+        // ===========================================
+        // SISTEMA COMPLETO BAT-HUD v2.0
+        // ===========================================
 
-            // Verificar se já está logado
-            const savedUser = localStorage.getItem('wayne_current_user');
-            if (savedUser) {
-                currentUser = savedUser;
-                showHUD();
+        // ===========================================
+        // VARIÁVEIS GLOBAIS
+        // ===========================================
+        let secondsToNextAlert = 60;
+        let emergencyCountdown = 30;
+        let alertInterval;
+        let isLoggedIn = false;
+        let currentUser = null;
+        let liveUpdateIntervals = {};
+        let batmobileStatus = {
+            speed: 0,
+            fuel: 100,
+            systems: 'ONLINE',
+            destination: '',
+            turbo: false,
+            camouflage: false
+        };
+
+        // ===========================================
+        // DADOS DO SISTEMA
+        // ===========================================
+        const users = JSON.parse(localStorage.getItem('wayne_users')) || [
+            { username: 'batman', password: 'darkknight' },
+            { username: 'robin', password: 'sidekick' },
+            { username: 'alfred', password: 'pennyworth' },
+            { username: 'gordon', password: 'commissioner' }
+        ];
+
+        const villains = [
+            {
+                name: "CORINGA",
+                status: "ENCARCERADO",
+                location: "MANICÔMIO ARKHAM",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/40.jpg",
+                alias: "Jack Napier",
+                threat: "EXTREMO",
+                desc: "Instabilidade mental total. Requer contenção nível 5. Habilidades: Química, manipulação, estratégia caótica. Última atividade: 72h atrás.",
+                lastSeen: "2024-01-15 22:30",
+                crimes: ["Assalto a banco", "Sequestro", "Terrorismo químico"]
+            },
+            {
+                name: "BANE",
+                status: "FORAGIDO",
+                location: "SUBTERRÂNEO",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/22.jpg",
+                alias: "Desconhecido",
+                threat: "ALTO",
+                desc: "Dependência de Veneno. Força física extrema e intelecto tático. Habilidades: Combate corpo a corpo, estratégia militar. Monitorar entrada de drogas em Gotham.",
+                lastSeen: "2024-01-20 03:15",
+                crimes: ["Tráfico de Veneno", "Extorsão", "Destruição de propriedade"]
+            },
+            {
+                name: "MULHER-GATO",
+                status: "ATIVA",
+                location: "ZONA LESTE ALTA",
+                img: "https://xsgames.co/randomusers/assets/avatars/female/1.jpg",
+                alias: "Selina Kyle",
+                threat: "MÉDIO",
+                desc: "Especialista em invasão e furto. Rastrear movimentos noturnos. Habilidades: Acrobacia, lockpicking, infiltração. Alvo: Joalherias de alto valor.",
+                lastSeen: "2024-01-19 23:45",
+                crimes: ["Furto qualificado", "Invasão de domicílio", "Receptação"]
+            },
+            {
+                name: "PINGÜIM",
+                status: "NEGÓCIOS",
+                location: "ICEBERG LOUNGE",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/65.jpg",
+                alias: "Oswald Cobblepot",
+                threat: "MÉDIO",
+                desc: "Opera através de frentes legais. Monitorar transações financeiras. Habilidades: Lavagem de dinheiro, tráfico de armas. Conexões: Máfia russa.",
+                lastSeen: "2024-01-20 20:00",
+                crimes: ["Lavagem de dinheiro", "Tráfico de armas", "Extorsão"]
+            },
+            {
+                name: "CHARADA",
+                status: "PLANEJANDO",
+                location: "DESCONHECIDO",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/50.jpg",
+                alias: "Edward Nigma",
+                threat: "ALTO",
+                desc: "Obsessão por enigmas. Possível ataque cibernético em andamento. Habilidades: Hacking, dispositivos complexos. Padrão: Deixa pistas deliberadamente.",
+                lastSeen: "2024-01-18 14:20",
+                crimes: ["Ataque cibernético", "Sequestro", "Extorsão"]
+            },
+            {
+                name: "DUAS-CARAS",
+                status: "ATIVO",
+                location: "TRIBUNAL",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/12.jpg",
+                alias: "Harvey Dent",
+                threat: "ALTO",
+                desc: "Dualidade psicótica. Decisões baseadas em probabilidade de 50%. Habilidades: Estratégia legal pervertida. Alvos: Figuras da justiça.",
+                lastSeen: "2024-01-19 19:30",
+                crimes: ["Assalto", "Extorsão", "Obstrução da justiça"]
+            },
+            {
+                name: "ESPANTALHO",
+                status: "ENCARCERADO",
+                location: "ARKHAM",
+                img: "https://xsgames.co/randomusers/assets/avatars/male/8.jpg",
+                alias: "Jonathan Crane",
+                threat: "ALTO",
+                desc: "Uso de toxinas do medo. Não remover máscara de oxigênio. Habilidades: Psicologia, química avançada. Experiências: Testes em civis.",
+                lastSeen: "2024-01-10 11:00",
+                crimes: ["Experimentos ilegais", "Terrorismo", "Sequestro"]
+            },
+            {
+                name: "HARLEY QUINN",
+                status: "ATIVA",
+                location: "AMUSEMENT MILE",
+                img: "https://xsgames.co/randomusers/assets/avatars/female/25.jpg",
+                alias: "Harleen Quinzel",
+                threat: "MÉDIO",
+                desc: "Comportamento errático. Alta agilidade e combate corpo a corpo. Habilidades: Ginástica, armas improvisadas. Estado mental: Impulsivo/imprevisível.",
+                lastSeen: "2024-01-19 21:15",
+                crimes: ["Assalto", "Vandalismo", "Obstrução da justiça"]
             }
+        ];
 
-            // Toggle entre login e registro
-            function toggleForms() {
-                if (loginForm.style.display !== 'none') {
-                    loginForm.style.display = 'none';
-                    registerForm.style.display = 'flex';
-                    switchText.textContent = 'Já tem acesso?';
-                    switchLink.textContent = 'Fazer login';
-                } else {
-                    registerForm.style.display = 'none';
-                    loginForm.style.display = 'flex';
-                    switchText.textContent = 'Não tem acesso?';
-                    switchLink.textContent = 'Solicitar credencial';
-                }
-                authError.style.display = 'none';
-                playSound('click');
+        const arsenalData = [
+            {
+                id: 'batmobile',
+                name: "BATMÓVEL",
+                status: "ONLINE",
+                value: "100%",
+                icon: "🚗",
+                class: "status-ok",
+                progress: 100,
+                desc: "Tanque tático urbano com propulsão a jato e modo de combate. Capacidade máxima: 300 km/h. Sistema de armas: Canhão de pulso, lança-ganchos, modo blindagem ativa.",
+                vitals: [
+                    "Combustível: 100%",
+                    "Sistemas: ONLINE",
+                    "Armamento: PRONTO",
+                    "Defesa: ATIVA"
+                ],
+                combos: ["Bomba Fumaça → Distração", "Turbo → Perseguição rápida"]
+            },
+            {
+                id: 'batarang',
+                name: "BATARANGUES",
+                status: "24/24",
+                value: "24",
+                icon: "🦇",
+                class: "status-ok",
+                progress: 100,
+                desc: "Armas de arremesso equilibradas. Inclui versões explosivas e elétricas. Material: Titanium-Aço. Precisão: 99.8% a 50m. Recarga automática no cinto.",
+                vitals: [
+                    "Quantidade: 24",
+                    "Tipo: Padrão/Elt/Exp",
+                    "Precisão: 99.8%",
+                    "Recarga: PRONTA"
+                ],
+                combos: ["Bomba Fumaça → Ataque furtivo", "Gancho → Ataque aéreo"]
+            },
+            {
+                id: 'grapnel',
+                name: "ARMAS DE GANCHO",
+                status: "PRONTO",
+                value: "6",
+                icon: "⚓",
+                class: "status-ok",
+                progress: 100,
+                desc: "Pistola de compressão para ascensão rápida e locomoção urbana. Alcance: 80m. Velocidade: 15m/s. Sistema de retração magnético.",
+                vitals: [
+                    "Ganchos: 6",
+                    "Alcance: 80m",
+                    "Pressão: 300 PSI",
+                    "Sistema: OPERACIONAL"
+                ],
+                combos: ["Visão Detetive → Reconhecimento", "Batarang → Ataque combinado"]
+            },
+            {
+                id: 'armor',
+                name: "ARMADURA",
+                status: "94%",
+                value: "94%",
+                icon: "🛡️",
+                class: "status-ok",
+                progress: 94,
+                desc: "Polímero reforçado com Kevlar e placas de titânio. Nível de proteção: Balas .50 cal. Sistema de amortecimento de impacto. Camada externa: Absorção radar.",
+                vitals: [
+                    "Integridade: 94%",
+                    "Proteção: NÍVEL 10",
+                    "Mobilidade: 85%",
+                    "Furtividade: ATIVA"
+                ],
+                combos: ["Todos os sistemas → Defesa máxima"]
+            },
+            {
+                id: 'explosive_gel',
+                name: "GEL EXPLOSIVO",
+                status: "3 CARGAS",
+                value: "3",
+                icon: "🧨",
+                class: "status-warn",
+                progress: 60,
+                desc: "Aerosol explosivo para destruição estrutural ou incapacitação. Detonação remota ou por impacto. Força: 5x TNT. Contenção: Nanotecnologia estável.",
+                vitals: [
+                    "Cargas: 3",
+                    "Força: 5x TNT",
+                    "Estabilidade: 96%",
+                    "Recarga: NECESSÁRIA"
+                ],
+                combos: ["Disruptor → Desarme seguro", "Gancho → Posicionamento tático"]
+            },
+            {
+                id: 'smoke_pellet',
+                name: "BOMBA FUMAÇA",
+                status: "5/5",
+                value: "5",
+                icon: "💨",
+                class: "status-ok",
+                progress: 100,
+                desc: "Cápsulas de ocultação rápida para evasão e furtividade. Tempo de dispersão: 2s. Duração: 45s. Área de cobertura: 20m raio. Invisível a infravermelho.",
+                vitals: [
+                    "Unidades: 5",
+                    "Duração: 45s",
+                    "Cobertura: 20m",
+                    "IR Camouflage: SIM"
+                ],
+                combos: ["Batarang → Ataque furtivo", "Gancho → Retirada rápida"]
+            },
+            {
+                id: 'disruptor',
+                name: "DISRUPTOR",
+                status: "RECARR.",
+                value: "60%",
+                icon: "🔫",
+                class: "status-alert",
+                progress: 60,
+                desc: "Dispositivo eletrônico para desativar armas de fogo e minas remotamente. Alcance: 100m. Frequência: 2.4-5.8 GHz. Sistema anti-interferência.",
+                vitals: [
+                    "Bateria: 60%",
+                    "Alcance: 100m",
+                    "Frequência: 5.8 GHz",
+                    "Status: RECARGA NEC."
+                ],
+                combos: ["Gel Explosivo → Desarme e destruição", "Armadura → Proteção durante uso"]
+            },
+            {
+                id: 'vision',
+                name: "VISÃO DETETIVE",
+                status: "ATIVO",
+                value: "100%",
+                icon: "👁️",
+                class: "status-ok",
+                progress: 100,
+                desc: "Scanner de radiação infravermelha, térmica e análise química. Identificação biométrica. Rastreamento em 360°. Banco de dados criminal integrado.",
+                vitals: [
+                    "Scanner: ATIVO",
+                    "IR/Térmico: ONLINE",
+                    "Biometria: 100%",
+                    "Banco de Dados: SINC"
+                ],
+                combos: ["Todos os sistemas → Análise completa", "Gancho → Reconhecimento aéreo"]
             }
+        ];
 
-            // Login
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('loginUser').value;
-                const password = document.getElementById('loginPass').value;
+        const gothamDistricts = {
+            'industrial': {
+                name: 'ÁREA INDUSTRIAL',
+                alert: 'ALERTA VERMELHO',
+                alertClass: 'alert-red',
+                info: `
+                    • Atividade criminal: ALTA<br>
+                    • Último incidente: Assalto à carga 2h atrás<br>
+                    • Presença policial: 65%<br>
+                    • Vilões ativos: PINGÜIM, DOIS-CARAS<br>
+                    • Recomendação: PATRULHA INTENSIVA
+                `,
+                crimeRate: '87%',
+                policePresence: '65%',
+                incidents: [
+                    { time: '02:30', event: 'Assalto à carga', alert: 'ALTO' },
+                    { time: '18:45', event: 'Vandalismo', alert: 'MÉDIO' },
+                    { time: '22:10', event: 'Tráfico', alert: 'ALTO' }
+                ]
+            },
+            'center': {
+                name: 'CENTRO DA CIDADE',
+                alert: 'ALERTA AMARELO',
+                alertClass: 'alert-yellow',
+                info: `
+                    • Atividade criminal: MODERADA<br>
+                    • Último incidente: Furto em joalheria 4h atrás<br>
+                    • Presença policial: 92%<br>
+                    • Vilões ativos: MULHER-GATO<br>
+                    • Recomendação: VIGILÂNCIA NOTURNA
+                `,
+                crimeRate: '62%',
+                policePresence: '92%',
+                incidents: [
+                    { time: '04:15', event: 'Furto em joalheria', alert: 'MÉDIO' },
+                    { time: '14:30', event: 'Distúrbio civil', alert: 'BAIXO' },
+                    { time: '20:45', event: 'Tentativa de assalto', alert: 'MÉDIO' }
+                ]
+            },
+            'suburbs': {
+                name: 'SUBÚRBIOS',
+                alert: 'ALERTA VERDE',
+                alertClass: 'alert-green',
+                info: `
+                    • Atividade criminal: BAIXA<br>
+                    • Último incidente: Perturbação da paz 8h atrás<br>
+                    • Presença policial: 78%<br>
+                    • Vilões ativos: NENHUM<br>
+                    • Recomendação: PATRULHA ROTINEIRA
+                `,
+                crimeRate: '23%',
+                policePresence: '78%',
+                incidents: [
+                    { time: '21:30', event: 'Perturbação da paz', alert: 'BAIXO' },
+                    { time: '15:45', event: 'Vandalismo menor', alert: 'BAIXO' }
+                ]
+            },
+            'port': {
+                name: 'PORTO DE GOTHAM',
+                alert: 'ALERTA LARANJA',
+                alertClass: 'alert-orange',
+                info: `
+                    • Atividade criminal: ELEVADA<br>
+                    • Último incidente: Contrabando detectado 1h atrás<br>
+                    • Presença policial: 71%<br>
+                    • Vilões ativos: BANE (SUSPEITA)<br>
+                    • Recomendação: INVESTIGAÇÃO SUBMARINA
+                `,
+                crimeRate: '76%',
+                policePresence: '71%',
+                incidents: [
+                    { time: '01:45', event: 'Contrabando detectado', alert: 'ALTO' },
+                    { time: '12:20', event: 'Atividade suspeita', alert: 'MÉDIO' },
+                    { time: '19:55', event: 'Tráfico de armas', alert: 'ALTO' }
+                ]
+            },
+            'arkham': {
+                name: 'MANICÔMIO ARKHAM',
+                alert: 'ALERTA ROXO',
+                alertClass: 'alert-purple',
+                info: `
+                    • Status: MÁXIMA SEGURANÇA<br>
+                    • Prisioneiros: 42 (incluindo CORINGA, ESPANTALHO)<br>
+                    • Guardas: 100% DISPONÍVEL<br>
+                    • Última inspeção: ${new Date().toLocaleDateString('pt-BR')}<br>
+                    • Recomendação: MONITORAMENTO 24/7
+                `,
+                crimeRate: '99%',
+                policePresence: '100%',
+                incidents: [
+                    { time: '10:00', event: 'Inspeção de segurança', alert: 'ROTINA' },
+                    { time: '16:30', event: 'Transferência de prisioneiro', alert: 'ALTO' }
+                ]
+            },
+            'wayne': {
+                name: 'WAYNE TOWER',
+                alert: 'SEGURO',
+                alertClass: 'alert-green',
+                info: `
+                    • Status: FORTIFICADO<br>
+                    • Sistemas de segurança: ATIVOS<br>
+                    • Acesso: RESTRITO NÍVEL 10<br>
+                    • Última varredura: AGORA<br>
+                    • Bat-Sinal: OPERACIONAL
+                `,
+                crimeRate: '1%',
+                policePresence: '100%',
+                incidents: [
+                    { time: '00:00', event: 'Varredura de segurança', alert: 'ROTINA' },
+                    { time: '12:00', event: 'Teste do Bat-Sinal', alert: 'TESTE' }
+                ]
+            }
+        };
 
-                const user = users.find(u =>
-                    u.username === username && u.password === password
-                );
-
-                if (user) {
-                    currentUser = username;
-                    localStorage.setItem('wayne_current_user', username);
-                    showHUD();
-                    playSound('success');
+        // ===========================================
+        // SISTEMA DE ALERTA
+        // ===========================================
+        function startAlertSystem() {
+            setInterval(() => {
+                if (secondsToNextAlert > 0) {
+                    secondsToNextAlert--;
+                    updateTimerDisplay();
                 } else {
-                    showError('Credenciais inválidas');
-                    playSound('error');
+                    if (document.getElementById('emergencyAlert').style.display !== 'flex') {
+                        triggerEmergency();
+                    }
                 }
-            });
+            }, 1000);
+            updateTimerVisibility();
+        }
 
-            // Registro
-            registerForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('regUser').value;
-                const password = document.getElementById('regPass').value;
-                const confirm = document.getElementById('regConfirm').value;
+        function updateTimerDisplay() {
+            const mins = Math.floor(secondsToNextAlert / 60);
+            const secs = secondsToNextAlert % 60;
+            document.getElementById('nextAlertTime').textContent =
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
 
-                if (username.length < 3) {
-                    showError('Usuário deve ter pelo menos 3 caracteres');
-                    return;
-                }
+        function updateTimerVisibility() {
+            const alertTimer = document.getElementById('alertTimer');
+            alertTimer.style.display = isLoggedIn ? 'flex' : 'none';
+        }
 
-                if (password.length < 4) {
-                    showError('Senha deve ter pelo menos 4 caracteres');
-                    return;
-                }
+        function triggerEmergency() {
+            const alertDiv = document.getElementById('emergencyAlert');
+            alertDiv.style.display = 'flex';
+            emergencyCountdown = 30;
+            document.getElementById('emergencyCountdown').textContent = "00:30";
 
-                if (password !== confirm) {
-                    showError('Senhas não coincidem');
-                    return;
-                }
+            alertInterval = setInterval(() => {
+                emergencyCountdown--;
+                document.getElementById('emergencyCountdown').textContent =
+                    `00:${emergencyCountdown.toString().padStart(2, '0')}`;
+                if (emergencyCountdown <= 0) dismissEmergency();
+            }, 1000);
+            playSound('error');
+        }
 
-                // Verifica se usuário já existe
-                if (users.find(u => u.username === username)) {
-                    showError('Usuário já existe');
-                    return;
-                }
+        function dismissEmergency() {
+            clearInterval(alertInterval);
+            document.getElementById('emergencyAlert').style.display = 'none';
+            secondsToNextAlert = 60;
+            updateTimerDisplay();
+            playSound('success');
+        }
 
-                // Adiciona novo usuário
-                users.push({ username, password });
-                localStorage.setItem('wayne_users', JSON.stringify(users));
+        function skipAlert() {
+            secondsToNextAlert = 0;
+            playSound('click');
+        }
 
+        // ===========================================
+        // SISTEMA DE AUTENTICAÇÃO
+        // ===========================================
+        const authScreen = document.getElementById('authScreen');
+        const hudFrame = document.getElementById('hudFrame');
+        const userIndicator = document.getElementById('userIndicator');
+        const userName = document.getElementById('userName');
+        const authError = document.getElementById('authError');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const switchText = document.getElementById('switchText');
+        const switchLink = document.getElementById('switchLink');
+
+        // Verificar se já está logado
+        const savedUser = localStorage.getItem('wayne_current_user');
+        if (savedUser) {
+            currentUser = savedUser;
+            isLoggedIn = true;
+            showHUD();
+        }
+
+        // Iniciar sistemas
+        startAlertSystem();
+        updateTimerDisplay();
+
+        function toggleForms() {
+            if (loginForm.style.display !== 'none') {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'flex';
+                switchText.textContent = 'Já tem acesso?';
+                switchLink.textContent = 'Fazer login';
+            } else {
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'flex';
+                switchText.textContent = 'Não tem acesso?';
+                switchLink.textContent = 'Solicitar credencial';
+            }
+            authError.style.display = 'none';
+            playSound('click');
+        }
+
+        // Login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUser').value;
+            const password = document.getElementById('loginPass').value;
+
+            const user = users.find(u =>
+                u.username === username && u.password === password
+            );
+
+            if (user) {
                 currentUser = username;
                 localStorage.setItem('wayne_current_user', username);
-
+                isLoggedIn = true;
                 showHUD();
                 playSound('success');
-            });
+            } else {
+                showError('Credenciais inválidas');
+                playSound('error');
+            }
+        });
 
-            // Mostrar HUD
-            function showHUD() {
-                authScreen.style.display = 'none';
-                hudFrame.style.display = 'block';
-                userIndicator.style.display = 'block';
-                userName.textContent = currentUser.toUpperCase();
+        // Registro
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('regUser').value;
+            const password = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
 
-                // Efeito de entrada das peças
-                const pieces = document.querySelectorAll('.piece-container');
-                pieces.forEach((piece, index) => {
-                    piece.style.opacity = '0';
-                    piece.style.transform = 'translateY(-20px)';
-
-                    setTimeout(() => {
-                        piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        piece.style.opacity = '1';
-                        piece.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-                
-                // Ajustar altura das laterais baseado na altura atual
-                adjustSidePiecesHeight();
-                
-                // Adicionar listener para redimensionamento
-                window.addEventListener('resize', adjustSidePiecesHeight);
+            if (username.length < 3) {
+                showError('Usuário deve ter pelo menos 3 caracteres');
+                return;
             }
 
-            // Ajustar altura das peças laterais
-            function adjustSidePiecesHeight() {
+            if (password.length < 4) {
+                showError('Senha deve ter pelo menos 4 caracteres');
+                return;
+            }
+
+            if (password !== confirm) {
+                showError('Senhas não coincidem');
+                return;
+            }
+
+            if (users.find(u => u.username === username)) {
+                showError('Usuário já existe');
+                return;
+            }
+
+            users.push({ username, password });
+            localStorage.setItem('wayne_users', JSON.stringify(users));
+
+            currentUser = username;
+            localStorage.setItem('wayne_current_user', username);
+            isLoggedIn = true;
+
+            showHUD();
+            playSound('success');
+        });
+
+        function showHUD() {
+            authScreen.style.display = 'none';
+            hudFrame.style.display = 'block';
+            userIndicator.style.display = 'block';
+            userName.textContent = currentUser.toUpperCase();
+            updateTimerVisibility();
+
+            // Efeito de entrada
+            const pieces = document.querySelectorAll('.piece-container');
+            pieces.forEach((piece, index) => {
+                piece.style.opacity = '0';
+                piece.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    piece.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    piece.style.opacity = '1';
+                    piece.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            adjustSidePiecesHeight();
+            window.addEventListener('resize', adjustSidePiecesHeight);
+        }
+
+        function adjustSidePiecesHeight() {
+            setTimeout(() => {
                 const topLeft = document.querySelector('.top-left');
                 const bottomLeft = document.querySelector('.bottom-left');
-                const topRight = document.querySelector('.top-right');
-                const bottomRight = document.querySelector('.bottom-right');
-                
-                if (topLeft && bottomLeft) {
+
+                if (topLeft && bottomLeft && topLeft.offsetHeight > 0) {
                     const topHeight = topLeft.offsetHeight;
                     const bottomHeight = bottomLeft.offsetHeight;
                     const totalHeight = window.innerHeight;
-                    
+
                     const midLeft = document.querySelector('.mid-left');
                     const midRight = document.querySelector('.mid-right');
-                    
+
                     if (midLeft && midRight) {
                         const newHeight = totalHeight - topHeight - bottomHeight;
-                        midLeft.style.height = `${newHeight}px`;
-                        midRight.style.height = `${newHeight}px`;
+                        if (newHeight > 0) {
+                            midLeft.style.height = `${newHeight}px`;
+                            midRight.style.height = `${newHeight}px`;
+                        }
                     }
                 }
-            }
+            }, 100);
+        }
 
-            // Logout
-            function logout() {
-                playSound('logout');
+        function logout() {
+            playSound('logout');
+            const pieces = document.querySelectorAll('.piece-container');
+            pieces.forEach((piece, index) => {
+                setTimeout(() => {
+                    piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    piece.style.opacity = '0';
+                    piece.style.transform = 'translateY(20px)';
+                }, index * 50);
+            });
 
-                // Efeito de saída das peças
-                const pieces = document.querySelectorAll('.piece-container');
-                pieces.forEach((piece, index) => {
-                    setTimeout(() => {
-                        piece.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                        piece.style.opacity = '0';
-                        piece.style.transform = 'translateY(20px)';
-                    }, index * 50);
+            setTimeout(() => {
+                currentUser = null;
+                isLoggedIn = false;
+                localStorage.removeItem('wayne_current_user');
+                hudFrame.style.display = 'none';
+                userIndicator.style.display = 'none';
+                authScreen.style.display = 'flex';
+                loginForm.style.display = 'flex';
+                registerForm.style.display = 'none';
+                switchText.textContent = 'Não tem acesso?';
+                switchLink.textContent = 'Solicitar credencial';
+                authError.style.display = 'none';
+                updateTimerVisibility();
+
+                // Limpar formulários
+                document.getElementById('loginUser').value = '';
+                document.getElementById('loginPass').value = '';
+                document.getElementById('regUser').value = '';
+                document.getElementById('regPass').value = '';
+                document.getElementById('regConfirm').value = '';
+
+                // Parar atualizações em tempo real
+                Object.keys(liveUpdateIntervals).forEach(key => {
+                    clearInterval(liveUpdateIntervals[key]);
                 });
+                liveUpdateIntervals = {};
 
+                window.removeEventListener('resize', adjustSidePiecesHeight);
+            }, 300);
+        }
+
+        function showError(message) {
+            authError.textContent = message;
+            authError.style.display = 'block';
+            const currentForm = loginForm.style.display !== 'none' ? loginForm : registerForm;
+            currentForm.style.animation = 'none';
+            setTimeout(() => {
+                currentForm.style.animation = 'shake 0.5s';
                 setTimeout(() => {
-                    currentUser = null;
-                    localStorage.removeItem('wayne_current_user');
-                    hudFrame.style.display = 'none';
-                    userIndicator.style.display = 'none';
-                    authScreen.style.display = 'flex';
-                    loginForm.style.display = 'flex';
-                    registerForm.style.display = 'none';
-                    switchText.textContent = 'Não tem acesso?';
-                    switchLink.textContent = 'Solicitar credencial';
-                    authError.style.display = 'none';
+                    currentForm.style.animation = '';
+                }, 500);
+            }, 10);
+        }
 
-                    // Limpar formulários
-                    document.getElementById('loginUser').value = '';
-                    document.getElementById('loginPass').value = '';
-                    document.getElementById('regUser').value = '';
-                    document.getElementById('regPass').value = '';
-                    document.getElementById('regConfirm').value = '';
-                    
-                    // Remover listener de redimensionamento
-                    window.removeEventListener('resize', adjustSidePiecesHeight);
-                }, 300);
-            }
-
-            // Mostrar erro
-            function showError(message) {
-                authError.textContent = message;
-                authError.style.display = 'block';
-
-                // Efeito de tremor
-                const currentForm = loginForm.style.display !== 'none' ? loginForm : registerForm;
-                currentForm.style.animation = 'none';
-                setTimeout(() => {
-                    currentForm.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        currentForm.style.animation = '';
-                    }, 500);
-                }, 10);
-            }
-
-            // Efeitos sonoros
-            function playSound(type) {
-                try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
-
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-
-                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-
-                    switch (type) {
-                        case 'success':
-                            oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-                            oscillator.frequency.setValueAtTime(1760, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.2);
-                            break;
-
-                        case 'error':
-                            oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
-                            oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.3);
-                            break;
-
-                        case 'logout':
-                            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-                            oscillator.frequency.exponentialRampToValueAtTime(55, audioContext.currentTime + 0.5);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.5);
-                            break;
-
-                        case 'click':
-                            oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
-                            oscillator.frequency.exponentialRampToValueAtTime(330, audioContext.currentTime + 0.1);
-                            oscillator.start();
-                            oscillator.stop(audioContext.currentTime + 0.1);
-                            break;
-                    }
-
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
-                } catch (e) {
-                    console.log("Áudio não suportado");
-                }
-            }
-
-            // Conteúdo dos modais temático Batman
-            const modalContents = {
-                'batcave': {
-                    title: 'BATCAVE SYSTEMS CONTROL',
-                    content: `
+        // ===========================================
+        // SISTEMA DE MODAIS
+        // ===========================================
+        const modalContents = {
+            'batcave': {
+                title: 'BATCAVE SYSTEMS CONTROL',
+                content: `
                     <p>Sistema principal da Batcaver. Todas as funções operacionais.</p>
                     <div class="modal-status">
                         <div class="modal-status-title">STATUS DA BATCAVE</div>
@@ -1528,10 +2554,10 @@
                         <li>Computador principal: ONLINE</li>
                     </ul>
                 `
-                },
-                'command': {
-                    title: 'CENTRAL DE COMANDO WAYNE ENTERPRISES',
-                    content: `
+            },
+            'command': {
+                title: 'CENTRAL DE COMANDO WAYNE ENTERPRISES',
+                content: `
                     <p>Hub central de controle do sistema Batman.</p>
                     <div class="modal-data-grid">
                         <div class="data-item">
@@ -1556,10 +2582,10 @@
                         <p>Todas as frequências estão operacionais e seguras. Sistema criptografado.</p>
                     </div>
                 `
-                },
-                'surveillance': {
-                    title: 'VIGILÂNCIA GOTHAM - SURVEILLANCE GRID',
-                    content: `
+            },
+            'surveillance': {
+                title: 'VIGILÂNCIA GOTHAM - SURVEILLANCE GRID',
+                content: `
                     <p>Monitoramento ativo da cidade de Gotham.</p>
                     <div class="modal-status">
                         <div class="modal-status-title">DADOS DE VIGILÂNCIA</div>
@@ -1577,58 +2603,103 @@
                         <li>Centro: 100% COBERTURA</li>
                     </ul>
                 `
-                },
-                'weapons': {
-                    title: 'ARMAMENTOS E EQUIPAMENTOS',
-                    content: `
-                    <p>Status dos equipamentos e armamentos.</p>
-                    <div class="modal-data-grid">
-                        <div class="data-item">
-                            <div class="data-label">Batarangs</div>
-                            <div class="data-value">42</div>
+            },
+            'weapons': {
+                title: '🛡️ ARSENAL BATMAN - SISTEMA v5.0',
+                content: `
+                    <div class="equipment-tracking-system">
+                        <p style="margin-bottom:15px; font-size:12px; color:#888; font-family:'Courier New', monospace;">
+                            PROTOCOLO: CAVALEIRO DAS TREVAS | SINCRONIZAÇÃO: ${new Date().toLocaleTimeString('pt-BR')}
+                        </p>
+                        
+                        <input type="text" class="equipment-search" id="equipmentSearch" 
+                               placeholder="🔍 Buscar equipamento..." onkeyup="filterEquipment()">
+                        
+                        <div class="equipment-grid" id="equipmentGrid"></div>
+                        
+                        <div class="tactical-combos">
+                            <div class="modal-section-title">⚡ COMBINAÇÕES TÁTICAS</div>
+                            <div class="combo-item">Batarang + Bomba Fumaça = Ataque Furtivo</div>
+                            <div class="combo-item">Gancho + Visão Detetive = Reconhecimento Aéreo</div>
+                            <div class="combo-item">Gel Explosivo + Disruptor = Desarme Seguro</div>
                         </div>
-                        <div class="data-item">
-                            <div class="data-label">Granadas</div>
-                            <div class="data-value">12</div>
+                        
+                        <div class="diagnostic-panel">
+                            <div class="modal-status-title">🧠 DIAGNÓSTICO DO SISTEMA</div>
+                            <div id="equipmentDiagnostic" class="diagnostic-output">
+                                > SISTEMA DE ARSENAL ONLINE<br>
+                                > AGUARDANDO SELEÇÃO DE EQUIPAMENTO<br>
+                                > STATUS GERAL: OPERACIONAL
+                            </div>
                         </div>
-                        <div class="data-item">
-                            <div class="data-label">Ganchos</div>
-                            <div class="data-value">6</div>
+                        
+                        <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:10px;">
+                            <div><span>BATIMENTOS:</span> <span class="status-ok">72 BPM</span></div>
+                            <div><span>COMUNICAÇÃO:</span> <span class="status-ok">ONLINE</span></div>
+                            <div><span>ADRENALINA:</span> <span class="status-warn">45%</span></div>
                         </div>
-                        <div class="data-item">
-                            <div class="data-label">Dispositivos</div>
-                            <div class="data-value">8</div>
-                        </div>
-                    </div>
-                    <div class="modal-status">
-                        <div class="modal-status-title">STATUS GERAL</div>
-                        <p>Todos os sistemas de armamento estão prontos para uso.</p>
                     </div>
                 `
-                },
-                'vehicle': {
-                    title: 'CONTROLE DE VEÍCULOS TÁTICOS',
-                    content: `
-                    <p>Sistema do Batmobile e veículos operacionais.</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">STATUS DOS VEÍCULOS</div>
-                        <p>Batmobile: <span style="color:#00ff88;">PRONTO</span></p>
-                        <p>Batwing: EM MANUTENÇÃO</p>
-                        <p>Batpod: PRONTO</p>
+            },
+            'vehicle': {
+                title: '🚗 CONTROLE DO BATMÓVEL',
+                content: `
+                    <div class="vehicle-control-panel">
+                        <!-- Status Principal -->
+                        <div class="vehicle-status-grid">
+                            <div class="status-item">
+                                <div class="status-label">VELOCIDADE</div>
+                                <div class="status-value" id="batSpeed">0 km/h</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">COMBUSTÍVEL</div>
+                                <div class="status-value" style="color:#00ff88;" id="batFuel">100%</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">SISTEMAS</div>
+                                <div class="status-value" style="color:#00ff88;" id="batSystems">ONLINE</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">DESTINO</div>
+                                <div class="status-value" id="batDestination">--</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controles -->
+                        <div class="vehicle-controls">
+                            <button class="control-btn" onclick="startBatmobile()">▶ INICIAR</button>
+                            <button class="control-btn" onclick="stopBatmobile()">⏹ PARAR</button>
+                            <button class="control-btn" onclick="activateTurbo()">💨 TURBO</button>
+                            <button class="control-btn" onclick="toggleCamouflage()">👻 CAMUFLAGEM</button>
+                            <button class="control-btn" onclick="activateWeapons()">🔫 ARMAS</button>
+                            <button class="control-btn" onclick="activateDefense()">🛡️ DEFESA</button>
+                        </div>
+                        
+                        <!-- Navegação -->
+                        <div class="navigation-map">
+                            <input type="text" class="route-input" id="routeInput" placeholder="Digite o destino...">
+                            <button class="route-btn" onclick="setDestination()">🗺️ DEFINIR ROTA</button>
+                            <button class="route-btn" onclick="calculateFastestRoute()">🚀 ROTA MAIS RÁPIDA</button>
+                            <div style="margin-top:10px; font-size:10px; color:#888;">
+                                Distância estimada: <span id="routeDistance">--</span> | Tempo: <span id="routeTime">--</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Log do Sistema -->
+                        <div class="system-log">
+                            <div class="modal-status-title">📝 LOG DO SISTEMA</div>
+                            <div id="batLog" class="log-content">
+                                > ${new Date().toLocaleTimeString()}: Sistema iniciado<br>
+                                > Todos os sistemas operacionais<br>
+                                > Aguardando destino...
+                            </div>
+                        </div>
                     </div>
-                    <ul class="modal-list">
-                        <li>Batmobile - Combustível: 100%</li>
-                        <li>Batmobile - Armadura: 100% INTEGRIDADE</li>
-                        <li>Batmobile - Sistemas de combate: PRONTOS</li>
-                        <li>Batmobile - Camuflagem: ATIVA</li>
-                        <li>Batmobile - Manutenção preventiva: EM 2 DIAS</li>
-                        <li>Batmobile - Computador de bordo: ONLINE</li>
-                    </ul>
                 `
-                },
-                'database': {
-                    title: 'BANCO DE DADOS CRIMINAL GOTHAM',
-                    content: `
+            },
+            'database': {
+                title: 'BANCO DE DADOS CRIMINAL GOTHAM',
+                content: `
                     <p>Registros criminais de Gotham City.</p>
                     <div class="modal-data-grid">
                         <div class="data-item">
@@ -1654,98 +2725,942 @@
                         <p>Conexão: <span style="color:#00ff88;">ESTÁVEL</span></p>
                     </div>
                 `
-                },
-                'gotham': {
-                    title: 'MAPA INTERATIVO GOTHAM CITY',
-                    content: `
-                    <p>Mapa interativo de Gotham City.</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">STATUS DA CIDADE</div>
-                        <p>Status geral: <span style="color:#ff5555;">ALERTA</span></p>
-                        <p>Atualizado: ${new Date().toLocaleTimeString('pt-BR')}</p>
+            },
+            'gotham': {
+                title: '🦇 MAPA HOLOGRÁFICO GOTHAM CITY 3D',
+                content: `
+                    <div style="margin-bottom: 15px; font-size: 12px; color: #888; font-family: 'Courier New', monospace;">
+                        SISTEMA: BAT-MAP v3.2 | ATUALIZADO: ${new Date().toLocaleString('pt-BR')}
                     </div>
-                    <ul class="modal-list">
-                        <li>Zonas de risco: 5</li>
-                        <li>Polícia ativa: 87%</li>
-                        <li>Emergências: 12</li>
-                        <li>Tráfego: MODERADO</li>
-                        <li>Centro: ALERTA AMARELO</li>
-                        <li>Área Industrial: ALERTA VERMELHO</li>
-                        <li>Subúrbios: ALERTA VERDE</li>
-                        <li>Porto: ALERTA LARANJA</li>
-                    </ul>
-                `
-                },
-                'mission': {
-                    title: 'MISSÃO ATIVA - DADOS DA OPERAÇÃO',
-                    content: `
-                    <p>Operação em andamento: PISTA DO CORINGA</p>
-                    <div class="modal-status">
-                        <div class="modal-status-title">DETALHES DA MISSÃO</div>
-                        <p>Status: <span style="color:#ff5555;">EM ANDAMENTO</span></p>
-                        <p>Início: ${new Date().toLocaleTimeString('pt-BR')}</p>
-                    </div>
-                    <ul class="modal-list">
-                        <li>Objetivo: LOCALIZAR ESCOVAS</li>
-                        <li>Local: ARSENAL QUÍMICO ABANDONADO</li>
-                        <li>Risco: ALTO</li>
-                        <li>Backup: ROBIN EM STANDBY</li>
-                        <li>Equipamento: COMPLETO</li>
-                        <li>Comunicação: ESTÁVEL</li>
-                        <li>Tempo estimado: 2 HORAS</li>
-                        <li>Condições climáticas: CHUVOSO</li>
-                    </ul>
-                `
-                }
-            };
-
-            // Abrir modal
-            function openModal(type) {
-                const modal = document.getElementById('modalOverlay');
-                const title = document.getElementById('modalTitle');
-                const body = document.getElementById('modalBody');
-
-                if (modalContents[type]) {
-                    title.textContent = modalContents[type].title;
-                    body.innerHTML = modalContents[type].content;
-                    modal.style.display = 'flex';
-                    playSound('click');
                     
-                    // Garantir que o modal está visível
-                    setTimeout(() => {
-                        modal.style.display = 'flex';
-                    }, 10);
+                    <!-- Mapa Holográfico -->
+                    <div class="hologram-container">
+                        <div class="hologram-grid" id="hologramGrid"></div>
+                        <div class="city-districts" id="gothamMap">
+                            <div class="district industrial-zone" onclick="showDistrictDetail('industrial')">
+                                <div class="data-point" style="top: 30%; left: 40%; color: #ff0040;"></div>
+                                <div class="data-point" style="top: 60%; left: 70%; color: #ff0040;"></div>
+                                ÁREA INDUSTRIAL
+                            </div>
+                            <div class="district city-center" onclick="showDistrictDetail('center')">
+                                <div class="data-point" style="top: 50%; left: 50%; color: #ffaa00;"></div>
+                                CENTRO
+                            </div>
+                            <div class="district suburbs" onclick="showDistrictDetail('suburbs')">
+                                <div class="data-point" style="top: 20%; left: 30%; color: #00ff88;"></div>
+                                SUBÚRBIOS
+                            </div>
+                            <div class="district port-area" onclick="showDistrictDetail('port')">
+                                <div class="data-point" style="top: 40%; left: 60%; color: #ff7700;"></div>
+                                PORTO
+                            </div>
+                            <div class="district arkham" onclick="showDistrictDetail('arkham')">
+                                <div class="data-point" style="top: 70%; left: 20%; color: #bb86fc;"></div>
+                                ARKHAM
+                            </div>
+                            <div class="district wayne-tower" onclick="showDistrictDetail('wayne')">
+                                <div class="data-point" style="top: 40%; left: 40%; color: #00d9ff;"></div>
+                                WAYNE TOWER
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Controles do Mapa -->
+                    <div class="map-controls">
+                        <button class="map-btn" onclick="rotateMap('left')">↻ ROTACIONAR ESQ</button>
+                        <button class="map-btn" onclick="rotateMap('right')">↺ ROTACIONAR DIR</button>
+                        <button class="map-btn" onclick="toggleGrid()">🌐 GRADE ON/OFF</button>
+                        <button class="map-btn" onclick="zoomIn()">🔍 ZOOM IN</button>
+                        <button class="map-btn" onclick="zoomOut()">🔎 ZOOM OUT</button>
+                        <button class="map-btn" onclick="scanForActivity()">📡 ESCANEAR</button>
+                        <button class="map-btn" onclick="resetMap()">🔄 RESETAR</button>
+                        <button class="map-btn" onclick="exportMap()">💾 EXPORTAR</button>
+                    </div>
+                    
+                    <!-- Detalhes do Distrito -->
+                    <div class="district-detail" id="districtDetail" style="display:none;">
+                        <div class="district-header">
+                            <h3 style="color: #00d9ff; margin: 0;" id="districtTitle">DISTRITO</h3>
+                            <span class="district-alert" id="districtAlert">ALERTA</span>
+                        </div>
+                        <div id="districtInfo" style="font-size: 11px; line-height: 1.5;">
+                            Selecione uma zona no mapa para ver os detalhes.
+                        </div>
+                        <div class="incident-timeline" id="incidentTimeline" style="display:none; margin-top:10px;">
+                            <div class="modal-section-title">📅 TIMELINE DE INCIDENTES</div>
+                            <div id="timelineContent"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Status da Cidade -->
+                    <div class="modal-status" style="margin-top: 15px;">
+                        <div class="modal-status-title">📊 STATUS DA CIDADE EM TEMPO REAL</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+                            <div><span style="color: #aaa;">ZONAS DE RISCO:</span> <span style="color: #ff0040; font-weight: bold;">5</span></div>
+                            <div><span style="color: #aaa;">POLÍCIA ATIVA:</span> <span style="color: #00ff88; font-weight: bold;">87%</span></div>
+                            <div><span style="color: #aaa;">EMERGÊNCIAS:</span> <span style="color: #ffaa00; font-weight: bold;">12</span></div>
+                            <div><span style="color: #aaa;">TRÁFEGO:</span> <span style="color: #00d9ff; font-weight: bold;">MODERADO</span></div>
+                            <div><span style="color: #aaa;">TEMPO:</span> <span style="color: #bb86fc; font-weight: bold;">CHUVOSO</span></div>
+                            <div><span style="color: #aaa;">VISIBILIDADE:</span> <span style="color: #ff7700; font-weight: bold;">BAIXA</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            'mission': {
+                title: '☠ RASTREAMENTO DE VILÕES ATIVOS',
+                content: `
+                    <div class="villain-tracking-system">
+                        <!-- Barra de Busca e Filtros -->
+                        <div class="villain-search-container">
+                            <input type="text" class="villain-search" id="villainSearch" 
+                                   placeholder="🔍 Buscar vilão..." onkeyup="filterVillains()">
+                            <button class="filter-btn" onclick="filterByStatus('all')">TODOS</button>
+                            <button class="filter-btn" onclick="filterByStatus('foragido')">FORAGIDOS</button>
+                            <button class="filter-btn" onclick="filterByStatus('ativo')">ATIVOS</button>
+                        </div>
+                        
+                        <!-- Estatísticas -->
+                        <div class="villain-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">TOTAL</div>
+                                <div class="stat-value">${villains.length}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">ATIVOS</div>
+                                <div class="stat-value" style="color:#ffaa00;">${villains.filter(v => v.status.includes('ATIV')).length}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">FORAGIDOS</div>
+                                <div class="stat-value" style="color:#ff0040;">${villains.filter(v => v.status === 'FORAGIDO').length}</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">PRESOS</div>
+                                <div class="stat-value" style="color:#00ff88;">${villains.filter(v => v.status === 'ENCARCERADO').length}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Grid de Vilões -->
+                        <div class="villain-grid" id="villainGrid"></div>
+                        
+                        <!-- Exportação -->
+                        <div class="villain-export">
+                            <button class="export-btn" onclick="exportVillainsPDF()">📄 PDF</button>
+                            <button class="export-btn" onclick="exportVillainsCSV()">📊 CSV</button>
+                            <button class="export-btn" onclick="printVillains()">🖨️ IMPRIMIR</button>
+                            <button class="export-btn" onclick="refreshVillains()">🔄 ATUALIZAR</button>
+                        </div>
+                        
+                        <!-- Atualização em Tempo Real -->
+                        <div style="font-size:10px; color:#888; text-align:center; margin-top:10px;">
+                            ⚡ ATUALIZAÇÃO AUTOMÁTICA: <span id="villainUpdateTime">${new Date().toLocaleTimeString()}</span>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openModal(type) {
+            const modal = document.getElementById('modalOverlay');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            if (modalContents[type]) {
+                title.textContent = modalContents[type].title;
+                body.innerHTML = modalContents[type].content;
+
+                // Carregar conteúdo específico
+                switch(type) {
+                    case 'mission':
+                        setTimeout(() => {
+                            loadVillains();
+                            startVillainUpdates();
+                        }, 10);
+                        break;
+                    case 'weapons':
+                        setTimeout(() => {
+                            loadEquipment();
+                        }, 10);
+                        break;
+                    case 'gotham':
+                        setTimeout(() => {
+                            initGothamMap();
+                        }, 10);
+                        break;
+                    case 'vehicle':
+                        setTimeout(() => {
+                            updateBatmobileDisplay();
+                            startBatmobileUpdates();
+                        }, 10);
+                        break;
                 }
+
+                modal.style.display = 'flex';
+                playSound('click');
             }
+        }
 
-            // Fechar modal
-            function closeModal() {
-                const modal = document.getElementById('modalOverlay');
-                modal.style.display = 'none';
+        function closeModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.style.display = 'none';
+            
+            // Parar atualizações em tempo real quando o modal fecha
+            if (liveUpdateIntervals['villains']) {
+                clearInterval(liveUpdateIntervals['villains']);
+                delete liveUpdateIntervals['villains'];
             }
+            if (liveUpdateIntervals['batmobile']) {
+                clearInterval(liveUpdateIntervals['batmobile']);
+                delete liveUpdateIntervals['batmobile'];
+            }
+        }
 
-            // Fechar modal com ESC ou clicando fora
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            document.getElementById('modalOverlay').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('modalOverlay')) {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const villainModal = document.getElementById('villainDetailModal');
+                const equipModal = document.getElementById('equipmentDetailModal');
+                
+                if (villainModal.style.display === 'block') {
+                    closeVillainDetail();
+                } else if (equipModal.style.display === 'block') {
+                    closeEquipmentDetail();
+                } else {
                     closeModal();
                 }
+            }
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modalOverlay')) {
+                closeModal();
+            }
+        });
+
+        // ===========================================
+        // SISTEMA DE VILÕES - FUNÇÕES
+        // ===========================================
+        let filteredVillains = [...villains];
+
+        function loadVillains() {
+            const grid = document.getElementById('villainGrid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            filteredVillains.forEach((v, index) => {
+                const card = document.createElement('div');
+                card.className = 'villain-card';
+                card.onclick = () => openVillainDetail(index);
+
+                let statusClass = 'status-';
+                if (v.status === 'ENCARCERADO') statusClass += 'encarcerado';
+                else if (v.status === 'FORAGIDO') statusClass += 'foragido';
+                else if (v.status === 'ATIVA' || v.status === 'ATIVO') statusClass += 'ativo';
+                else if (v.status === 'PLANEJANDO') statusClass += 'planejando';
+                else if (v.status === 'NEGÓCIOS') statusClass += 'negocios';
+
+                let threatColor = '#ff0040';
+                if (v.threat === 'MÉDIO') threatColor = '#ffaa00';
+                else if (v.threat === 'ALTO') threatColor = '#ff7700';
+
+                card.innerHTML = `
+                    <div class="villain-threat" style="background: ${threatColor}20; color: ${threatColor};">${v.threat}</div>
+                    <img src="${v.img}" alt="${v.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/80/000000/00d9ff?text=${v.name.charAt(0)}'">
+                    <div class="villain-name">${v.name}</div>
+                    <div class="villain-status ${statusClass}">${v.status}</div>
+                    <div class="villain-location">${v.location}</div>
+                    <div style="font-size:9px; color:#888; margin-top:5px;">Visto: ${v.lastSeen.split(' ')[1]}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterVillains() {
+            const search = document.getElementById('villainSearch').value.toLowerCase();
+            filteredVillains = villains.filter(v => 
+                v.name.toLowerCase().includes(search) ||
+                v.alias.toLowerCase().includes(search) ||
+                v.location.toLowerCase().includes(search)
+            );
+            loadVillains();
+        }
+
+        function filterByStatus(status) {
+            if (status === 'all') {
+                filteredVillains = [...villains];
+            } else if (status === 'foragido') {
+                filteredVillains = villains.filter(v => v.status === 'FORAGIDO');
+            } else if (status === 'ativo') {
+                filteredVillains = villains.filter(v => v.status.includes('ATIV'));
+            }
+            loadVillains();
+        }
+
+        function startVillainUpdates() {
+            if (liveUpdateIntervals['villains']) clearInterval(liveUpdateIntervals['villains']);
+            
+            liveUpdateIntervals['villains'] = setInterval(() => {
+                // Atualizar tempo da última atualização
+                const updateTime = document.getElementById('villainUpdateTime');
+                if (updateTime) {
+                    updateTime.textContent = new Date().toLocaleTimeString();
+                }
+                
+                // Simular mudança aleatória de status (10% de chance)
+                if (Math.random() < 0.1) {
+                    const randomIndex = Math.floor(Math.random() * villains.length);
+                    if (villains[randomIndex].status !== 'ENCARCERADO') {
+                        const statuses = ['ATIVO', 'FORAGIDO', 'PLANEJANDO'];
+                        villains[randomIndex].status = statuses[Math.floor(Math.random() * statuses.length)];
+                        loadVillains();
+                    }
+                }
+            }, 30000); // Atualizar a cada 30 segundos
+        }
+
+        function openVillainDetail(index) {
+            const v = villains[index];
+            const modal = document.getElementById('villainDetailModal');
+            const left = document.getElementById('villainDetailLeft');
+            const right = document.getElementById('villainDetailRight');
+
+            if (!modal || !left || !right) return;
+
+            let statusClass = 'status-';
+            if (v.status === 'ENCARCERADO') statusClass += 'encarcerado';
+            else if (v.status === 'FORAGIDO') statusClass += 'foragido';
+            else if (v.status === 'ATIVA' || v.status === 'ATIVO') statusClass += 'ativo';
+            else if (v.status === 'PLANEJANDO') statusClass += 'planejando';
+            else if (v.status === 'NEGÓCIOS') statusClass += 'negocios';
+
+            left.innerHTML = `
+                <img src="${v.img}" class="villain-detail-img" 
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/300/000000/00d9ff?text=${v.name}'">
+                <div style="text-align:center; margin-top:15px;">
+                    <div class="villain-status ${statusClass}" style="display:inline-block;">${v.status}</div>
+                </div>
+            `;
+
+            right.innerHTML = `
+                <h3>${v.name}</h3>
+                
+                <div class="detail-label">IDENTIDADE SECRETA</div>
+                <div class="detail-value">${v.alias}</div>
+                
+                <div class="detail-label">NÍVEL DE AMEAÇA</div>
+                <div class="detail-value">
+                    <span class="detail-threat">${v.threat}</span>
+                </div>
+                
+                <div class="detail-label">ÚLTIMA LOCALIZAÇÃO</div>
+                <div class="detail-value">${v.location}</div>
+                
+                <div class="detail-label">ÚLTIMA ATIVIDADE</div>
+                <div class="detail-value">${v.lastSeen}</div>
+                
+                <div class="detail-label">CRIMES CONHECIDOS</div>
+                <div class="detail-value">
+                    ${v.crimes.map(crime => `<div style="margin:2px 0;">• ${crime}</div>`).join('')}
+                </div>
+                
+                <div class="detail-label">ANÁLISE DO BATCOMPUTADOR</div>
+                <div class="detail-desc">${v.desc}</div>
+                
+                <div class="detail-label">PROTOCOLO DE APREENSÃO</div>
+                <div class="detail-value">
+                    ${v.status === 'ENCARCERADO' ?
+                        '<span style="color:#00ff88;">✔ CONTIDO EM ARKHAM</span>' :
+                        '<span style="color:#ff0040;">⚠ PRIORIDADE DE CAPTURA ATIVA</span>'}
+                </div>
+                
+                <div style="margin-top:15px; display:flex; gap:10px;">
+                    <button class="export-btn" onclick="trackVillain(${index})">🎯 RASTREAR</button>
+                    <button class="export-btn" onclick="alert('Relatório gerado para ' + '${v.name}')">📋 RELATÓRIO</button>
+                    <button class="export-btn" onclick="notifyGCPD(${index})">🚨 NOTIFICAR GCPD</button>
+                </div>
+            `;
+
+            modal.style.display = 'block';
+            playSound('click');
+        }
+
+        function closeVillainDetail() {
+            const modal = document.getElementById('villainDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function trackVillain(index) {
+            const villain = villains[index];
+            alert(`🎯 Iniciando rastreamento de ${villain.name}\nSistema de rastreamento ativado.`);
+            playSound('success');
+        }
+
+        function notifyGCPD(index) {
+            const villain = villains[index];
+            alert(`🚨 Notificação enviada ao GCPD para ${villain.name}\nUnidades despachadas.`);
+            playSound('click');
+        }
+
+        function exportVillainsPDF() {
+            alert('📄 Exportando lista de vilões em PDF...');
+            playSound('click');
+        }
+
+        function exportVillainsCSV() {
+            alert('📊 Exportando dados em CSV...');
+            playSound('click');
+        }
+
+        function printVillains() {
+            alert('🖨️ Preparando impressão...');
+            playSound('click');
+        }
+
+        function refreshVillains() {
+            loadVillains();
+            document.getElementById('villainUpdateTime').textContent = new Date().toLocaleTimeString();
+            playSound('success');
+        }
+
+        // ===========================================
+        // SISTEMA DE ARSENAL - FUNÇÕES
+        // ===========================================
+        function loadEquipment() {
+            const grid = document.getElementById('equipmentGrid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            arsenalData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'equipment-card';
+                card.onclick = () => openEquipmentDetail(index);
+
+                let progressClass = 'progress-ok';
+                if (item.class === 'status-warn') progressClass = 'progress-warn';
+                else if (item.class === 'status-alert') progressClass = 'progress-alert';
+
+                card.innerHTML = `
+                    <div class="equipment-icon">${item.icon}</div>
+                    <div class="equipment-name">${item.name}</div>
+                    <div class="equipment-value">${item.value}</div>
+                    <div class="equipment-status ${item.class}">${item.status}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${progressClass}" style="width: ${item.progress}%"></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterEquipment() {
+            const search = document.getElementById('equipmentSearch').value.toLowerCase();
+            const grid = document.getElementById('equipmentGrid');
+            const cards = grid.querySelectorAll('.equipment-card');
+            
+            cards.forEach((card, index) => {
+                const name = arsenalData[index].name.toLowerCase();
+                card.style.display = name.includes(search) ? 'flex' : 'none';
+            });
+        }
+
+        function openEquipmentDetail(index) {
+            const item = arsenalData[index];
+            const modal = document.createElement('div');
+            modal.className = 'equipment-detail-modal';
+            modal.id = 'equipmentDetailModal';
+            
+            let progressClass = 'progress-ok';
+            if (item.class === 'status-warn') progressClass = 'progress-warn';
+            else if (item.class === 'status-alert') progressClass = 'progress-alert';
+
+            modal.innerHTML = `
+                <div class="equipment-detail-content">
+                    <button class="close-detail-btn" onclick="closeEquipmentDetail()">×</button>
+                    <div style="text-align: center;">
+                        <div class="equipment-detail-icon">${item.icon}</div>
+                        <div class="equipment-name" style="font-size:16px;">${item.name}</div>
+                        <div class="equipment-status ${item.class}" style="display:inline-block; margin-top:10px;">${item.status}</div>
+                        <div class="progress-bar" style="width:80%; margin:10px auto;">
+                            <div class="progress-fill ${progressClass}" style="width: ${item.progress}%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="detail-label">ESPECIFICAÇÕES</div>
+                        <div class="detail-desc" style="margin-bottom:15px;">${item.desc}</div>
+                        
+                        <div class="detail-label">DADOS VITAIS</div>
+                        <div class="modal-data-grid" style="margin-top:10px;">
+                            ${item.vitals.map(vital => `
+                                <div class="data-item">
+                                    <div class="data-label">${vital.split(':')[0]}</div>
+                                    <div class="data-value">${vital.split(':')[1]}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${item.combos ? `
+                            <div class="tactical-combos">
+                                <div class="modal-section-title">⚡ COMBINAÇÕES RECOMENDADAS</div>
+                                ${item.combos.map(combo => `
+                                    <div class="combo-item">${combo}</div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="modal-status" style="margin-top:20px;">
+                            <div class="modal-status-title">DIAGNÓSTICO BATCOMPUTADOR</div>
+                            <p style="font-size:12px; color:#00ff88;">
+                                > SISTEMA: ${item.class === 'status-ok' ? 'OPERACIONAL' : item.class === 'status-warn' ? 'ATENÇÃO' : 'CRÍTICO'}<br>
+                                > USO RECOMENDADO: TÁTICA PRINCIPAL<br>
+                                > MANUTENÇÃO: ${item.class === 'status-alert' ? 'URGENTE' : 'AGENDADA'}
+                            </p>
+                        </div>
+                        
+                        <div style="display:flex; gap:10px; margin-top:20px;">
+                            <button class="export-btn" onclick="useEquipment(${index})">🛠️ USAR AGORA</button>
+                            <button class="export-btn" onclick="repairEquipment(${index})">🔧 MANUTENÇÃO</button>
+                            <button class="export-btn" onclick="rechargeEquipment(${index})">⚡ RECARREGAR</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+
+            // Atualizar diagnóstico
+            const diagnostic = document.getElementById('equipmentDiagnostic');
+            if (diagnostic) {
+                diagnostic.innerHTML = `> ANALISANDO: ${item.name}<br>> STATUS: ${item.status}<br>> PROTOCOLO DE USO ATIVO<br>> ${item.class === 'status-alert' ? '⚠ MANUTENÇÃO URGENTE REQUERIDA' : '✅ SISTEMA PRONTO PARA DEPLOY'}`;
+            }
+
+            playSound('click');
+        }
+
+        function closeEquipmentDetail() {
+            const modal = document.getElementById('equipmentDetailModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function useEquipment(index) {
+            const item = arsenalData[index];
+            alert(`🛠️ ${item.name} em uso\nProtocolo de operação ativado.`);
+            playSound('success');
+        }
+
+        function repairEquipment(index) {
+            const item = arsenalData[index];
+            item.progress = 100;
+            item.status = item.id === 'disruptor' ? 'RECARR.' : 'PRONTO';
+            item.class = 'status-ok';
+            item.value = item.id === 'disruptor' ? '100%' : item.value;
+            alert(`🔧 ${item.name} reparado\nSistema restaurado para 100%.`);
+            loadEquipment();
+            playSound('success');
+        }
+
+        function rechargeEquipment(index) {
+            const item = arsenalData[index];
+            if (item.id === 'disruptor') {
+                item.progress = 100;
+                item.status = 'PRONTO';
+                item.class = 'status-ok';
+                item.value = '100%';
+                alert(`⚡ ${item.name} recarregado\nBateria restaurada para 100%.`);
+                loadEquipment();
+                playSound('success');
+            } else {
+                alert('ℹ️ Este equipamento não requer recarga.');
+            }
+        }
+
+        // ===========================================
+        // SISTEMA DO BATMÓVEL - FUNÇÕES
+        // ===========================================
+        function updateBatmobileDisplay() {
+            document.getElementById('batSpeed').textContent = `${batmobileStatus.speed} km/h`;
+            document.getElementById('batFuel').textContent = `${batmobileStatus.fuel}%`;
+            document.getElementById('batSystems').textContent = batmobileStatus.systems;
+            document.getElementById('batDestination').textContent = batmobileStatus.destination || '--';
+            
+            // Atualizar cor do combustível
+            const fuelElement = document.getElementById('batFuel');
+            if (batmobileStatus.fuel < 20) {
+                fuelElement.style.color = '#ff0040';
+            } else if (batmobileStatus.fuel < 50) {
+                fuelElement.style.color = '#ffaa00';
+            } else {
+                fuelElement.style.color = '#00ff88';
+            }
+        }
+
+        function startBatmobileUpdates() {
+            if (liveUpdateIntervals['batmobile']) clearInterval(liveUpdateIntervals['batmobile']);
+            
+            liveUpdateIntervals['batmobile'] = setInterval(() => {
+                if (batmobileStatus.speed > 0) {
+                    // Consumir combustível
+                    batmobileStatus.fuel = Math.max(0, batmobileStatus.fuel - 0.1);
+                    
+                    // Atualizar log
+                    const log = document.getElementById('batLog');
+                    if (log) {
+                        const newEntry = `> ${new Date().toLocaleTimeString()}: Em movimento | Combustível: ${batmobileStatus.fuel.toFixed(1)}%`;
+                        log.innerHTML = newEntry + '<br>' + log.innerHTML;
+                        if (log.children.length > 10) {
+                            log.removeChild(log.lastChild);
+                        }
+                    }
+                    
+                    updateBatmobileDisplay();
+                }
+            }, 5000); // Atualizar a cada 5 segundos
+        }
+
+        function startBatmobile() {
+            if (batmobileStatus.speed === 0) {
+                batmobileStatus.speed = 60;
+                addLog('Batmóvel iniciado. Velocidade: 60 km/h');
+                updateBatmobileDisplay();
+                playSound('success');
+            }
+        }
+
+        function stopBatmobile() {
+            batmobileStatus.speed = 0;
+            addLog('Batmóvel parado.');
+            updateBatmobileDisplay();
+            playSound('click');
+        }
+
+        function activateTurbo() {
+            if (batmobileStatus.speed > 0) {
+                batmobileStatus.speed = 180;
+                batmobileStatus.turbo = true;
+                addLog('Turbo ativado! Velocidade: 180 km/h');
+                updateBatmobileDisplay();
+                playSound('success');
+                
+                // Desativar turbo após 10 segundos
+                setTimeout(() => {
+                    if (batmobileStatus.turbo) {
+                        batmobileStatus.speed = 60;
+                        batmobileStatus.turbo = false;
+                        addLog('Turbo desativado. Velocidade normalizada.');
+                        updateBatmobileDisplay();
+                    }
+                }, 10000);
+            }
+        }
+
+        function toggleCamouflage() {
+            batmobileStatus.camouflage = !batmobileStatus.camouflage;
+            const status = batmobileStatus.camouflage ? 'ATIVADA' : 'DESATIVADA';
+            addLog(`Camuflagem ${status}.`);
+            playSound('click');
+        }
+
+        function activateWeapons() {
+            addLog('Sistema de armas ativado. Alvos travados.');
+            playSound('success');
+        }
+
+        function activateDefense() {
+            addLog('Sistema de defesa ativado. Escudo energético ativo.');
+            playSound('success');
+        }
+
+        function setDestination() {
+            const input = document.getElementById('routeInput');
+            if (input.value.trim()) {
+                batmobileStatus.destination = input.value;
+                const distance = Math.floor(Math.random() * 50) + 5;
+                const time = Math.floor(distance / 60 * 60);
+                
+                document.getElementById('routeDistance').textContent = `${distance} km`;
+                document.getElementById('routeTime').textContent = `${time} min`;
+                
+                addLog(`Destino definido: ${input.value} | Distância: ${distance} km`);
+                input.value = '';
+                updateBatmobileDisplay();
+                playSound('success');
+            }
+        }
+
+        function calculateFastestRoute() {
+            if (batmobileStatus.destination) {
+                const distance = parseInt(document.getElementById('routeDistance').textContent);
+                const fastestTime = Math.floor(distance / 180 * 60);
+                document.getElementById('routeTime').textContent = `${fastestTime} min (TURBO)`;
+                addLog(`Rota rápida calculada: ${fastestTime} minutos com Turbo.`);
+                playSound('success');
+            }
+        }
+
+        function addLog(message) {
+            const log = document.getElementById('batLog');
+            if (log) {
+                const newEntry = `> ${new Date().toLocaleTimeString()}: ${message}`;
+                log.innerHTML = newEntry + '<br>' + log.innerHTML;
+                if (log.children.length > 10) {
+                    log.removeChild(log.lastChild);
+                }
+            }
+        }
+
+        // ===========================================
+        // MAPA DE GOTHAM - FUNÇÕES
+        // ===========================================
+        let mapZoom = 1;
+        let mapRotation = 0;
+
+        function initGothamMap() {
+            const grid = document.getElementById('hologramGrid');
+            if (grid) {
+                grid.style.opacity = '0.5';
+            }
+            
+            // Iniciar animação dos pontos de dados
+            const dataPoints = document.querySelectorAll('.data-point');
+            dataPoints.forEach((point, index) => {
+                point.style.animationDelay = `${index * 0.5}s`;
+            });
+        }
+
+        function showDistrictDetail(districtId) {
+            const district = gothamDistricts[districtId];
+            const detailPanel = document.getElementById('districtDetail');
+            const title = document.getElementById('districtTitle');
+            const alert = document.getElementById('districtAlert');
+            const info = document.getElementById('districtInfo');
+            const timeline = document.getElementById('incidentTimeline');
+            const timelineContent = document.getElementById('timelineContent');
+
+            if (district && detailPanel) {
+                title.textContent = district.name;
+                alert.textContent = district.alert;
+                alert.className = `district-alert ${district.alertClass}`;
+                info.innerHTML = district.info;
+
+                // Adicionar estatísticas
+                info.innerHTML += `
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>TAXA CRIMINAL:</span>
+                            <span style="color: ${districtId === 'industrial' || districtId === 'arkham' ? '#ff0040' : districtId === 'port' ? '#ff7700' : '#00ff88'};">
+                                ${district.crimeRate}
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span>POLÍCIA PRESENTE:</span>
+                            <span style="color: ${district.policePresence > '80%' ? '#00ff88' : '#ffaa00'};">${district.policePresence}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Mostrar timeline
+                if (district.incidents && district.incidents.length > 0) {
+                    timelineContent.innerHTML = district.incidents.map(incident => `
+                        <div class="timeline-item">
+                            <span class="timeline-time">${incident.time}</span>
+                            <span class="timeline-event">${incident.event}</span>
+                            <span class="timeline-alert">${incident.alert}</span>
+                        </div>
+                    `).join('');
+                    timeline.style.display = 'block';
+                }
+
+                detailPanel.style.display = 'block';
+
+                // Efeito de destaque
+                const districtElement = document.querySelector(`.${districtId === 'industrial' ? 'industrial-zone' :
+                    districtId === 'center' ? 'city-center' :
+                    districtId === 'suburbs' ? 'suburbs' :
+                    districtId === 'port' ? 'port-area' :
+                    districtId === 'arkham' ? 'arkham' : 'wayne-tower'}`);
+                if (districtElement) {
+                    districtElement.style.animation = 'pulse 1s 3';
+                    setTimeout(() => {
+                        districtElement.style.animation = '';
+                    }, 3000);
+                }
+
+                playSound('click');
+            }
+        }
+
+        function rotateMap(direction) {
+            const map = document.getElementById('gothamMap');
+            if (map) {
+                mapRotation += direction === 'left' ? -15 : 15;
+                map.style.transition = 'transform 0.5s ease';
+                map.style.transform = `rotate(${mapRotation}deg) scale(${mapZoom})`;
+            }
+            playSound('click');
+        }
+
+        function toggleGrid() {
+            const grid = document.getElementById('hologramGrid');
+            if (grid) {
+                grid.style.opacity = grid.style.opacity === '0' ? '0.5' : '0';
+            }
+            playSound('click');
+        }
+
+        function zoomIn() {
+            if (mapZoom < 2) {
+                mapZoom += 0.1;
+                updateMapTransform();
+            }
+            playSound('click');
+        }
+
+        function zoomOut() {
+            if (mapZoom > 0.5) {
+                mapZoom -= 0.1;
+                updateMapTransform();
+            }
+            playSound('click');
+        }
+
+        function updateMapTransform() {
+            const map = document.getElementById('gothamMap');
+            if (map) {
+                map.style.transform = `rotate(${mapRotation}deg) scale(${mapZoom})`;
+            }
+        }
+
+        function scanForActivity() {
+            const dataPoints = document.querySelectorAll('.data-point');
+            dataPoints.forEach(point => {
+                point.style.animation = 'none';
+                setTimeout(() => {
+                    point.style.animation = 'float 3s infinite ease-in-out';
+                    point.style.transform = 'scale(1.5)';
+                    setTimeout(() => {
+                        point.style.transform = 'scale(1)';
+                    }, 500);
+                }, 10);
             });
 
-            // Prevenir zoom em formulários no iOS
-            document.addEventListener('touchstart', function(event) {
+            // Simular detecção
+            const alerts = ['ATIVIDADE DETECTADA', 'ESCANEAMENTO COMPLETO', '3 ANOMALIAS ENCONTRADAS'];
+            const randomAlert = alerts[Math.floor(Math.random() * alerts.length)];
+            
+            alert(`🔍 ${randomAlert} - Verifique os pontos brilhantes no mapa.`);
+            playSound('success');
+        }
+
+        function resetMap() {
+            mapZoom = 1;
+            mapRotation = 0;
+            const map = document.getElementById('gothamMap');
+            const detailPanel = document.getElementById('districtDetail');
+            const grid = document.getElementById('hologramGrid');
+
+            if (map) {
+                map.style.transform = '';
+            }
+            if (detailPanel) {
+                detailPanel.style.display = 'none';
+            }
+            if (grid) {
+                grid.style.opacity = '0.5';
+            }
+
+            playSound('click');
+        }
+
+        function exportMap() {
+            alert('💾 Exportando mapa de Gotham...');
+            playSound('click');
+        }
+
+        // ===========================================
+        // SISTEMA DE SONS
+        // ===========================================
+        function playSound(type) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+                switch (type) {
+                    case 'success':
+                        oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                        oscillator.frequency.setValueAtTime(1760, audioContext.currentTime + 0.1);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.2);
+                        break;
+                    case 'error':
+                        oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                        oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.1);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                        break;
+                    case 'logout':
+                        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                        oscillator.frequency.exponentialRampToValueAtTime(55, audioContext.currentTime + 0.5);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.5);
+                        break;
+                    case 'click':
+                        oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
+                        oscillator.frequency.exponentialRampToValueAtTime(330, audioContext.currentTime + 0.1);
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.1);
+                        break;
+                }
+
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log("Áudio não suportado");
+            }
+        }
+
+        // ===========================================
+        // INICIALIZAÇÃO
+        // ===========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevenir zoom em iOS
+            document.addEventListener('touchstart', function (event) {
                 if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
                     event.target.style.fontSize = '16px';
                 }
             });
 
-            // Melhorar toques em dispositivos móveis
-            document.addEventListener('touchstart', function() {}, {passive: true});
-        </script>
+            // Melhorar toques em mobile
+            document.addEventListener('touchstart', function () { }, { passive: true });
 
+            // Fechar modais ao clicar fora
+            document.addEventListener('click', function (e) {
+                const villainModal = document.getElementById('villainDetailModal');
+                if (villainModal && e.target === villainModal) {
+                    closeVillainDetail();
+                }
+                
+                const equipModal = document.getElementById('equipmentDetailModal');
+                if (equipModal && e.target === equipModal) {
+                    closeEquipmentDetail();
+                }
+            });
+
+            console.log('🦇 BAT-HUD SYSTEM v2.0 INICIALIZADO');
+            console.log('Sistemas carregados:');
+            console.log('- Autenticação ✓');
+            console.log('- Alerta de Emergência ✓');
+            console.log('- Rastreamento de Vilões ✓');
+            console.log('- Sistema de Arsenal ✓');
+            console.log('- Controle do Batmóvel ✓');
+            console.log('- Mapa de Gotham ✓');
+            console.log('- Interface HUD ✓');
+        });
+    </script>
 </body>
-
 </html>
