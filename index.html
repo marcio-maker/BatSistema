@@ -43,8 +43,13 @@
         }
 
         @keyframes rain {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 20px; }
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 20px;
+            }
         }
 
         /* =========================================== */
@@ -165,6 +170,7 @@
                 background: rgba(255, 0, 0, 0.95);
                 box-shadow: 0 0 100px rgba(255, 0, 0, 0.8) inset;
             }
+
             100% {
                 background: rgba(255, 50, 50, 0.95);
                 box-shadow: 0 0 150px rgba(255, 0, 0, 1) inset;
@@ -200,8 +206,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .auth-frame::before,
@@ -262,8 +275,15 @@
         }
 
         @keyframes batPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         .auth-form {
@@ -685,8 +705,15 @@
         }
 
         @keyframes modalAppear {
-            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .modal-header {
@@ -1196,9 +1223,17 @@
             transition: width 0.3s ease;
         }
 
-        .progress-ok { background: #00ff88; }
-        .progress-warn { background: #ffaa00; }
-        .progress-alert { background: #ff0040; }
+        .progress-ok {
+            background: #00ff88;
+        }
+
+        .progress-warn {
+            background: #ffaa00;
+        }
+
+        .progress-alert {
+            background: #ff0040;
+        }
 
         .equipment-detail-modal {
             display: none;
@@ -1282,7 +1317,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
@@ -1334,8 +1369,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .industrial-zone {
@@ -1397,11 +1439,35 @@
             font-weight: bold;
         }
 
-        .alert-red { background: rgba(255, 0, 64, 0.2); color: #ff0040; border: 1px solid #ff0040; }
-        .alert-yellow { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
-        .alert-green { background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid #00ff88; }
-        .alert-orange { background: rgba(255, 119, 0, 0.2); color: #ff7700; border: 1px solid #ff7700; }
-        .alert-purple { background: rgba(187, 134, 252, 0.2); color: #bb86fc; border: 1px solid #bb86fc; }
+        .alert-red {
+            background: rgba(255, 0, 64, 0.2);
+            color: #ff0040;
+            border: 1px solid #ff0040;
+        }
+
+        .alert-yellow {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            border: 1px solid #ffaa00;
+        }
+
+        .alert-green {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+
+        .alert-orange {
+            background: rgba(255, 119, 0, 0.2);
+            color: #ff7700;
+            border: 1px solid #ff7700;
+        }
+
+        .alert-purple {
+            background: rgba(187, 134, 252, 0.2);
+            color: #bb86fc;
+            border: 1px solid #bb86fc;
+        }
 
         .map-controls {
             display: flex;
@@ -1584,119 +1650,431 @@
         /* ANIMAÇÕES */
         /* =========================================== */
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* =========================================== */
         /* RESPONSIVIDADE */
         /* =========================================== */
         @media (max-width: 768px) {
-            .top-left, .top-right, .bottom-left, .bottom-right { width: 35%; }
-            .top-center, .bottom-center { width: 30%; left: 35%; }
-            .mid-left, .mid-right { width: 30px; }
-            .piece-text { font-size: 8px !important; }
-            .top-center .piece-text, .bottom-center .piece-text { font-size: 9px !important; }
-            .hint { font-size: 14px; }
-            .hint span { font-size: 10px; }
-            .user-indicator { font-size: 10px; padding: 6px 12px; max-width: 150px; }
-            .logout-btn { font-size: 8px; }
-            .emergency-content { padding: 30px; max-width: 90%; }
-            .emergency-title { font-size: 32px; }
-            .emergency-subtitle { font-size: 18px; }
-            .emergency-message { font-size: 16px; }
-            .villain-grid { grid-template-columns: repeat(2, 1fr); }
-            .equipment-grid { grid-template-columns: repeat(3, 1fr); }
-            .vehicle-controls { grid-template-columns: 1fr; }
+
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                width: 35%;
+            }
+
+            .top-center,
+            .bottom-center {
+                width: 30%;
+                left: 35%;
+            }
+
+            .mid-left,
+            .mid-right {
+                width: 30px;
+            }
+
+            .piece-text {
+                font-size: 8px !important;
+            }
+
+            .top-center .piece-text,
+            .bottom-center .piece-text {
+                font-size: 9px !important;
+            }
+
+            .hint {
+                font-size: 14px;
+            }
+
+            .hint span {
+                font-size: 10px;
+            }
+
+            .user-indicator {
+                font-size: 10px;
+                padding: 6px 12px;
+                max-width: 150px;
+            }
+
+            .logout-btn {
+                font-size: 8px;
+            }
+
+            .emergency-content {
+                padding: 30px;
+                max-width: 90%;
+            }
+
+            .emergency-title {
+                font-size: 32px;
+            }
+
+            .emergency-subtitle {
+                font-size: 18px;
+            }
+
+            .emergency-message {
+                font-size: 16px;
+            }
+
+            .villain-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .equipment-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .vehicle-controls {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
-            .auth-frame { padding: 25px 15px; }
-            .bat-logo h1 { font-size: 10px; letter-spacing: 1px; }
-            .bat-symbol { width: 50px; height: 25px; }
-            .bat-symbol::before { font-size: 25px; }
-            .form-input { font-size: 14px; padding: 10px 0; }
-            .form-label { font-size: 12px; top: 10px; }
-            .auth-button { padding: 10px; font-size: 12px; }
-            .auth-switch { font-size: 11px; }
-            .top-left, .top-right, .bottom-left, .bottom-right { width: 40%; height: 60px; }
-            .top-center, .bottom-center { width: 20%; left: 40%; height: 35px; }
-            .mid-left, .mid-right { width: 25px; top: 60px; height: calc(100% - 120px); }
-            .piece-text { font-size: 7px !important; line-height: 1 !important; }
-            .mid-left .piece-text, .mid-right .piece-text { font-size: 6px !important; }
-            .hint { font-size: 12px; }
-            .hint span { font-size: 9px; }
-            .modal-content { padding: 20px 15px; }
-            .modal-title { font-size: 16px; }
-            .modal-body { font-size: 13px; }
-            .modal-data-grid { grid-template-columns: 1fr; }
-            .user-indicator { font-size: 9px; padding: 5px 10px; max-width: 120px; }
-            .logout-btn { font-size: 7px; }
-            .emergency-content { padding: 20px; border-width: 3px; }
-            .emergency-title { font-size: 24px; letter-spacing: 2px; }
-            .emergency-subtitle { font-size: 14px; }
-            .emergency-message { font-size: 14px; }
-            .emergency-countdown { font-size: 28px; }
-            .alert-timer { bottom: 10px; right: 10px; padding: 8px 12px; font-size: 10px; }
-            .villain-grid { grid-template-columns: 1fr; }
-            .equipment-grid { grid-template-columns: repeat(2, 1fr); }
-            .city-districts { grid-template-columns: repeat(2, 1fr); }
+            .auth-frame {
+                padding: 25px 15px;
+            }
+
+            .bat-logo h1 {
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+
+            .bat-symbol {
+                width: 50px;
+                height: 25px;
+            }
+
+            .bat-symbol::before {
+                font-size: 25px;
+            }
+
+            .form-input {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+
+            .form-label {
+                font-size: 12px;
+                top: 10px;
+            }
+
+            .auth-button {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .auth-switch {
+                font-size: 11px;
+            }
+
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                width: 40%;
+                height: 60px;
+            }
+
+            .top-center,
+            .bottom-center {
+                width: 20%;
+                left: 40%;
+                height: 35px;
+            }
+
+            .mid-left,
+            .mid-right {
+                width: 25px;
+                top: 60px;
+                height: calc(100% - 120px);
+            }
+
+            .piece-text {
+                font-size: 7px !important;
+                line-height: 1 !important;
+            }
+
+            .mid-left .piece-text,
+            .mid-right .piece-text {
+                font-size: 6px !important;
+            }
+
+            .hint {
+                font-size: 12px;
+            }
+
+            .hint span {
+                font-size: 9px;
+            }
+
+            .modal-content {
+                padding: 20px 15px;
+            }
+
+            .modal-title {
+                font-size: 16px;
+            }
+
+            .modal-body {
+                font-size: 13px;
+            }
+
+            .modal-data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-indicator {
+                font-size: 9px;
+                padding: 5px 10px;
+                max-width: 120px;
+            }
+
+            .logout-btn {
+                font-size: 7px;
+            }
+
+            .emergency-content {
+                padding: 20px;
+                border-width: 3px;
+            }
+
+            .emergency-title {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+
+            .emergency-subtitle {
+                font-size: 14px;
+            }
+
+            .emergency-message {
+                font-size: 14px;
+            }
+
+            .emergency-countdown {
+                font-size: 28px;
+            }
+
+            .alert-timer {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 10px;
+            }
+
+            .villain-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .city-districts {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 320px) {
-            .top-left, .top-right, .bottom-left, .bottom-right { height: 50px; }
-            .top-center, .bottom-center { height: 30px; }
-            .mid-left, .mid-right { top: 50px; height: calc(100% - 100px); width: 20px; }
-            .piece-text { font-size: 6px !important; }
-            .auth-frame { padding: 20px 12px; }
-            .bat-logo h1 { font-size: 9px; }
-            .bat-symbol { width: 40px; height: 20px; }
-            .bat-symbol::before { font-size: 20px; }
-            .form-input { font-size: 13px; }
-            .form-label { font-size: 11px; }
-            .hint { font-size: 11px; }
-            .hint span { font-size: 8px; }
-            .equipment-grid { grid-template-columns: 1fr; }
+
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                height: 50px;
+            }
+
+            .top-center,
+            .bottom-center {
+                height: 30px;
+            }
+
+            .mid-left,
+            .mid-right {
+                top: 50px;
+                height: calc(100% - 100px);
+                width: 20px;
+            }
+
+            .piece-text {
+                font-size: 6px !important;
+            }
+
+            .auth-frame {
+                padding: 20px 12px;
+            }
+
+            .bat-logo h1 {
+                font-size: 9px;
+            }
+
+            .bat-symbol {
+                width: 40px;
+                height: 20px;
+            }
+
+            .bat-symbol::before {
+                font-size: 20px;
+            }
+
+            .form-input {
+                font-size: 13px;
+            }
+
+            .form-label {
+                font-size: 11px;
+            }
+
+            .hint {
+                font-size: 11px;
+            }
+
+            .hint span {
+                font-size: 8px;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-height: 500px) and (orientation: landscape) {
-            .auth-screen { align-items: flex-start; padding-top: 20px; overflow-y: auto; }
-            .auth-frame { margin-top: 20px; margin-bottom: 20px; max-width: 350px; }
-            .bat-logo { margin-bottom: 20px; }
-            .bat-logo h1 { margin-bottom: 10px; }
-            .auth-form { gap: 15px; }
-            .top-left, .top-right, .bottom-left, .bottom-right { height: 60px; }
-            .top-center, .bottom-center { height: 30px; }
-            .mid-left, .mid-right { top: 60px; height: calc(100% - 120px); }
-            .piece-text { font-size: 8px !important; }
+            .auth-screen {
+                align-items: flex-start;
+                padding-top: 20px;
+                overflow-y: auto;
+            }
+
+            .auth-frame {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                max-width: 350px;
+            }
+
+            .bat-logo {
+                margin-bottom: 20px;
+            }
+
+            .bat-logo h1 {
+                margin-bottom: 10px;
+            }
+
+            .auth-form {
+                gap: 15px;
+            }
+
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                height: 60px;
+            }
+
+            .top-center,
+            .bottom-center {
+                height: 30px;
+            }
+
+            .mid-left,
+            .mid-right {
+                top: 60px;
+                height: calc(100% - 120px);
+            }
+
+            .piece-text {
+                font-size: 8px !important;
+            }
         }
 
         @media (min-height: 1000px) {
-            .top-left, .top-right, .bottom-left, .bottom-right { height: 120px; }
-            .mid-left, .mid-right { top: 120px; height: calc(100% - 240px); }
-            .piece-text { font-size: 12px !important; }
-            .hint { font-size: 20px; }
-            .hint span { font-size: 14px; }
+
+            .top-left,
+            .top-right,
+            .bottom-left,
+            .bottom-right {
+                height: 120px;
+            }
+
+            .mid-left,
+            .mid-right {
+                top: 120px;
+                height: calc(100% - 240px);
+            }
+
+            .piece-text {
+                font-size: 12px !important;
+            }
+
+            .hint {
+                font-size: 20px;
+            }
+
+            .hint span {
+                font-size: 14px;
+            }
         }
 
         @supports (-webkit-touch-callout: none) {
-            input, textarea { font-size: 16px !important; }
+
+            input,
+            textarea {
+                font-size: 16px !important;
+            }
         }
 
         @media (prefers-color-scheme: dark) {
-            .auth-frame { background: rgba(5, 10, 20, 0.97); }
-            .modal-content { background: linear-gradient(145deg, rgba(5, 10, 20, 0.97), rgba(2, 5, 10, 0.99)); }
+            .auth-frame {
+                background: rgba(5, 10, 20, 0.97);
+            }
+
+            .modal-content {
+                background: linear-gradient(145deg, rgba(5, 10, 20, 0.97), rgba(2, 5, 10, 0.99));
+            }
         }
     </style>
 </head>
@@ -2642,61 +3020,38 @@
                 `
             },
             'vehicle': {
-                title: '🚗 CONTROLE DO BATMÓVEL',
-                content: `
-                    <div class="vehicle-control-panel">
-                        <!-- Status Principal -->
-                        <div class="vehicle-status-grid">
-                            <div class="status-item">
-                                <div class="status-label">VELOCIDADE</div>
-                                <div class="status-value" id="batSpeed">0 km/h</div>
-                            </div>
-                            <div class="status-item">
-                                <div class="status-label">COMBUSTÍVEL</div>
-                                <div class="status-value" style="color:#00ff88;" id="batFuel">100%</div>
-                            </div>
-                            <div class="status-item">
-                                <div class="status-label">SISTEMAS</div>
-                                <div class="status-value" style="color:#00ff88;" id="batSystems">ONLINE</div>
-                            </div>
-                            <div class="status-item">
-                                <div class="status-label">DESTINO</div>
-                                <div class="status-value" id="batDestination">--</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Controles -->
-                        <div class="vehicle-controls">
-                            <button class="control-btn" onclick="startBatmobile()">▶ INICIAR</button>
-                            <button class="control-btn" onclick="stopBatmobile()">⏹ PARAR</button>
-                            <button class="control-btn" onclick="activateTurbo()">💨 TURBO</button>
-                            <button class="control-btn" onclick="toggleCamouflage()">👻 CAMUFLAGEM</button>
-                            <button class="control-btn" onclick="activateWeapons()">🔫 ARMAS</button>
-                            <button class="control-btn" onclick="activateDefense()">🛡️ DEFESA</button>
-                        </div>
-                        
-                        <!-- Navegação -->
-                        <div class="navigation-map">
-                            <input type="text" class="route-input" id="routeInput" placeholder="Digite o destino...">
-                            <button class="route-btn" onclick="setDestination()">🗺️ DEFINIR ROTA</button>
-                            <button class="route-btn" onclick="calculateFastestRoute()">🚀 ROTA MAIS RÁPIDA</button>
-                            <div style="margin-top:10px; font-size:10px; color:#888;">
-                                Distância estimada: <span id="routeDistance">--</span> | Tempo: <span id="routeTime">--</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Log do Sistema -->
-                        <div class="system-log">
-                            <div class="modal-status-title">📝 LOG DO SISTEMA</div>
-                            <div id="batLog" class="log-content">
-                                > ${new Date().toLocaleTimeString()}: Sistema iniciado<br>
-                                > Todos os sistemas operacionais<br>
-                                > Aguardando destino...
-                            </div>
-                        </div>
+    title: '🚗 VISUALIZAÇÃO HOLOGRÁFICA 3D',
+    content: `
+        <div class="vehicle-control-panel" style="width: 100%; height: 450px; background: #000; border-radius: 15px; overflow: hidden; position: relative; border: 1px solid rgba(0, 242, 255, 0.3);">
+            
+            <iframe id="batmovelHologram" src="batmovel.html" 
+                style="width: 100%; height: 100%; border: none; filter: brightness(1.2) contrast(1.1);" 
+                scrolling="no"></iframe>
+            
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+                        box-shadow: inset 0 0 50px rgba(0, 242, 255, 0.2);
+                        background: repeating-linear-gradient(0deg, rgba(0, 242, 255, 0.02) 0px, rgba(0, 242, 255, 0.02) 1px, transparent 2px);">
+                
+                <div style="position: absolute; bottom: 20px; left: 20px; color: #00f2ff; font-family: monospace; font-size: 10px; opacity: 0.7;">
+                    <div style="margin-bottom: 5px;">[ SCANNING_OBJECT... ]</div>
+                    <div style="width: 150px; height: 2px; background: rgba(0,242,255,0.2);">
+                        <div style="width: 60%; height: 100%; background: #00f2ff; animation: pulse 2s infinite;"></div>
                     </div>
-                `
-            },
+                </div>
+
+                <div style="position: absolute; top: 15px; left: 15px; width: 20px; height: 20px; border-top: 2px solid #00f2ff; border-left: 2px solid #00f2ff;"></div>
+                <div style="position: absolute; bottom: 15px; right: 15px; width: 20px; height: 20px; border-bottom: 2px solid #00f2ff; border-right: 2px solid #00f2ff;"></div>
+            </div>
+        </div>
+        <style>
+            @keyframes pulse {
+                0% { opacity: 0.4; width: 20%; }
+                50% { opacity: 1; width: 80%; }
+                100% { opacity: 0.4; width: 20%; }
+            }
+        </style>
+    `
+},
             'database': {
                 title: 'BANCO DE DADOS CRIMINAL GOTHAM',
                 content: `
@@ -2869,7 +3224,7 @@
                 body.innerHTML = modalContents[type].content;
 
                 // Carregar conteúdo específico
-                switch(type) {
+                switch (type) {
                     case 'mission':
                         setTimeout(() => {
                             loadVillains();
@@ -2902,7 +3257,7 @@
         function closeModal() {
             const modal = document.getElementById('modalOverlay');
             modal.style.display = 'none';
-            
+
             // Parar atualizações em tempo real quando o modal fecha
             if (liveUpdateIntervals['villains']) {
                 clearInterval(liveUpdateIntervals['villains']);
@@ -2918,7 +3273,7 @@
             if (e.key === 'Escape') {
                 const villainModal = document.getElementById('villainDetailModal');
                 const equipModal = document.getElementById('equipmentDetailModal');
-                
+
                 if (villainModal.style.display === 'block') {
                     closeVillainDetail();
                 } else if (equipModal.style.display === 'block') {
@@ -2975,7 +3330,7 @@
 
         function filterVillains() {
             const search = document.getElementById('villainSearch').value.toLowerCase();
-            filteredVillains = villains.filter(v => 
+            filteredVillains = villains.filter(v =>
                 v.name.toLowerCase().includes(search) ||
                 v.alias.toLowerCase().includes(search) ||
                 v.location.toLowerCase().includes(search)
@@ -2996,14 +3351,14 @@
 
         function startVillainUpdates() {
             if (liveUpdateIntervals['villains']) clearInterval(liveUpdateIntervals['villains']);
-            
+
             liveUpdateIntervals['villains'] = setInterval(() => {
                 // Atualizar tempo da última atualização
                 const updateTime = document.getElementById('villainUpdateTime');
                 if (updateTime) {
                     updateTime.textContent = new Date().toLocaleTimeString();
                 }
-                
+
                 // Simular mudança aleatória de status (10% de chance)
                 if (Math.random() < 0.1) {
                     const randomIndex = Math.floor(Math.random() * villains.length);
@@ -3067,8 +3422,8 @@
                 <div class="detail-label">PROTOCOLO DE APREENSÃO</div>
                 <div class="detail-value">
                     ${v.status === 'ENCARCERADO' ?
-                        '<span style="color:#00ff88;">✔ CONTIDO EM ARKHAM</span>' :
-                        '<span style="color:#ff0040;">⚠ PRIORIDADE DE CAPTURA ATIVA</span>'}
+                    '<span style="color:#00ff88;">✔ CONTIDO EM ARKHAM</span>' :
+                    '<span style="color:#ff0040;">⚠ PRIORIDADE DE CAPTURA ATIVA</span>'}
                 </div>
                 
                 <div style="margin-top:15px; display:flex; gap:10px;">
@@ -3156,7 +3511,7 @@
             const search = document.getElementById('equipmentSearch').value.toLowerCase();
             const grid = document.getElementById('equipmentGrid');
             const cards = grid.querySelectorAll('.equipment-card');
-            
+
             cards.forEach((card, index) => {
                 const name = arsenalData[index].name.toLowerCase();
                 card.style.display = name.includes(search) ? 'flex' : 'none';
@@ -3168,7 +3523,7 @@
             const modal = document.createElement('div');
             modal.className = 'equipment-detail-modal';
             modal.id = 'equipmentDetailModal';
-            
+
             let progressClass = 'progress-ok';
             if (item.class === 'status-warn') progressClass = 'progress-warn';
             else if (item.class === 'status-alert') progressClass = 'progress-alert';
@@ -3284,7 +3639,7 @@
             document.getElementById('batFuel').textContent = `${batmobileStatus.fuel}%`;
             document.getElementById('batSystems').textContent = batmobileStatus.systems;
             document.getElementById('batDestination').textContent = batmobileStatus.destination || '--';
-            
+
             // Atualizar cor do combustível
             const fuelElement = document.getElementById('batFuel');
             if (batmobileStatus.fuel < 20) {
@@ -3298,12 +3653,12 @@
 
         function startBatmobileUpdates() {
             if (liveUpdateIntervals['batmobile']) clearInterval(liveUpdateIntervals['batmobile']);
-            
+
             liveUpdateIntervals['batmobile'] = setInterval(() => {
                 if (batmobileStatus.speed > 0) {
                     // Consumir combustível
                     batmobileStatus.fuel = Math.max(0, batmobileStatus.fuel - 0.1);
-                    
+
                     // Atualizar log
                     const log = document.getElementById('batLog');
                     if (log) {
@@ -3313,7 +3668,7 @@
                             log.removeChild(log.lastChild);
                         }
                     }
-                    
+
                     updateBatmobileDisplay();
                 }
             }, 5000); // Atualizar a cada 5 segundos
@@ -3342,7 +3697,7 @@
                 addLog('Turbo ativado! Velocidade: 180 km/h');
                 updateBatmobileDisplay();
                 playSound('success');
-                
+
                 // Desativar turbo após 10 segundos
                 setTimeout(() => {
                     if (batmobileStatus.turbo) {
@@ -3378,10 +3733,10 @@
                 batmobileStatus.destination = input.value;
                 const distance = Math.floor(Math.random() * 50) + 5;
                 const time = Math.floor(distance / 60 * 60);
-                
+
                 document.getElementById('routeDistance').textContent = `${distance} km`;
                 document.getElementById('routeTime').textContent = `${time} min`;
-                
+
                 addLog(`Destino definido: ${input.value} | Distância: ${distance} km`);
                 input.value = '';
                 updateBatmobileDisplay();
@@ -3421,7 +3776,7 @@
             if (grid) {
                 grid.style.opacity = '0.5';
             }
-            
+
             // Iniciar animação dos pontos de dados
             const dataPoints = document.querySelectorAll('.data-point');
             dataPoints.forEach((point, index) => {
@@ -3477,9 +3832,9 @@
                 // Efeito de destaque
                 const districtElement = document.querySelector(`.${districtId === 'industrial' ? 'industrial-zone' :
                     districtId === 'center' ? 'city-center' :
-                    districtId === 'suburbs' ? 'suburbs' :
-                    districtId === 'port' ? 'port-area' :
-                    districtId === 'arkham' ? 'arkham' : 'wayne-tower'}`);
+                        districtId === 'suburbs' ? 'suburbs' :
+                            districtId === 'port' ? 'port-area' :
+                                districtId === 'arkham' ? 'arkham' : 'wayne-tower'}`);
                 if (districtElement) {
                     districtElement.style.animation = 'pulse 1s 3';
                     setTimeout(() => {
@@ -3548,7 +3903,7 @@
             // Simular detecção
             const alerts = ['ATIVIDADE DETECTADA', 'ESCANEAMENTO COMPLETO', '3 ANOMALIAS ENCONTRADAS'];
             const randomAlert = alerts[Math.floor(Math.random() * alerts.length)];
-            
+
             alert(`🔍 ${randomAlert} - Verifique os pontos brilhantes no mapa.`);
             playSound('success');
         }
@@ -3644,7 +3999,7 @@
                 if (villainModal && e.target === villainModal) {
                     closeVillainDetail();
                 }
-                
+
                 const equipModal = document.getElementById('equipmentDetailModal');
                 if (equipModal && e.target === equipModal) {
                     closeEquipmentDetail();
@@ -3663,4 +4018,5 @@
         });
     </script>
 </body>
+
 </html>
