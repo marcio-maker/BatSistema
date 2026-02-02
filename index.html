@@ -1213,30 +1213,36 @@
                 }
             }
 
-            // Iniciar a conversa após um breve delay
+            // --- VERSÃO OTIMIZADA DO CHAT ---
+
+            // 1. Reduzi de 6000ms para 3000ms (O chat aparece 3s após o Bat-Sinal)
             setTimeout(() => {
-                // Mostrar status "digitando..." antes da primeira mensagem
+
+                // 2. Status "digitando" aparece quase imediatamente após o chat surgir
                 setTimeout(() => {
                     updateTypingStatus(true);
-                }, 5000);
+                }, 1000);
 
-                // Iniciar a sequência de mensagens
+                // 3. Processamento das mensagens com delays ajustados
                 conversation.forEach((msg, index) => {
+                    // Reduzimos o delay fixo em 4 segundos para cada mensagem para compensar a lentidão original
+                    const adjustedDelay = Math.max(msg.delay - 4000, 500);
+
                     setTimeout(() => {
-                        // Esconder "digitando..." antes de enviar
                         if (index > 0) {
                             updateTypingStatus(true);
+                            // Tempo de "digitando" entre mensagens mais natural
                             setTimeout(() => {
                                 updateTypingStatus(false);
                                 addMessage(msg);
-                            }, 1000);
+                            }, 1200);
                         } else {
                             updateTypingStatus(false);
                             addMessage(msg);
                         }
-                    }, msg.delay);
+                    }, adjustedDelay);
                 });
-            }, 6000); // Delay para aparecer após o Bat-Sinal
+            }, 3000);
 
             // Ação do botão GO - versão simplificada
             goButton.addEventListener('click', function () {
