@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,8 @@
         }
 
         body {
-            background-color: #000000; /* Fundo totalmente preto */
+            background-color: #000000;
+            /* Fundo totalmente preto */
             overflow: hidden;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
@@ -104,53 +106,149 @@
             z-index: 10;
         }
 
-        .left-panel { top: 20%; left: 5%; }
-        .right-panel { bottom: 30%; right: 5%; }
+        .left-panel {
+            top: 20%;
+            left: 5%;
+        }
+
+        .right-panel {
+            bottom: 30%;
+            right: 5%;
+        }
 
         /* Animações */
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-25px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
         }
 
         @keyframes scanMove {
-            0% { top: 10%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 90%; opacity: 0; }
+            0% {
+                top: 10%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 90%;
+                opacity: 0;
+            }
         }
 
         @keyframes rotateBase {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes flicker {
-            0% { opacity: 0.8; }
-            95% { opacity: 0.8; }
-            96% { opacity: 0.4; }
-            97% { opacity: 0.8; }
-            98% { opacity: 0.6; }
-            100% { opacity: 0.8; }
+            0% {
+                opacity: 0.8;
+            }
+
+            95% {
+                opacity: 0.8;
+            }
+
+            96% {
+                opacity: 0.4;
+            }
+
+            97% {
+                opacity: 0.8;
+            }
+
+            98% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 0.8;
+            }
         }
 
         /* Scanlines da tela (Efeito CRT sutil) */
         body::after {
             content: " ";
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
             background-size: 100% 4px, 3px 100%;
             z-index: 100;
             pointer-events: none;
         }
+
+        /* ===== BOTÃO VOLTAR ===== */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            z-index: 100;
+            backdrop-filter: blur(2px);
+        }
+
+        .back-button:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="hologram-stage">
-        <div style="position: absolute; top: 20px; color: #00d4ff; letter-spacing: 8px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;">
+        <div
+            style="position: absolute; top: 20px; color: #00d4ff; letter-spacing: 8px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;">
             ◥ BAT-DIAGNOSTIC ◤
         </div>
 
@@ -177,6 +275,9 @@
         </div>
     </div>
 
+        <!-- Botão Voltar -->
+    <a href="intro.html" class="back-button">← Voltar</a>
+
     <script>
         // Pequeno efeito extra: Tremedeira aleatória (Glitch)
         const batman = document.querySelector('.batman-container img');
@@ -190,4 +291,5 @@
         }, 100);
     </script>
 </body>
+
 </html>
