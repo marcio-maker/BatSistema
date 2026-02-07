@@ -98,13 +98,13 @@
             animation: cloud-drift 45s linear infinite;
         }
 
-        /* FEIXE ATUALIZADO: Reduzido em 5px e ajustado para o Desktop */
+        /* FEIXE ATUALIZADO PARA RESPONSIVIDADE */
         .signal-beam {
             position: absolute;
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(600px, 95vw);
+            width: min(600px, 92vw); /* Reduzido de 95vw para 92vw */
             height: calc(100vh - 205px);
             background: linear-gradient(to top,
                     transparent 0%,
@@ -124,31 +124,20 @@
                 beam-follow 15s 5s ease-in-out infinite;
         }
 
-        /* Container para o logo: mantido para cobrir a ponta do feixe */
+        /* Container para o logo ajustado para mobile */
         .logo-container {
             position: absolute;
             top: 50px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(350px, 80vw);
-            height: 180px;
+            width: min(300px, 70vw); /* Reduzido de 350px/80vw para 300px/70vw */
+            height: 150px; /* Reduzido de 180px */
             z-index: 5;
             pointer-events: none;
             opacity: 0;
             animation:
                 logo-reveal 5s ease-out forwards,
                 logo-swing 15s 5s ease-in-out infinite;
-        }
-
-        /* Ajuste específico para Mobile */
-        @media (max-width: 768px) {
-            .logo-container {
-                top: 80px;
-            }
-
-            .signal-beam {
-                height: calc(100vh - 235px);
-            }
         }
 
         .bat-logo {
@@ -171,7 +160,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 80px;
+            font-size: 60px; /* Reduzido de 80px */
             opacity: 0;
             transition: opacity 0.5s;
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
@@ -225,52 +214,52 @@
         }
 
         .building {
-            width: clamp(40px, 5vw, 80px);
+            width: clamp(35px, 4vw, 70px); /* Reduzido para mobile */
             background-color: var(--building-color);
-            margin: 0 8px;
+            margin: 0 5px; /* Reduzido de 8px */
             border-radius: 5px 5px 0 0;
             box-shadow: inset 0 0 10px rgba(0, 10, 30, 0.8);
         }
 
         .building:nth-child(1) {
-            height: 180px;
+            height: 150px; /* Reduzido de 180px */
         }
 
         .building:nth-child(2) {
-            height: 150px;
+            height: 130px; /* Reduzido de 150px */
         }
 
         .building:nth-child(3) {
-            height: 200px;
+            height: 170px; /* Reduzido de 200px */
         }
 
         .building:nth-child(4) {
-            height: 130px;
+            height: 110px; /* Reduzido de 130px */
         }
 
         .building:nth-child(5) {
-            height: 170px;
+            height: 140px; /* Reduzido de 170px */
         }
 
         .building:nth-child(6) {
-            height: 120px;
+            height: 100px; /* Reduzido de 120px */
         }
 
         .building:nth-child(7) {
-            height: 190px;
+            height: 160px; /* Reduzido de 190px */
         }
 
         .window {
             width: 60%;
-            height: 15px;
+            height: 12px; /* Reduzido de 15px */
             background-color: var(--window-color);
-            margin: 10px auto;
+            margin: 8px auto; /* Reduzido de 10px */
             border-radius: 2px;
         }
 
         .window.glow {
             background-color: var(--window-glow);
-            box-shadow: 0 0 8px rgba(74, 111, 165, 0.8);
+            box-shadow: 0 0 6px rgba(74, 111, 165, 0.8); /* Reduzido de 8px */
             animation: window-glow 4s infinite alternate;
         }
 
@@ -620,15 +609,87 @@
             box-shadow: 0 0 8px rgba(255, 71, 87, 0.6);
         }
 
-        /* Responsividade do chat */
-        @media (max-width: 1024px) {
-            .chat-container {
-                width: 300px;
-                right: 15px;
-            }
-        }
-
+        /* ========== AJUSTES PARA MOBILE ========== */
+        
+        /* Mobile Geral (até 768px) */
         @media (max-width: 768px) {
+            /* Ajuste do feixe de luz */
+            .signal-beam {
+                width: min(500px, 85vw); /* Mais estreito no mobile */
+                height: calc(100vh - 220px);
+                filter: blur(18px); /* Blur reduzido */
+                clip-path: polygon(20% 0%, 80% 0%, 62% 100%, 38% 100%); /* Proporção ajustada */
+            }
+
+            /* Ajuste do logo para ficar proporcional ao feixe */
+            .logo-container {
+                top: 60px; /* Mais próximo do topo */
+                width: min(250px, 60vw); /* Reduzido significativamente */
+                height: 120px; /* Altura proporcional */
+            }
+
+            /* Ajuste do fallback do logo */
+            .bat-logo::after {
+                font-size: 40px; /* Bem menor no mobile */
+            }
+
+            /* Ajuste das nuvens */
+            .cloud1,
+            .cloud2,
+            .cloud3 {
+                width: 200px;
+                filter: blur(20px);
+            }
+
+            .cloud1 {
+                top: 30px;
+            }
+
+            .cloud2 {
+                top: 80px;
+                width: 250px;
+            }
+
+            .cloud3 {
+                top: 150px;
+            }
+
+            /* Ajuste dos prédios */
+            .buildings {
+                height: 150px; /* Reduzido de 200px */
+            }
+
+            .building {
+                width: clamp(30px, 3.5vw, 60px);
+                margin: 0 3px;
+            }
+
+            .building:nth-child(1) { height: 120px; }
+            .building:nth-child(2) { height: 100px; }
+            .building:nth-child(3) { height: 140px; }
+            .building:nth-child(4) { height: 90px; }
+            .building:nth-child(5) { height: 110px; }
+            .building:nth-child(6) { height: 80px; }
+            .building:nth-child(7) { height: 130px; }
+
+            .window {
+                height: 10px;
+                margin: 6px auto;
+            }
+
+            /* Ajuste da fonte do sinal */
+            .signal-source {
+                width: 80px;
+                height: 65px;
+            }
+
+            .signal-source::before {
+                width: 50px;
+                height: 15px;
+                top: 25px;
+            }
+
+            /* Chat no mobile */
             .chat-container {
                 width: 280px;
                 right: 10px;
@@ -679,15 +740,120 @@
             }
         }
 
+        /* Mobile Pequeno (até 480px) */
         @media (max-width: 480px) {
+            .signal-beam {
+                width: min(400px, 82vw);
+                height: calc(100vh - 180px);
+                bottom: 60px; /* Subir um pouco */
+            }
+
+            .logo-container {
+                top: 40px;
+                width: min(200px, 55vw);
+                height: 100px;
+            }
+
+            .bat-logo::after {
+                font-size: 30px;
+            }
+
+            .buildings {
+                height: 120px;
+            }
+
+            .building {
+                width: 25px;
+                margin: 0 2px;
+            }
+
+            .building:nth-child(1) { height: 100px; }
+            .building:nth-child(2) { height: 85px; }
+            .building:nth-child(3) { height: 110px; }
+            .building:nth-child(4) { height: 75px; }
+            .building:nth-child(5) { height: 95px; }
+            .building:nth-child(6) { height: 70px; }
+            .building:nth-child(7) { height: 105px; }
+
+            .signal-source {
+                width: 70px;
+                height: 55px;
+            }
+
+            .signal-source::before {
+                width: 45px;
+                height: 12px;
+                top: 20px;
+            }
+
+            /* Chat no mobile pequeno */
             .chat-container {
                 width: 260px;
                 max-height: 400px;
+                right: 5px;
+                top: 15px;
             }
 
             .chat-messages {
                 max-height: 280px;
                 padding: 14px;
+            }
+
+            /* Ajuste dos botões de navegação */
+            .nav-buttons {
+                right: 5px;
+                bottom: 5px;
+                gap: 4px;
+            }
+
+            .nav-button {
+                padding: 4px 8px;
+                font-size: 9px;
+            }
+        }
+
+        /* Mobile Muito Pequeno (até 360px) */
+        @media (max-width: 360px) {
+            .signal-beam {
+                width: 90vw;
+            }
+
+            .logo-container {
+                width: 55vw;
+                height: 90px;
+            }
+
+            .chat-container {
+                width: 240px;
+                max-height: 380px;
+            }
+
+            .chat-header {
+                padding: 12px 14px;
+            }
+
+            .chat-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+                margin-right: 10px;
+            }
+        }
+
+        /* Tablet (769px a 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .signal-beam {
+                width: min(550px, 90vw);
+            }
+
+            .logo-container {
+                width: min(300px, 75vw);
+                height: 160px;
+            }
+
+            .chat-container {
+                width: 300px;
+                right: 15px;
             }
         }
 
@@ -850,7 +1016,7 @@
             }
         }
 
-        /* ANIMAÇÃO DO LOGO CRESCENDO */
+        /* ANIMAÇÃO DO LOGO CRESCENDO - AJUSTADA PARA MOBILE */
         @keyframes logo-grow {
 
             0%,
@@ -879,7 +1045,7 @@
             }
         }
 
-        /* ANIMAÇÃO DO LOGO BALANÇANDO LATERALMENTE */
+        /* ANIMAÇÃO DO LOGO BALANÇANDO LATERALMENTE - REDUZIDA PARA MOBILE */
         @keyframes logo-swing {
 
             0%,
@@ -888,7 +1054,7 @@
             }
 
             25% {
-                left: 48%;
+                left: 49%; /* Reduzido de 48% */
             }
 
             50% {
@@ -896,11 +1062,11 @@
             }
 
             75% {
-                left: 52%;
+                left: 51%; /* Reduzido de 52% */
             }
         }
 
-        /* ANIMAÇÃO DO FEIXE ACOMPANHANDO O LOGO */
+        /* ANIMAÇÃO DO FEIXE ACOMPANHANDO O LOGO - REDUZIDA PARA MOBILE */
         @keyframes beam-follow {
 
             0%,
@@ -909,7 +1075,7 @@
             }
 
             25% {
-                left: 48%;
+                left: 49%; /* Reduzido de 48% */
             }
 
             50% {
@@ -917,7 +1083,7 @@
             }
 
             75% {
-                left: 52%;
+                left: 51%; /* Reduzido de 52% */
             }
         }
 
@@ -996,20 +1162,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Responsividade para os botões */
-        @media (max-width: 768px) {
-            .nav-buttons {
-                right: 10px;
-                bottom: 5px;
-                gap: 6px;
-            }
-
-            .nav-button {
-                padding: 5px 10px;
-                font-size: 10px;
-            }
-        }
-
         /* Animação para aparecer */
         @keyframes nav-buttons-appear {
             0% {
@@ -1073,7 +1225,7 @@
             </div>
         </div>
 
-                <!-- Botões de navegação discretos -->
+        <!-- Botões de navegação discretos -->
         <div class="nav-buttons" id="navButtons">
             <a href="batman.html" class="nav-button">Batman</a>
             <a href="batmovel.html" class="nav-button">Batmóvel</a>
@@ -1144,18 +1296,19 @@
             let messageIndex = 0;
             let isTyping = false;
 
-            // Criar estrelas
+            // Criar estrelas com menos quantidade no mobile
             const stars = document.getElementById('stars');
-            const starsCount = 150;
+            const isMobile = window.innerWidth <= 768;
+            const starsCount = isMobile ? 80 : 150; // Menos estrelas no mobile
 
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
 
-                const size = Math.random() * 2 + 1;
+                const size = isMobile ? Math.random() * 1.5 + 0.5 : Math.random() * 2 + 1;
                 star.style.width = star.style.height = size + 'px';
                 star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 80 + '%';
+                star.style.top = Math.random() * (isMobile ? 70 : 80) + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
 
                 stars.appendChild(star);
@@ -1417,21 +1570,21 @@
             console.log('Bat-Sinal com chat aprimorado inicializado!');
         });
 
-                    // Suavizar transição para as páginas dos botões
-            document.querySelectorAll('.nav-button').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const href = this.getAttribute('href');
-                    
-                    // Efeito de fade out
-                    document.body.style.opacity = '0';
-                    document.body.style.transition = 'opacity 0.3s ease';
-                    
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 300);
-                });
+        // Suavizar transição para as páginas dos botões
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                
+                // Efeito de fade out
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 300);
             });
+        });
     </script>
 </body>
 
